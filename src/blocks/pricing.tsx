@@ -4,14 +4,11 @@ import { useMemo, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import {
   Check,
-  Folder,
-  Folders,
+  Globe,
   Headphones,
-  Infinity as InfinityIcon,
-  Mail,
-  Puzzle,
+  Image as ImageIcon,
+  Palette,
   Sparkles,
-  Terminal,
   Zap,
 } from 'lucide-react';
 import { toast } from 'sonner';
@@ -55,28 +52,26 @@ export function Pricing({ title }: { title?: string } = {}) {
     [configs]
   );
 
+  const freeFeatures = [
+    { icon: Palette, label: m['landing.pricing.feature_all_bubbles']() },
+    { icon: ImageIcon, label: m['landing.pricing.feature_max_1280']() },
+    { icon: Globe, label: m['landing.pricing.feature_browser_edit']() },
+    { icon: Check, label: m['landing.pricing.feature_watermark']() },
+  ];
   const starterFeatures = [
-    { icon: Folder, label: m['landing.pricing.feature_1_project']() },
-    { icon: Sparkles, label: m['landing.pricing.feature_5k_credits']() },
-    { icon: Mail, label: m['landing.pricing.feature_email_support']() },
+    { icon: Check, label: m['landing.pricing.feature_no_watermark']() },
+    { icon: Sparkles, label: m['landing.pricing.feature_hd_export']() },
+    { icon: Zap, label: m['landing.pricing.feature_credits_50']() },
+    { icon: Palette, label: m['landing.pricing.feature_all_fonts']() },
   ];
   const proFeatures = [
-    { icon: Folders, label: m['landing.pricing.feature_unlimited_projects']() },
-    { icon: Sparkles, label: m['landing.pricing.feature_50k_credits']() },
-    { icon: Zap, label: m['landing.pricing.feature_priority_support']() },
-    { icon: Terminal, label: m['landing.pricing.feature_api_access']() },
-  ];
-  const enterpriseFeatures = [
-    { icon: Check, label: m['landing.pricing.feature_everything_pro']() },
-    {
-      icon: InfinityIcon,
-      label: m['landing.pricing.feature_unlimited_credits'](),
-    },
+    { icon: Check, label: m['landing.pricing.feature_everything_basic']() },
+    { icon: Zap, label: m['landing.pricing.feature_credits_200']() },
     {
       icon: Headphones,
-      label: m['landing.pricing.feature_dedicated_support'](),
+      label: m['landing.pricing.feature_priority_support'](),
     },
-    { icon: Puzzle, label: m['landing.pricing.feature_custom_integrations']() },
+    { icon: Sparkles, label: m['landing.pricing.feature_early_styles']() },
   ];
 
   const groups: PricingGroup[] = [
@@ -85,139 +80,44 @@ export function Pricing({ title }: { title?: string } = {}) {
       label: m['landing.pricing.monthly'](),
       plans: [
         {
+          id: 'free',
+          name: m['landing.pricing.free'](),
+          description: m['landing.pricing.free_desc'](),
+          price: m['landing.pricing.free'](),
+          features: freeFeatures,
+          productId: 'free',
+          priceInCents: 0,
+          currency: 'cny',
+          credits: 0,
+          buttonText: m['landing.pricing.free_cta'](),
+        },
+        {
           id: 'starter-monthly',
           name: m['landing.pricing.starter'](),
           description: m['landing.pricing.starter_desc'](),
-          price: '$9',
-          interval: 'mo',
+          price: '¥5',
+          interval: m['landing.pricing.per_month'](),
           features: starterFeatures,
           productId: 'starter_monthly',
-          priceInCents: 900,
-          currency: 'usd',
-          credits: 5000,
+          priceInCents: 500,
+          currency: 'cny',
+          credits: 50,
           plan: { name: 'Starter', interval: 'month', intervalCount: 1 },
         },
         {
           id: 'pro-monthly',
           name: m['landing.pricing.pro'](),
           description: m['landing.pricing.pro_desc'](),
-          price: '$29',
-          interval: 'mo',
+          price: '¥10',
+          interval: m['landing.pricing.per_month'](),
           featured: true,
           badge: m['landing.pricing.popular'](),
           features: proFeatures,
           productId: 'pro_monthly',
-          priceInCents: 2900,
-          currency: 'usd',
-          credits: 50000,
+          priceInCents: 1000,
+          currency: 'cny',
+          credits: 200,
           plan: { name: 'Pro', interval: 'month', intervalCount: 1 },
-        },
-        {
-          id: 'enterprise-monthly',
-          name: m['landing.pricing.enterprise'](),
-          description: m['landing.pricing.enterprise_desc'](),
-          price: '$99',
-          interval: 'mo',
-          features: enterpriseFeatures,
-          productId: 'enterprise_monthly',
-          priceInCents: 9900,
-          currency: 'usd',
-          credits: 500000,
-          plan: { name: 'Enterprise', interval: 'month', intervalCount: 1 },
-        },
-      ],
-    },
-    {
-      key: 'yearly',
-      label: m['landing.pricing.yearly'](),
-      plans: [
-        {
-          id: 'starter-yearly',
-          name: m['landing.pricing.starter'](),
-          description: m['landing.pricing.starter_desc'](),
-          price: '$86',
-          originalPrice: '$108',
-          interval: 'yr',
-          features: starterFeatures,
-          productId: 'starter_yearly',
-          priceInCents: 8600,
-          currency: 'usd',
-          credits: 60000,
-          plan: { name: 'Starter', interval: 'year', intervalCount: 1 },
-        },
-        {
-          id: 'pro-yearly',
-          name: m['landing.pricing.pro'](),
-          description: m['landing.pricing.pro_desc'](),
-          price: '$278',
-          originalPrice: '$348',
-          interval: 'yr',
-          featured: true,
-          badge: m['landing.pricing.popular'](),
-          features: proFeatures,
-          productId: 'pro_yearly',
-          priceInCents: 27800,
-          currency: 'usd',
-          credits: 600000,
-          plan: { name: 'Pro', interval: 'year', intervalCount: 1 },
-        },
-        {
-          id: 'enterprise-yearly',
-          name: m['landing.pricing.enterprise'](),
-          description: m['landing.pricing.enterprise_desc'](),
-          price: '$950',
-          originalPrice: '$1,188',
-          interval: 'yr',
-          features: enterpriseFeatures,
-          productId: 'enterprise_yearly',
-          priceInCents: 95000,
-          currency: 'usd',
-          credits: 6000000,
-          plan: { name: 'Enterprise', interval: 'year', intervalCount: 1 },
-        },
-      ],
-    },
-    {
-      key: 'lifetime',
-      label: m['landing.pricing.lifetime'](),
-      plans: [
-        {
-          id: 'starter-lifetime',
-          name: m['landing.pricing.starter'](),
-          description: m['landing.pricing.starter_desc'](),
-          price: '$149',
-          features: starterFeatures,
-          productId: 'starter_lifetime',
-          priceInCents: 14900,
-          currency: 'usd',
-          credits: 100000,
-          buttonText: m['landing.pricing.buy_lifetime'](),
-        },
-        {
-          id: 'pro-lifetime',
-          name: m['landing.pricing.pro'](),
-          description: m['landing.pricing.pro_desc'](),
-          price: '$499',
-          features: proFeatures,
-          featured: true,
-          badge: m['landing.pricing.best_value'](),
-          productId: 'pro_lifetime',
-          priceInCents: 49900,
-          currency: 'usd',
-          credits: 1000000,
-          buttonText: m['landing.pricing.buy_lifetime'](),
-        },
-        {
-          id: 'enterprise-lifetime',
-          name: m['landing.pricing.enterprise'](),
-          description: m['landing.pricing.enterprise_desc'](),
-          price: '$1,999',
-          features: enterpriseFeatures,
-          productId: 'enterprise_lifetime',
-          priceInCents: 199900,
-          currency: 'usd',
-          credits: 10000000,
-          buttonText: m['landing.pricing.buy_lifetime'](),
         },
       ],
     },
@@ -264,6 +164,12 @@ export function Pricing({ title }: { title?: string } = {}) {
   }
 
   async function handleCheckout(plan: PricingPlan) {
+    // Free tier — no payment, just open the editor.
+    if (plan.productId === 'free' || !plan.priceInCents) {
+      router.push('/editor');
+      return;
+    }
+
     if (!session?.user) {
       const redirect = encodeURIComponent(
         typeof window !== 'undefined' ? window.location.pathname : '/pricing'

@@ -35,10 +35,10 @@ export function SiteFooter({
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-neutral-950 text-neutral-100">
+    <footer className="bg-white text-black dark:bg-neutral-950 dark:text-neutral-100">
       <div className="mx-auto max-w-7xl px-6 pt-14 pb-6 sm:px-10 sm:pt-16 lg:px-16">
         {tagline && (
-          <p className="mb-12 max-w-2xl font-serif text-3xl leading-[1.15] tracking-tight text-neutral-100 italic sm:text-4xl">
+          <p className="mb-12 max-w-2xl font-serif text-3xl leading-[1.15] tracking-tight text-black italic sm:text-4xl dark:text-neutral-100">
             {tagline}
           </p>
         )}
@@ -56,7 +56,7 @@ export function SiteFooter({
           >
             {columns.map((col) => (
               <div key={col.title} className="space-y-5">
-                <p className="text-[13px] font-semibold tracking-wide text-neutral-100">
+                <p className="text-[13px] font-semibold tracking-wide text-black dark:text-neutral-100">
                   {col.title}
                 </p>
                 <ul className="space-y-2">
@@ -67,7 +67,7 @@ export function SiteFooter({
                           href={link.href}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
+                          className="text-sm text-neutral-700 transition-colors hover:text-black dark:text-neutral-400 dark:hover:text-neutral-100"
                         >
                           {link.label}
                         </a>
@@ -75,7 +75,7 @@ export function SiteFooter({
                         <Link
                           href={link.href}
                           target={link.external ? '_blank' : undefined}
-                          className="text-sm text-neutral-400 transition-colors hover:text-neutral-100"
+                          className="text-sm text-neutral-700 transition-colors hover:text-black dark:text-neutral-400 dark:hover:text-neutral-100"
                         >
                           {link.label}
                         </Link>
@@ -99,7 +99,7 @@ export function SiteFooter({
                   aria-label={s.label}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-neutral-300 transition-colors hover:text-neutral-100"
+                  className="text-neutral-700 transition-colors hover:text-black dark:text-neutral-300 dark:hover:text-neutral-100"
                 >
                   <s.icon className="size-[18px]" />
                 </a>
@@ -110,14 +110,14 @@ export function SiteFooter({
           )}
           <LocaleSelector
             variant="pill"
-            className="border-neutral-700 text-neutral-200 hover:bg-white/5 hover:text-neutral-50"
+            className="border-neutral-300 text-neutral-700 hover:bg-black/5 hover:text-black dark:border-neutral-700 dark:text-neutral-200 dark:hover:bg-white/5 dark:hover:text-neutral-50"
           />
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-6 flex flex-col gap-3 border-t border-neutral-800 pt-5 sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-6 flex flex-col gap-3 border-t border-neutral-200 pt-5 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800">
           <BuiltWithShipAny />
-          <span className="text-sm text-neutral-400">
+          <span className="text-sm text-neutral-600 dark:text-neutral-400">
             {copyright ||
               `© ${year} ${envConfigs.app_name}. All rights reserved.`}
           </span>

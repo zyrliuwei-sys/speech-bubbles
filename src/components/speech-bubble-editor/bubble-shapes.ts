@@ -164,6 +164,39 @@ function shoutBurst(
   return d + ' Z';
 }
 
+/** Classic 5-point star — great as a hollow emphasis frame. */
+function star(w: number, h: number, points = 5, innerFrac = 0.5): string {
+  return shoutBurst(w, h, points, innerFrac);
+}
+
+/** A heart outline, fit to the box. */
+function heart(w: number, h: number): string {
+  const X = (n: number) => r2(n * w);
+  const Y = (n: number) => r2(n * h);
+  return [
+    `M${X(0.5)},${Y(0.3)}`,
+    `C${X(0.4)},${Y(0.05)} ${X(0)},${Y(0.08)} ${X(0)},${Y(0.4)}`,
+    `C${X(0)},${Y(0.68)} ${X(0.32)},${Y(0.85)} ${X(0.5)},${Y(0.98)}`,
+    `C${X(0.68)},${Y(0.85)} ${X(1)},${Y(0.68)} ${X(1)},${Y(0.4)}`,
+    `C${X(1)},${Y(0.08)} ${X(0.6)},${Y(0.05)} ${X(0.5)},${Y(0.3)}`,
+    'Z',
+  ].join(' ');
+}
+
+/** A smooth ellipse. */
+function oval(w: number, h: number): string {
+  const cx = r2(w / 2);
+  const cy = r2(h / 2);
+  const rx = r2(w / 2);
+  const ry = r2(h / 2);
+  return `M${cx},${r2(cy - ry)} A${rx},${ry} 0 1 0 ${cx},${r2(cy + ry)} A${rx},${ry} 0 1 0 ${cx},${r2(cy - ry)} Z`;
+}
+
+/** A plain sharp-cornered rectangle (a box frame). */
+function box(w: number, h: number): string {
+  return roundedRect(0, 0, w, h, 0);
+}
+
 export function buildBubbleShape(
   type: BubbleType,
   w: number,
@@ -186,6 +219,22 @@ export function buildBubbleShape(
     case 'shout': {
       const burst = shoutBurst(w, h);
       return { fills: [burst], strokes: [burst] };
+    }
+    case 'star': {
+      const s = star(w, h);
+      return { fills: [s], strokes: [s] };
+    }
+    case 'heart': {
+      const ht = heart(w, h);
+      return { fills: [ht], strokes: [ht] };
+    }
+    case 'oval': {
+      const o = oval(w, h);
+      return { fills: [o], strokes: [o] };
+    }
+    case 'square': {
+      const b = box(w, h);
+      return { fills: [b], strokes: [b] };
     }
     case 'caption':
     default:

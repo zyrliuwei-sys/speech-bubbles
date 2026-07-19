@@ -20,28 +20,6 @@ import { respData, respErr } from '@/lib/resp';
 const EDITOR_AI_MODEL = 'nano-banana-2-lite';
 const EDITOR_AI_ASPECT = 'auto';
 
-/**
- * Iron rule for the editor's AI bubble generator: every text-to-image result
- * MUST be a single 3D cartoon speech-bubble sticker on a fully transparent
- * background, exported as PNG. The user's prompt describes the bubble's theme,
- * message, or desired shape — we wrap it in the non-negotiable style spec.
- */
-function buildBubblePrompt(userPrompt: string): string {
-  return [
-    'A single comic speech-bubble sticker, isolated by itself.',
-    'Style: bold 3D cartoon — glossy, inflated puffy volume, thick dark outline,',
-    'vivid saturated colors, soft cel shading, cute playful cartoon look, and a',
-    'subtle drop shadow for depth. NOT flat 2D, NOT photorealistic.',
-    'Shape: creative and varied — pick a fun silhouette such as a rounded',
-    'rectangle with a tail, a fluffy thought cloud, a spiky starburst, an',
-    'explosion burst, a star, a heart, an oval, or a jagged shout bubble.',
-    'Background: FULLY TRANSPARENT — no scene, no backdrop, no border, no margin.',
-    'Render the bubble on a transparent background with an alpha channel.',
-    'Output: PNG with transparency.',
-    `User request: "${userPrompt}".`,
-  ].join(' ');
-}
-
 type GenStatus = 'pending' | 'processing' | 'success' | 'failed';
 
 function mapStatus(s: AITaskStatus): GenStatus {
@@ -184,21 +162,13 @@ async function POST({ request }: { request: Request }) {
       }
     }
 
-    // Text-to-image = bubble generation (enforce the iron rule: transparent
-    // 3D cartoon PNG). Image-to-image = free-form photo edit (leave the prompt
-    // alone so the user can edit their picture however they like).
-    const isBubbleGen = !imageDataUrl;
-    const finalPrompt = isBubbleGen ? buildBubblePrompt(prompt) : prompt;
-
     const result = await provider.generate({
       params: {
         mediaType: AIMediaType.IMAGE,
         model: EDITOR_AI_MODEL,
-        prompt: finalPrompt,
+        prompt,
         options: {
-          aspect_ratio: isBubbleGen ? '1:1' : EDITOR_AI_ASPECT,
-          // Bubbles must be PNG; the client also re-encodes to PNG with alpha.
-          ...(isBubbleGen ? { output_format: 'png' } : {}),
+          aspect_ratio: EDITOR_AI_ASPECT,
           ...(refUrl ? { image_urls: [refUrl] } : {}),
         },
       },

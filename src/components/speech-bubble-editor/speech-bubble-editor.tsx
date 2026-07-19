@@ -13,13 +13,17 @@ import {
   AlignCenter,
   AlignLeft,
   AlignRight,
+  Circle,
   Cloud,
   Copy,
   Download,
+  Heart,
   Loader2,
   MessageCircle,
   Plus,
   Sparkles,
+  Square,
+  Star,
   Trash2,
   Type,
   Upload,
@@ -73,162 +77,6 @@ function downloadDataUrl(dataUrl: string, filename: string) {
   a.remove();
 }
 
-/**
- * Force an AI image into a transparent PNG sticker — the editor's iron rule.
- * Flood-removes the uniform background (sampled from the borders, expanding
- * through connected pixels within a color tolerance) and re-encodes as PNG with
- * an alpha channel. If the model already returned transparency, it's kept and
- * just re-encoded. Always returns a `data:image/png` URL. On any failure it
- * falls back to the original so generation never breaks.
- */
-async function makeTransparentPng(dataUrl: string): Promise<string> {
-  const img = await new Promise<HTMLImageElement | null>((resolve) => {
-    const el = new Image();
-    el.onload = () => resolve(el);
-    el.onerror = () => resolve(null);
-    el.src = dataUrl;
-  });
-  if (!img) return dataUrl;
-
-  // Cap the working size — pixel ops on a 4K image are slow and unnecessary.
-  const maxDim = 1024;
-  const ow = img.naturalWidth || img.width;
-  const oh = img.naturalHeight || img.height;
-  const scale = Math.min(1, maxDim / Math.max(ow, oh));
-  const w = Math.max(1, Math.round(ow * scale));
-  const h = Math.max(1, Math.round(oh * scale));
-
-  const canvas = document.createElement('canvas');
-  canvas.width = w;
-  canvas.height = h;
-  const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  if (!ctx) return dataUrl;
-  ctx.drawImage(img, 0, 0, w, h);
-
-  let imageData: ImageData;
-  try {
-    imageData = ctx.getImageData(0, 0, w, h);
-  } catch {
-    return dataUrl; // cross-origin taint — can't read pixels
-  }
-  const px = imageData.data;
-
-  // If most border pixels are already transparent, the model honored the
-  // transparency request — just re-encode as PNG.
-  let borderTotal = 0;
-  let borderTransparent = 0;
-  const countBorder = (x: number, y: number) => {
-    borderTotal++;
-    if (px[(y * w + x) * 4 + 3] < 16) borderTransparent++;
-  };
-  for (let x = 0; x < w; x++) {
-    countBorder(x, 0);
-    countBorder(x, h - 1);
-  }
-  for (let y = 0; y < h; y++) {
-    countBorder(0, y);
-    countBorder(w - 1, y);
-  }
-  if (borderTransparent / borderTotal > 0.25) {
-    return canvas.toDataURL('image/png');
-  }
-
-  // Background seed = average RGB of the (opaque) border pixels.
-  let sr = 0;
-  let sg = 0;
-  let sb = 0;
-  let n = 0;
-  const add = (x: number, y: number) => {
-    const i = (y * w + x) * 4;
-    if (px[i + 3] < 200) return;
-    sr += px[i];
-    sg += px[i + 1];
-    sb += px[i + 2];
-    n++;
-  };
-  for (let x = 0; x < w; x++) {
-    add(x, 0);
-    add(x, h - 1);
-  }
-  for (let y = 0; y < h; y++) {
-    add(0, y);
-    add(w - 1, y);
-  }
-  if (n === 0) return canvas.toDataURL('image/png');
-  sr /= n;
-  sg /= n;
-  sb /= n;
-
-  const tol = 44; // within → background (remove)
-  const tol2 = 92; // within → feather the fringe
-  const dist = (i: number) => {
-    const dr = px[i] - sr;
-    const dg = px[i + 1] - sg;
-    const db = px[i + 2] - sb;
-    return Math.sqrt(dr * dr + dg * dg + db * db);
-  };
-
-  // Flood fill from every border pixel through background-colored (or already
-  // transparent) neighbors. Connectivity is what preserves interior highlights
-  // that happen to match the background color.
-  const removed = new Uint8Array(w * h);
-  const stack: number[] = [];
-  const seed = (x: number, y: number) => {
-    const p = y * w + x;
-    if (removed[p]) return;
-    const i = p * 4;
-    if (px[i + 3] < 200 || dist(i) < tol) {
-      removed[p] = 1;
-      stack.push(p);
-    }
-  };
-  for (let x = 0; x < w; x++) {
-    seed(x, 0);
-    seed(x, h - 1);
-  }
-  for (let y = 0; y < h; y++) {
-    seed(0, y);
-    seed(w - 1, y);
-  }
-  while (stack.length) {
-    const p = stack.pop() as number;
-    const x = p % w;
-    const y = (p / w) | 0;
-    const candidates = [
-      x > 0 ? p - 1 : -1,
-      x < w - 1 ? p + 1 : -1,
-      y > 0 ? p - w : -1,
-      y < h - 1 ? p + w : -1,
-    ];
-    for (const q of candidates) {
-      if (q < 0 || removed[q]) continue;
-      const qi = q * 4;
-      if (px[qi + 3] < 200 || dist(qi) < tol) {
-        removed[q] = 1;
-        stack.push(q);
-      }
-    }
-  }
-
-  // Apply removal, feathering kept pixels whose color still drifts toward the
-  // background (the anti-aliased fringe around the bubble's outline).
-  for (let p = 0; p < w * h; p++) {
-    const i = p * 4;
-    if (removed[p]) {
-      px[i + 3] = 0;
-      continue;
-    }
-    const d = dist(i);
-    if (d < tol2) {
-      const a = Math.round(((d - tol) / (tol2 - tol)) * 255);
-      px[i + 3] = Math.max(0, Math.min(255, a));
-    }
-  }
-
-  ctx.putImageData(imageData, 0, 0);
-  return canvas.toDataURL('image/png');
-}
-
 const BUBBLE_TYPES: {
   type: BubbleType;
   icon: typeof MessageCircle;
@@ -238,6 +86,10 @@ const BUBBLE_TYPES: {
   { type: 'thought', icon: Cloud, key: 'editor.bubble.thought' },
   { type: 'shout', icon: Zap, key: 'editor.bubble.shout' },
   { type: 'caption', icon: Type, key: 'editor.bubble.caption' },
+  { type: 'star', icon: Star, key: 'editor.bubble.star' },
+  { type: 'heart', icon: Heart, key: 'editor.bubble.heart' },
+  { type: 'oval', icon: Circle, key: 'editor.bubble.oval' },
+  { type: 'square', icon: Square, key: 'editor.bubble.square' },
 ];
 
 export interface SpeechBubbleEditorProps {
@@ -252,6 +104,7 @@ export function SpeechBubbleEditor({
   const [image, setImage] = useState<EditorImage | null>(null);
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [editingId, setEditingId] = useState<string | null>(null);
   const [box, setBox] = useState({ w: 0, h: 0 }); // rendered image box in px
 
   const stageAreaRef = useRef<HTMLDivElement | null>(null);
@@ -321,10 +174,6 @@ export function SpeechBubbleEditor({
       if (ai.useImage && image) {
         imageDataUrl = (await urlToDataUrl(image.src)) ?? undefined;
       }
-      // No reference image → text-to-image bubble generation. The server wraps
-      // the prompt to force a 3D cartoon bubble; here we guarantee the result
-      // is a transparent PNG (iron rule) regardless of model cooperation.
-      const wasBubbleGen = !imageDataUrl;
 
       let taskId: string;
       try {
@@ -356,20 +205,11 @@ export function SpeechBubbleEditor({
           }>(`/api/editor/generate?taskId=${encodeURIComponent(taskId)}`);
           if (r.status === 'success' && r.imageDataUrl) {
             if (runId !== genRunId.current) return;
-            let finalUrl = r.imageDataUrl;
-            if (wasBubbleGen) {
-              try {
-                finalUrl = await makeTransparentPng(r.imageDataUrl);
-              } catch {
-                finalUrl = r.imageDataUrl; // never let post-processing break it
-              }
-            }
-            if (runId !== genRunId.current) return;
             setAiResults((prev) =>
               [
                 {
                   id: Math.random().toString(36).slice(2, 10),
-                  dataUrl: finalUrl,
+                  dataUrl: r.imageDataUrl,
                   prompt,
                 },
                 ...prev,
@@ -715,7 +555,13 @@ export function SpeechBubbleEditor({
                   renderW={box.w}
                   renderH={box.h}
                   selected={b.id === selectedId}
+                  editing={editingId === b.id}
                   onSelect={() => setSelectedId(b.id)}
+                  onStartEdit={() => setEditingId(b.id)}
+                  onEndEdit={() =>
+                    setEditingId((id) => (id === b.id ? null : id))
+                  }
+                  onTextChange={(text) => updateBubble(b.id, { text })}
                   onStartDrag={startDrag}
                   onDuplicate={duplicateBubble}
                   onDelete={deleteBubble}
@@ -818,7 +664,11 @@ interface BubbleViewProps {
   renderW: number;
   renderH: number;
   selected: boolean;
+  editing: boolean;
   onSelect: () => void;
+  onStartEdit: () => void;
+  onEndEdit: () => void;
+  onTextChange: (text: string) => void;
   onStartDrag: (
     e: React.PointerEvent,
     mode: 'move' | 'resize' | 'tail',
@@ -835,14 +685,29 @@ function BubbleView({
   renderW,
   renderH,
   selected,
+  editing,
   onSelect,
+  onStartEdit,
+  onEndEdit,
+  onTextChange,
   onStartDrag,
   onDuplicate,
   onDelete,
   onMeasure,
 }: BubbleViewProps) {
   const wrapRef = useRef<HTMLDivElement | null>(null);
+  const taRef = useRef<HTMLTextAreaElement | null>(null);
   const [measuredH, setMeasuredH] = useState(bubble.h * renderW);
+
+  // Focus + auto-grow the inline editor once when editing starts.
+  useEffect(() => {
+    const ta = taRef.current;
+    if (!ta || !editing) return;
+    ta.focus();
+    ta.select();
+    ta.style.height = 'auto';
+    ta.style.height = `${ta.scrollHeight}px`;
+  }, [editing]);
 
   // Keep bubble.h (ratio of width) in sync with the rendered height.
   useEffect(() => {
@@ -901,15 +766,23 @@ function BubbleView({
 
       <div
         ref={wrapRef}
-        className="absolute z-10 cursor-move"
+        className={cn('absolute z-10', editing ? 'cursor-text' : 'cursor-move')}
         style={{
           left: bubble.x * renderW - boxW / 2,
           top: bubble.y * renderH - boxH / 2,
           width: boxW,
         }}
         onPointerDown={(e) => {
+          if (editing) return; // let clicks place the caret, not drag
           onSelect();
           onStartDrag(e, 'move', bubble);
+        }}
+        onDoubleClick={(e) => {
+          e.stopPropagation();
+          if (!editing) {
+            onSelect();
+            onStartEdit();
+          }
         }}
       >
         {/* Shape */}
@@ -936,22 +809,53 @@ function BubbleView({
           ))}
         </svg>
 
-        {/* Text */}
-        <div
-          className="relative break-words whitespace-pre-wrap"
-          style={{
-            padding: `${padY}px ${padX}px`,
-            fontFamily: bubble.fontFamily,
-            fontSize: fontPx,
-            fontWeight: bubble.fontWeight,
-            color: bubble.color,
-            textAlign: bubble.align,
-            lineHeight: 1.25,
-            userSelect: 'none',
-          }}
-        >
-          {bubble.text || ' '}
-        </div>
+        {/* Text (or inline editor — double-click a bubble to edit in place) */}
+        {editing ? (
+          <textarea
+            ref={taRef}
+            value={bubble.text}
+            rows={1}
+            onChange={(e) => onTextChange(e.target.value)}
+            onInput={(e) => {
+              const ta = e.currentTarget;
+              ta.style.height = 'auto';
+              ta.style.height = `${ta.scrollHeight}px`;
+            }}
+            onBlur={onEndEdit}
+            onKeyDown={(e) => {
+              if (e.key === 'Escape') {
+                e.preventDefault();
+                (e.currentTarget as HTMLTextAreaElement).blur();
+              }
+            }}
+            className="relative w-full resize-none overflow-hidden border-0 bg-transparent p-0 outline-none"
+            style={{
+              padding: `${padY}px ${padX}px`,
+              fontFamily: bubble.fontFamily,
+              fontSize: fontPx,
+              fontWeight: bubble.fontWeight,
+              color: bubble.color,
+              textAlign: bubble.align,
+              lineHeight: 1.25,
+            }}
+          />
+        ) : (
+          <div
+            className="relative break-words whitespace-pre-wrap"
+            style={{
+              padding: `${padY}px ${padX}px`,
+              fontFamily: bubble.fontFamily,
+              fontSize: fontPx,
+              fontWeight: bubble.fontWeight,
+              color: bubble.color,
+              textAlign: bubble.align,
+              lineHeight: 1.25,
+              userSelect: 'none',
+            }}
+          >
+            {bubble.text || ' '}
+          </div>
+        )}
 
         {/* Selection frame + handles */}
         {selected && (
@@ -1069,7 +973,6 @@ function AiPanel({
         </p>
       )}
       {state.error && <p className="text-destructive text-xs">{state.error}</p>}
-      <p className="text-muted-foreground text-xs">{m['editor.ai.hint']()}</p>
 
       {/* Results gallery */}
       {results.length > 0 && (
@@ -1081,7 +984,7 @@ function AiPanel({
             {results.map((r) => (
               <div
                 key={r.id}
-                className="checker-bg group relative aspect-square overflow-hidden rounded-md border"
+                className="group relative aspect-square overflow-hidden rounded-md border"
                 title={r.prompt}
               >
                 <img
@@ -1245,11 +1148,34 @@ function BubbleControls({
 
       {bubble.type !== 'caption' && (
         <div className="grid grid-cols-2 gap-2">
-          <ColorField
-            label={m['editor.controls.fill']()}
-            value={bubble.fill}
-            onChange={(v) => onChange({ fill: v })}
-          />
+          <div>
+            <label className="text-muted-foreground mb-1.5 block text-xs font-medium">
+              {m['editor.controls.fill']()}
+            </label>
+            <div className="flex items-center gap-2">
+              <label className="flex items-center gap-1.5 text-xs">
+                <input
+                  type="checkbox"
+                  checked={bubble.fill !== 'transparent'}
+                  onChange={(e) =>
+                    onChange({
+                      fill: e.target.checked ? '#ffffff' : 'transparent',
+                    })
+                  }
+                  className="accent-[var(--primary)]"
+                />
+                {m['editor.controls.solid_fill']()}
+              </label>
+              {bubble.fill !== 'transparent' && (
+                <input
+                  type="color"
+                  value={normalizeColor(bubble.fill)}
+                  onChange={(e) => onChange({ fill: e.target.value })}
+                  className="border-input bg-background size-7 cursor-pointer rounded border p-0.5"
+                />
+              )}
+            </div>
+          </div>
           <ColorField
             label={m['editor.controls.border']()}
             value={bubble.stroke}

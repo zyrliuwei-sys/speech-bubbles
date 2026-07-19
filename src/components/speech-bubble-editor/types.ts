@@ -7,7 +7,15 @@
  * whatever surface you are drawing on.
  */
 
-export type BubbleType = 'speech' | 'thought' | 'shout' | 'caption';
+export type BubbleType =
+  | 'speech'
+  | 'thought'
+  | 'shout'
+  | 'caption'
+  | 'star'
+  | 'heart'
+  | 'oval'
+  | 'square';
 
 export interface Bubble {
   id: string;
@@ -111,6 +119,34 @@ export function defaultBubble(type: BubbleType, x = 0.5, y = 0.5): Bubble {
         color: '#ffffff',
         stroke: '#111827',
         strokeWidth: 0.004,
+      };
+    case 'star':
+      return {
+        ...base,
+        text: 'Look!',
+        fill: 'transparent',
+        strokeWidth: 0.008,
+      };
+    case 'heart':
+      return {
+        ...base,
+        text: 'Love',
+        fill: 'transparent',
+        strokeWidth: 0.008,
+      };
+    case 'oval':
+      return {
+        ...base,
+        text: 'Hello',
+        fill: 'transparent',
+        strokeWidth: 0.007,
+      };
+    case 'square':
+      return {
+        ...base,
+        text: 'Note',
+        fill: 'transparent',
+        strokeWidth: 0.007,
       };
     default:
       return base;
