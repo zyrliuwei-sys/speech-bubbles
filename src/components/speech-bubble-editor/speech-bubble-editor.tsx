@@ -38,7 +38,7 @@ import { m } from '@/paraglide/messages.js';
 import { Button } from '@/components/ui/button';
 
 import { buildBubbleShape } from './bubble-shapes';
-import { downloadCanvas, renderToCanvas } from './export';
+import { downloadCanvas, renderToCanvas, saveBlobWithPicker } from './export';
 import {
   defaultBubble,
   FONT_OPTIONS,
@@ -67,14 +67,193 @@ async function urlToDataUrl(url: string): Promise<string | null> {
   }
 }
 
-/** Trigger a browser download for a data URL. */
-function downloadDataUrl(dataUrl: string, filename: string) {
+/** Decode a data: URL into a Blob without awaiting fetch, so the Save As
+ *  picker keeps the click's transient user activation. */
+function dataUrlToBlob(dataUrl: string): Blob | null {
+  const match = /^data:([^;]+)?(;base64)?,(.*)$/s.exec(dataUrl);
+  if (!match) return null;
+  const mime = match[1] || 'image/png';
+  try {
+    const data = match[2]
+      ? Uint8Array.from(atob(match[3]), (c) => c.charCodeAt(0))
+      : new TextEncoder().encode(decodeURIComponent(match[3]));
+    return new Blob([data], { type: mime });
+  } catch {
+    return null;
+  }
+}
+
+/** Save a generated bubble PNG via the browser's "Save As" dialog. */
+async function downloadDataUrl(dataUrl: string, filename: string) {
+  const blob = dataUrlToBlob(dataUrl);
+  if (blob) {
+    await saveBlobWithPicker(blob, filename);
+    return;
+  }
+  // Last-resort fallback for malformed data URLs.
   const a = document.createElement('a');
   a.href = dataUrl;
   a.download = filename;
   document.body.appendChild(a);
   a.click();
   a.remove();
+}
+
+/**
+ * Force an AI image into a transparent PNG sticker — the editor's iron rule:
+ * no matter the prompt, every generated bubble is a transparent PNG. Flood-
+ * removes the uniform background (sampled from the borders, expanding through
+ * connected pixels within a color tolerance) and re-encodes as PNG with an
+ * alpha channel. If the model already returned transparency, it's kept and
+ * just re-encoded. Always returns a `data:image/png` URL; on any failure it
+ * falls back to the original so generation never breaks.
+ */
+async function makeTransparentPng(dataUrl: string): Promise<string> {
+  const img = await new Promise<HTMLImageElement | null>((resolve) => {
+    const el = new Image();
+    el.onload = () => resolve(el);
+    el.onerror = () => resolve(null);
+    el.src = dataUrl;
+  });
+  if (!img) return dataUrl;
+
+  // Cap the working size — pixel ops on a 4K image are slow and unnecessary.
+  const maxDim = 1024;
+  const ow = img.naturalWidth || img.width;
+  const oh = img.naturalHeight || img.height;
+  const scale = Math.min(1, maxDim / Math.max(ow, oh));
+  const w = Math.max(1, Math.round(ow * scale));
+  const h = Math.max(1, Math.round(oh * scale));
+
+  const canvas = document.createElement('canvas');
+  canvas.width = w;
+  canvas.height = h;
+  const ctx = canvas.getContext('2d', { willReadFrequently: true });
+  if (!ctx) return dataUrl;
+  ctx.drawImage(img, 0, 0, w, h);
+
+  let imageData: ImageData;
+  try {
+    imageData = ctx.getImageData(0, 0, w, h);
+  } catch {
+    return dataUrl; // cross-origin taint — can't read pixels
+  }
+  const px = imageData.data;
+
+  // If most border pixels are already transparent, the model honored the
+  // transparency request — just re-encode as PNG.
+  let borderTotal = 0;
+  let borderTransparent = 0;
+  const countBorder = (x: number, y: number) => {
+    borderTotal++;
+    if (px[(y * w + x) * 4 + 3] < 16) borderTransparent++;
+  };
+  for (let x = 0; x < w; x++) {
+    countBorder(x, 0);
+    countBorder(x, h - 1);
+  }
+  for (let y = 0; y < h; y++) {
+    countBorder(0, y);
+    countBorder(w - 1, y);
+  }
+  if (borderTransparent / borderTotal > 0.25) {
+    return canvas.toDataURL('image/png');
+  }
+
+  // Background seed = average RGB of the opaque border pixels.
+  let sr = 0;
+  let sg = 0;
+  let sb = 0;
+  let n = 0;
+  const add = (x: number, y: number) => {
+    const i = (y * w + x) * 4;
+    if (px[i + 3] < 200) return;
+    sr += px[i];
+    sg += px[i + 1];
+    sb += px[i + 2];
+    n++;
+  };
+  for (let x = 0; x < w; x++) {
+    add(x, 0);
+    add(x, h - 1);
+  }
+  for (let y = 0; y < h; y++) {
+    add(0, y);
+    add(w - 1, y);
+  }
+  if (n === 0) return canvas.toDataURL('image/png');
+  sr /= n;
+  sg /= n;
+  sb /= n;
+
+  const tol = 44; // within → background (remove)
+  const tol2 = 92; // within → feather the fringe
+  const dist = (i: number) => {
+    const dr = px[i] - sr;
+    const dg = px[i + 1] - sg;
+    const db = px[i + 2] - sb;
+    return Math.sqrt(dr * dr + dg * dg + db * db);
+  };
+
+  // Flood fill from every border pixel through background-colored (or already
+  // transparent) neighbors. Connectivity preserves interior highlights that
+  // happen to match the background color.
+  const removed = new Uint8Array(w * h);
+  const stack: number[] = [];
+  const seed = (x: number, y: number) => {
+    const p = y * w + x;
+    if (removed[p]) return;
+    const i = p * 4;
+    if (px[i + 3] < 200 || dist(i) < tol) {
+      removed[p] = 1;
+      stack.push(p);
+    }
+  };
+  for (let x = 0; x < w; x++) {
+    seed(x, 0);
+    seed(x, h - 1);
+  }
+  for (let y = 0; y < h; y++) {
+    seed(0, y);
+    seed(w - 1, y);
+  }
+  while (stack.length) {
+    const p = stack.pop() as number;
+    const x = p % w;
+    const y = (p / w) | 0;
+    const candidates = [
+      x > 0 ? p - 1 : -1,
+      x < w - 1 ? p + 1 : -1,
+      y > 0 ? p - w : -1,
+      y < h - 1 ? p + w : -1,
+    ];
+    for (const q of candidates) {
+      if (q < 0 || removed[q]) continue;
+      const qi = q * 4;
+      if (px[qi + 3] < 200 || dist(qi) < tol) {
+        removed[q] = 1;
+        stack.push(q);
+      }
+    }
+  }
+
+  // Apply removal, feathering kept pixels whose color still drifts toward the
+  // background (the anti-aliased fringe around the bubble's outline).
+  for (let p = 0; p < w * h; p++) {
+    const i = p * 4;
+    if (removed[p]) {
+      px[i + 3] = 0;
+      continue;
+    }
+    const d = dist(i);
+    if (d < tol2) {
+      const a = Math.round(((d - tol) / (tol2 - tol)) * 255);
+      px[i + 3] = Math.max(0, Math.min(255, a));
+    }
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+  return canvas.toDataURL('image/png');
 }
 
 const BUBBLE_TYPES: {
@@ -174,14 +353,22 @@ export function SpeechBubbleEditor({
       if (ai.useImage && image) {
         imageDataUrl = (await urlToDataUrl(image.src)) ?? undefined;
       }
+      // No reference image → text-to-image bubble generation. The server wraps
+      // the prompt to force a 3D cartoon bubble; here we guarantee the result is
+      // a transparent PNG (iron rule) regardless of model cooperation.
+      const wasBubbleGen = !imageDataUrl;
 
       let taskId: string;
       try {
-        const res = await apiPost<{ taskId: string }>('/api/editor/generate', {
-          prompt,
-          imageDataUrl,
-        });
+        const res = await apiPost<{ taskId: string; warning?: string }>(
+          '/api/editor/generate',
+          {
+            prompt,
+            imageDataUrl,
+          }
+        );
         taskId = res.taskId;
+        if (res.warning) toast.info(res.warning);
       } catch (e: any) {
         if (runId !== genRunId.current) return;
         const msg = e?.message || m['editor.ai.failed']();
@@ -205,11 +392,20 @@ export function SpeechBubbleEditor({
           }>(`/api/editor/generate?taskId=${encodeURIComponent(taskId)}`);
           if (r.status === 'success' && r.imageDataUrl) {
             if (runId !== genRunId.current) return;
+            let finalUrl = r.imageDataUrl;
+            if (wasBubbleGen) {
+              try {
+                finalUrl = await makeTransparentPng(r.imageDataUrl);
+              } catch {
+                finalUrl = r.imageDataUrl; // never let post-processing break it
+              }
+            }
+            if (runId !== genRunId.current) return;
             setAiResults((prev) =>
               [
                 {
                   id: Math.random().toString(36).slice(2, 10),
-                  dataUrl: r.imageDataUrl,
+                  dataUrl: finalUrl,
                   prompt,
                 },
                 ...prev,
@@ -296,14 +492,53 @@ export function SpeechBubbleEditor({
     e.target.value = '';
   };
 
+  /** Drop a generated AI bubble onto the canvas as a movable, resizable sticker. */
+  const addImageBubble = useCallback(
+    (dataUrl: string, x = 0.5, y = 0.5) => {
+      const el = new Image();
+      el.onload = () => {
+        const aspect =
+          el.naturalWidth > 0 && el.naturalHeight > 0
+            ? el.naturalHeight / el.naturalWidth
+            : 1;
+        const w = 0.3;
+        const b: Bubble = {
+          ...defaultBubble('image', x, y),
+          imageSrc: dataUrl,
+          w,
+          h: w * aspect,
+        };
+        setBubbles((prev) => [...prev, b]);
+        setSelectedId(b.id);
+      };
+      el.onerror = () => loadImageFromUrl(dataUrl); // fall back to background
+      el.src = dataUrl;
+    },
+    [loadImageFromUrl]
+  );
+
   const onDrop = (e: React.DragEvent) => {
     e.preventDefault();
     dragDepth.current = 0;
     setDropActive(false);
-    // Drag a generated AI result onto the canvas → use as background.
+    // Drag a generated AI bubble onto the canvas → add it as an editable
+    // sticker on top of the photo (or as the canvas image if there's no photo).
     const aiImg = e.dataTransfer.getData('application/x-ai-image');
     if (aiImg) {
-      loadImageFromUrl(aiImg);
+      if (image) {
+        const layer = layerRef.current;
+        const { renderW, renderH } = sizeRef.current;
+        let x = 0.5;
+        let y = 0.5;
+        if (layer && renderW > 0 && renderH > 0) {
+          const r = layer.getBoundingClientRect();
+          x = clamp((e.clientX - r.left) / renderW);
+          y = clamp((e.clientY - r.top) / renderH);
+        }
+        addImageBubble(aiImg, x, y);
+      } else {
+        loadImageFromUrl(aiImg);
+      }
       return;
     }
     // Otherwise, a file dropped from the OS.
@@ -373,7 +608,13 @@ export function SpeechBubbleEditor({
         });
       } else if (d.mode === 'resize') {
         const dx = (e.clientX - d.startX) / renderW;
-        updateBubble(d.id, { w: clamp(d.orig.w + dx, 0.08, 0.98) });
+        const newW = clamp(d.orig.w + dx, 0.08, 0.98);
+        // Image stickers keep their aspect ratio while resizing.
+        if (d.orig.type === 'image' && d.orig.w > 0) {
+          updateBubble(d.id, { w: newW, h: newW * (d.orig.h / d.orig.w) });
+        } else {
+          updateBubble(d.id, { w: newW });
+        }
       } else {
         const tx = clamp((e.clientX - d.layerRect.left) / renderW);
         const ty = clamp((e.clientY - d.layerRect.top) / renderH);
@@ -455,13 +696,14 @@ export function SpeechBubbleEditor({
       }
     }
 
-    const canvas = renderToCanvas({
+    const canvas = await renderToCanvas({
       image: { ...image, el: imgRef.current },
       bubbles,
       hd,
       watermark,
     });
-    downloadCanvas(canvas, 'speech-bubbles.png');
+    const saved = await downloadCanvas(canvas, 'speech-bubbles.png');
+    if (saved === false) return; // user cancelled the Save As dialog
 
     if (watermark) {
       toast.info(m['editor.toast.free']());
@@ -732,8 +974,11 @@ function BubbleView({
     renderW,
   ]);
 
+  const isImage = !!bubble.imageSrc;
   const boxW = bubble.w * renderW;
-  const boxH = measuredH || bubble.h * renderW || boxW * 0.3;
+  const boxH = isImage
+    ? bubble.h * renderW
+    : measuredH || bubble.h * renderW || boxW * 0.3;
   const fontPx = bubble.fontSize * renderW;
   const strokePx = bubble.strokeWidth * renderW;
   const padX = fontPx * 0.6;
@@ -779,82 +1024,96 @@ function BubbleView({
         }}
         onDoubleClick={(e) => {
           e.stopPropagation();
-          if (!editing) {
+          if (!isImage && !editing) {
             onSelect();
             onStartEdit();
           }
         }}
       >
-        {/* Shape */}
-        <svg
-          width={boxW}
-          height={boxH}
-          viewBox={`0 0 ${boxW} ${boxH}`}
-          className="absolute inset-0"
-          style={{ overflow: 'visible' }}
-        >
-          {shape.fills.map((d, i) => (
-            <path key={`f${i}`} d={d} fill={bubble.fill} />
-          ))}
-          {shape.strokes.map((d, i) => (
-            <path
-              key={`s${i}`}
-              d={d}
-              fill="none"
-              stroke={bubble.stroke}
-              strokeWidth={strokePx}
-              strokeLinejoin="round"
-              strokeLinecap="round"
-            />
-          ))}
-        </svg>
-
-        {/* Text (or inline editor — double-click a bubble to edit in place) */}
-        {editing ? (
-          <textarea
-            ref={taRef}
-            value={bubble.text}
-            rows={1}
-            onChange={(e) => onTextChange(e.target.value)}
-            onInput={(e) => {
-              const ta = e.currentTarget;
-              ta.style.height = 'auto';
-              ta.style.height = `${ta.scrollHeight}px`;
-            }}
-            onBlur={onEndEdit}
-            onKeyDown={(e) => {
-              if (e.key === 'Escape') {
-                e.preventDefault();
-                (e.currentTarget as HTMLTextAreaElement).blur();
-              }
-            }}
-            className="relative w-full resize-none overflow-hidden border-0 bg-transparent p-0 outline-none"
-            style={{
-              padding: `${padY}px ${padX}px`,
-              fontFamily: bubble.fontFamily,
-              fontSize: fontPx,
-              fontWeight: bubble.fontWeight,
-              color: bubble.color,
-              textAlign: bubble.align,
-              lineHeight: 1.25,
-            }}
+        {isImage ? (
+          <img
+            src={bubble.imageSrc}
+            width={boxW}
+            height={boxH}
+            alt=""
+            draggable={false}
+            className="pointer-events-none select-none"
+            style={{ objectFit: 'contain' }}
           />
         ) : (
-          <div
-            className="relative break-words whitespace-pre-wrap"
-            style={{
-              padding: `${padY}px ${padX}px`,
-              fontFamily: bubble.fontFamily,
-              fontSize: fontPx,
-              fontWeight: bubble.fontWeight,
-              color: bubble.color,
-              textAlign: bubble.align,
-              lineHeight: 1.25,
-              userSelect: 'none',
-            }}
-          >
-            {bubble.text || ' '}
-          </div>
+          <>
+            {/* Shape */}
+            <svg
+              width={boxW}
+              height={boxH}
+              viewBox={`0 0 ${boxW} ${boxH}`}
+              className="absolute inset-0"
+              style={{ overflow: 'visible' }}
+            >
+              {shape.fills.map((d, i) => (
+                <path key={`f${i}`} d={d} fill={bubble.fill} />
+              ))}
+              {shape.strokes.map((d, i) => (
+                <path
+                  key={`s${i}`}
+                  d={d}
+                  fill="none"
+                  stroke={bubble.stroke}
+                  strokeWidth={strokePx}
+                  strokeLinejoin="round"
+                  strokeLinecap="round"
+                />
+              ))}
+            </svg>
+
+            {/* Text (or inline editor — double-click a bubble to edit in place) */}
+            {editing ? (
+              <textarea
+                ref={taRef}
+                value={bubble.text}
+                rows={1}
+                onChange={(e) => onTextChange(e.target.value)}
+                onInput={(e) => {
+                  const ta = e.currentTarget;
+                  ta.style.height = 'auto';
+                  ta.style.height = `${ta.scrollHeight}px`;
+                }}
+                onBlur={onEndEdit}
+                onKeyDown={(e) => {
+                  if (e.key === 'Escape') {
+                    e.preventDefault();
+                    (e.currentTarget as HTMLTextAreaElement).blur();
+                  }
+                }}
+                className="relative w-full resize-none overflow-hidden border-0 bg-transparent p-0 outline-none"
+                style={{
+                  padding: `${padY}px ${padX}px`,
+                  fontFamily: bubble.fontFamily,
+                  fontSize: fontPx,
+                  fontWeight: bubble.fontWeight,
+                  color: bubble.color,
+                  textAlign: bubble.align,
+                  lineHeight: 1.25,
+                }}
+              />
+            ) : (
+              <div
+                className="relative break-words whitespace-pre-wrap"
+                style={{
+                  padding: `${padY}px ${padX}px`,
+                  fontFamily: bubble.fontFamily,
+                  fontSize: fontPx,
+                  fontWeight: bubble.fontWeight,
+                  color: bubble.color,
+                  textAlign: bubble.align,
+                  lineHeight: 1.25,
+                  userSelect: 'none',
+                }}
+              >
+                {bubble.text || ' '}
+              </div>
+            )}
+          </>
         )}
 
         {/* Selection frame + handles */}
@@ -1036,6 +1295,41 @@ function BubbleControls({
   onDelete,
   onLayer,
 }: BubbleControlsProps) {
+  // Image (AI) sticker bubbles have no text/shape/style — only arrange/delete.
+  if (bubble.type === 'image') {
+    return (
+      <div className="space-y-4">
+        <p className="text-muted-foreground text-sm">
+          {m['editor.controls.image_bubble']()}
+        </p>
+        <div className="border-t pt-3">
+          <div className="grid grid-cols-2 gap-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => onLayer('front')}
+            >
+              {m['editor.controls.bring_front']()}
+            </Button>
+            <Button variant="outline" size="sm" onClick={() => onLayer('back')}>
+              {m['editor.controls.send_back']()}
+            </Button>
+          </div>
+          <div className="mt-2 grid grid-cols-2 gap-2">
+            <Button variant="outline" size="sm" onClick={onDuplicate}>
+              <Copy className="size-4" />
+              {m['editor.controls.duplicate']()}
+            </Button>
+            <Button variant="outline" size="sm" onClick={onDelete}>
+              <Trash2 className="size-4" />
+              {m['editor.controls.delete']()}
+            </Button>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-4">
       <div>

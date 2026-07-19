@@ -15,7 +15,8 @@ export type BubbleType =
   | 'star'
   | 'heart'
   | 'oval'
-  | 'square';
+  | 'square'
+  | 'image';
 
 export interface Bubble {
   id: string;
@@ -23,6 +24,11 @@ export interface Bubble {
   /** Center position as a ratio of the image (0..1). */
   x: number;
   y: number;
+  /**
+   * For `image` bubbles: a (usually transparent PNG) data URL rendered as a
+   * movable/resizable sticker. When set, the bubble ignores text/shape/style.
+   */
+  imageSrc?: string;
   /** Width as a ratio of the image width (0..1). Height is content-driven. */
   w: number;
   /** Measured height as a ratio of the image width (kept in sync by the editor). */
@@ -147,6 +153,16 @@ export function defaultBubble(type: BubbleType, x = 0.5, y = 0.5): Bubble {
         text: 'Note',
         fill: 'transparent',
         strokeWidth: 0.007,
+      };
+    case 'image':
+      // Sticker bubble — imageSrc is assigned by the caller when created.
+      return {
+        ...base,
+        text: '',
+        w: 0.3,
+        h: 0.3,
+        fill: 'transparent',
+        strokeWidth: 0,
       };
     default:
       return base;

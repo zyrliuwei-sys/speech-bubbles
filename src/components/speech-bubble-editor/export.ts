@@ -18,8 +18,31 @@ export interface RenderOptions {
 
 const FREE_MAX_SIDE = 1280;
 
-export function renderToCanvas(opts: RenderOptions): HTMLCanvasElement {
+function loadImage(src: string): Promise<HTMLImageElement | null> {
+  return new Promise((resolve) => {
+    const el = new Image();
+    el.onload = () => resolve(el);
+    el.onerror = () => resolve(null);
+    el.src = src;
+  });
+}
+
+export async function renderToCanvas(
+  opts: RenderOptions
+): Promise<HTMLCanvasElement> {
   const { image, bubbles, hd, watermark } = opts;
+
+  // Preload any image-bubble stickers (transparent PNGs dragged onto the
+  // canvas) so we can composite them at native resolution.
+  const bubbleImages: Record<string, HTMLImageElement> = {};
+  await Promise.all(
+    bubbles
+      .filter((b) => b.imageSrc)
+      .map(async (b) => {
+        const el = await loadImage(b.imageSrc!);
+        if (el) bubbleImages[b.id] = el;
+      })
+  );
 
   const longest = Math.max(image.naturalWidth, image.naturalHeight) || 1;
   const targetLongest = hd ? longest : Math.min(FREE_MAX_SIDE, longest);
@@ -52,6 +75,14 @@ export function renderToCanvas(opts: RenderOptions): HTMLCanvasElement {
     const cy = b.y * H;
     const left = cx - boxW / 2;
     const top = cy - boxH / 2;
+
+    // Image sticker bubble — composite the transparent PNG, skip vector/text.
+    const imgEl = b.imageSrc ? bubbleImages[b.id] : undefined;
+    if (imgEl) {
+      ctx.drawImage(imgEl, left, top, boxW, boxH);
+      continue;
+    }
+
     const fontSize = b.fontSize * W;
     const strokeWidthPx = Math.max(1, b.strokeWidth * W);
 
@@ -163,16 +194,72 @@ function roundRectPath(
   ctx.closePath();
 }
 
-export function downloadCanvas(canvas: HTMLCanvasElement, filename: string) {
-  canvas.toBlob((blob) => {
-    if (!blob) return;
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    a.remove();
-    setTimeout(() => URL.revokeObjectURL(url), 1000);
-  }, 'image/png');
+/**
+ * Save a blob to the user's computer. Uses the File System Access API
+ * (`showSaveFilePicker`) where available so the browser shows a real "Save As"
+ * dialog — the user picks the folder + filename and clicks Save. Falls back to
+ * a normal download on browsers without the API (Firefox/Safari) or if the
+ * picker is unavailable. Returns false when the user cancels the dialog.
+ */
+export async function saveBlobWithPicker(
+  blob: Blob,
+  suggestedName: string
+): Promise<boolean> {
+  const picker = (
+    window as unknown as {
+      showSaveFilePicker?: (opts: {
+        suggestedName?: string;
+        types?: { description?: string; accept: Record<string, string[]> }[];
+      }) => Promise<{
+        createWritable: () => Promise<{
+          write: (data: Blob) => Promise<void>;
+          close: () => Promise<void>;
+        }>;
+      }>;
+    }
+  ).showSaveFilePicker;
+
+  if (picker) {
+    try {
+      const handle = await picker({
+        suggestedName,
+        types: [
+          { description: 'PNG image', accept: { 'image/png': ['.png'] } },
+        ],
+      });
+      const writable = await handle.createWritable();
+      await writable.write(blob);
+      await writable.close();
+      return true;
+    } catch (e: unknown) {
+      // AbortError = user clicked Cancel — don't fall back to a silent download.
+      if ((e as { name?: string })?.name === 'AbortError') return false;
+      // Any other failure (e.g. lost user activation) → legacy download below.
+    }
+  }
+
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = suggestedName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+  return true;
+}
+
+export async function downloadCanvas(
+  canvas: HTMLCanvasElement,
+  filename: string
+): Promise<boolean> {
+  return new Promise((resolve) => {
+    canvas.toBlob(async (blob) => {
+      if (!blob) {
+        resolve(false);
+        return;
+      }
+      resolve(await saveBlobWithPicker(blob, filename));
+    }, 'image/png');
+  });
 }

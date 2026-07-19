@@ -151,14 +151,21 @@ async function POST({ request }: { request: Request }) {
     const imageDataUrl = (body as any)?.imageDataUrl?.toString();
     if (!prompt) return respErr('Prompt is required');
 
-    // For image editing, host the reference image so Kie can fetch it.
+    // For image editing, host the reference image so Kie can fetch it. If
+    // hosting isn't possible (localhost / no storage / too large), fall back to
+    // plain text-to-image instead of failing — generation should always produce
+    // a result.
     let refUrl: string | null = null;
+    let warning: string | undefined;
     if (imageDataUrl) {
-      refUrl = await hostReferenceImage(imageDataUrl);
-      if (!refUrl) {
-        return respErr(
-          'To edit an image, configure storage (R2) in admin settings or run on a public URL — Kie cannot fetch a local image.'
-        );
+      try {
+        refUrl = await hostReferenceImage(imageDataUrl);
+      } catch (e: any) {
+        warning = e?.message;
+      }
+      if (!refUrl && !warning) {
+        warning =
+          'Could not use your image as a reference (configure R2 storage in admin settings or run on a public URL). Generated a new image instead.';
       }
     }
 
@@ -174,7 +181,7 @@ async function POST({ request }: { request: Request }) {
       },
     });
 
-    return respData({ taskId: result.taskId });
+    return respData({ taskId: result.taskId, warning });
   } catch (e: any) {
     console.error('editor generate failed:', e);
     return respErr(e?.message || 'Failed to start generation');
