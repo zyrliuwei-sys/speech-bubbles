@@ -69,6 +69,13 @@ export const Route = createRootRoute({
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
         { title: envConfigs.app_name },
         { name: 'description', content: envConfigs.app_description },
+        // Open Graph site-wide defaults (pages add og:title/description/url)
+        { property: 'og:site_name', content: envConfigs.app_name },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:image', content: `${appUrl}/og-image.png` },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+        { name: 'twitter:image', content: `${appUrl}/og-image.png` },
       ],
       links: [
         { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },

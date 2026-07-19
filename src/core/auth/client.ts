@@ -1,10 +1,15 @@
 import { oneTapClient } from 'better-auth/client/plugins';
 import { createAuthClient } from 'better-auth/react';
 
+import { envConfigs } from '@/config';
+
+// On the client, use the current origin (always has a protocol). On the server,
+// use the normalized app_url — better-auth's getBaseURL throws on a protocol-
+// less URL, so we must never feed it a bare host from VITE_APP_URL.
 const baseURL =
   typeof window !== 'undefined'
     ? window.location.origin
-    : import.meta.env?.VITE_APP_URL || 'http://localhost:3000';
+    : envConfigs.app_url || 'http://localhost:3000';
 
 export const authClient = createAuthClient({ baseURL });
 

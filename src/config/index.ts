@@ -13,9 +13,20 @@ const procEnv: Record<string, string | undefined> =
 
 const publicEnv = (key: string) => metaEnv[key] ?? procEnv[key];
 
+/**
+ * Ensure a URL has an http(s) protocol. Tolerates a bare host like
+ * "example.com" — a common VITE_APP_URL misconfiguration — by prepending
+ * https://. Without it, better-auth's getBaseURL and `new URL()` throw
+ * "Invalid base URL" and every SSR render 500s.
+ */
+const withProtocol = (url: string): string => {
+  if (!url) return url;
+  return /^https?:\/\//i.test(url) ? url : `https://${url}`;
+};
+
 export const envConfigs: Record<string, string> = {
   // App (public)
-  app_url: publicEnv('VITE_APP_URL') ?? 'http://localhost:3000',
+  app_url: withProtocol(publicEnv('VITE_APP_URL') ?? 'http://localhost:3000'),
   app_name: publicEnv('VITE_APP_NAME') ?? 'ShipAny',
   app_description: publicEnv('VITE_APP_DESCRIPTION') ?? 'Ship your SaaS faster',
   app_logo: publicEnv('VITE_APP_LOGO') ?? '/logo.svg',
@@ -29,7 +40,7 @@ export const envConfigs: Record<string, string> = {
   db_max_connections: procEnv.DB_MAX_CONNECTIONS ?? '1',
 
   // Auth
-  auth_url: procEnv.AUTH_URL ?? publicEnv('VITE_APP_URL') ?? '',
+  auth_url: withProtocol(procEnv.AUTH_URL ?? publicEnv('VITE_APP_URL') ?? ''),
   auth_secret: procEnv.AUTH_SECRET ?? '',
 
   // Payment - Stripe

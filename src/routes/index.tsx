@@ -3,7 +3,6 @@ import { createFileRoute } from '@tanstack/react-router';
 import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
-import { Blog } from '@/blocks/blog';
 import { CTA } from '@/blocks/cta';
 import { FAQ } from '@/blocks/faq';
 import { Features } from '@/blocks/features';
@@ -18,13 +17,73 @@ import { SupportWidget } from '@/blocks/support-widget';
 import { Testimonials } from '@/blocks/testimonials';
 import { TryIt } from '@/blocks/try-it';
 import { WhyChoose } from '@/blocks/why-choose';
-import { getBlogPostsFn } from '@/content/posts/server';
+
+const FAQ_KEYS = [
+  'signup',
+  'watermark',
+  'formats',
+  'mobile',
+  'privacy',
+] as const;
+
+/** WebSite + FAQPage structured data (JSON-LD) for rich-result eligibility. */
+function buildJsonLd(locale: string, origin: string) {
+  const website = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: envConfigs.app_name,
+    url: origin,
+    description: m['landing.seo.description']({}, { locale: locale as any }),
+  };
+
+  const faqPage = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    url: origin,
+    mainEntity: FAQ_KEYS.map((k) => ({
+      '@type': 'Question',
+      name: m[`landing.faq.${k}.question` as const](
+        {},
+        { locale: locale as any }
+      ),
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: m[`landing.faq.${k}.answer` as const](
+          {},
+          { locale: locale as any }
+        ),
+      },
+    })),
+  };
+
+  return [website, faqPage];
+}
+
+function JsonLd({ data }: { data: unknown[] }) {
+  return (
+    <>
+      {data.map((d, i) => (
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: static JSON-LD
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(d) }}
+          key={i}
+          type="application/ld+json"
+        />
+      ))}
+    </>
+  );
+}
 
 function HomePage() {
-  const { posts } = Route.useLoaderData();
+  const { locale } = Route.useLoaderData();
+  const origin =
+    (typeof window !== 'undefined' && window.location?.origin) ||
+    envConfigs.app_url ||
+    '';
 
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
+      <JsonLd data={buildJsonLd(locale, origin)} />
       <Header />
       <main>
         <Hero />
@@ -36,7 +95,6 @@ function HomePage() {
         <Testimonials />
         <Pricing />
         <FAQ />
-        <Blog posts={posts} />
         <CTA />
         <SeoContent />
       </main>
@@ -48,21 +106,35 @@ function HomePage() {
 
 export const Route = createFileRoute('/')({
   loader: async () => {
-    const locale = getLocale();
-    const posts = await getBlogPostsFn({ data: { locale, limit: 3 } });
-    return { locale, posts };
+    return { locale: getLocale() };
   },
   head: ({ loaderData }) => {
     const locale = loaderData?.locale ?? 'en';
+    const origin =
+      (typeof window !== 'undefined' && window.location?.origin) ||
+      envConfigs.app_url ||
+      '';
     const urlFor = (loc: string) =>
-      localizeUrl(`${envConfigs.app_url}/`, { locale: loc as any }).href;
+      localizeUrl(`${origin}/`, { locale: loc as any }).href;
+    const title = m['landing.seo.title']({}, { locale: locale as any });
+    const description = m['landing.seo.description'](
+      {},
+      { locale: locale as any }
+    );
     return {
       meta: [
-        { title: m['landing.seo.title']({}, { locale: locale as any }) },
-        {
-          name: 'description',
-          content: m['landing.seo.description']({}, { locale: locale as any }),
-        },
+        { title },
+        { name: 'description', content: description },
+        // Open Graph (page-specific)
+        { property: 'og:title', content: title },
+        { property: 'og:description', content: description },
+        { property: 'og:type', content: 'website' },
+        { property: 'og:url', content: origin || envConfigs.app_url },
+        { property: 'og:locale', content: locale === 'zh' ? 'zh_CN' : 'en_US' },
+        // Twitter / X
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: title },
+        { name: 'twitter:description', content: description },
       ],
       links: [
         { rel: 'canonical', href: urlFor(locale) },

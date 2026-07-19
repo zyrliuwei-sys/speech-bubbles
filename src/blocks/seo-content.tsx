@@ -29,8 +29,6 @@ const SECTIONS: { type: 'h2' | 'h3' | 'p'; key: string }[] = [
   { type: 'p', key: 'landing.seo.s5b.p1' },
   { type: 'h2', key: 'landing.seo.s6.h' },
   { type: 'p', key: 'landing.seo.s6.p1' },
-  { type: 'h2', key: 'landing.seo.dev.h' },
-  { type: 'p', key: 'landing.seo.dev.p1' },
   { type: 'h2', key: 'landing.seo.s7.h' },
   { type: 'p', key: 'landing.seo.s7.p1' },
   { type: 'h2', key: 'landing.seo.s8.h' },
