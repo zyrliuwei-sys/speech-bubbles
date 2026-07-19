@@ -8,6 +8,7 @@ import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
+import { BubbleLogo } from '@/components/bubble-logo';
 import { LocaleSelector } from '@/components/locale-selector';
 import { SiteUserMenu } from '@/components/site-user-menu';
 import { ThemeToggle } from '@/components/theme-toggle';
@@ -23,16 +24,28 @@ export interface NavLink {
 /** Off-site URLs render as plain <a>; internal paths use the locale-aware Link. */
 const isExternalHref = (href: string) => /^https?:\/\//.test(href);
 
-export function SiteHeader({ navLinks }: { navLinks?: NavLink[] }) {
+export function SiteHeader({
+  navLinks,
+  ctaHref = '/settings',
+  ctaLabel,
+}: {
+  navLinks?: NavLink[];
+  ctaHref?: string;
+  ctaLabel?: string;
+}) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { data: session } = useSession();
   const user = session?.user;
+  const ctaText = ctaLabel ?? m['common.nav.get_started']();
 
   return (
     <header className="bg-background/80 sticky top-0 z-50 w-full backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Brand */}
-        <Link href="/" className="flex items-center">
+        <Link href="/" className="group flex items-center gap-2">
+          <span className="animate-bubble-float shrink-0">
+            <BubbleLogo className="size-8 transition-transform duration-200 ease-out group-hover:scale-110 group-hover:-rotate-3" />
+          </span>
           <span className="font-serif text-lg italic">
             {envConfigs.app_name}
           </span>
@@ -75,8 +88,8 @@ export function SiteHeader({ navLinks }: { navLinks?: NavLink[] }) {
               image={user.image}
             />
           ) : (
-            <Link href="/settings" className={cn(buttonVariants(), 'gap-1.5')}>
-              {m['common.nav.get_started']()}
+            <Link href={ctaHref} className={cn(buttonVariants(), 'gap-1.5')}>
+              {ctaText}
               <ArrowRight className="size-4" />
             </Link>
           )}
@@ -134,11 +147,11 @@ export function SiteHeader({ navLinks }: { navLinks?: NavLink[] }) {
               />
             ) : (
               <Link
-                href="/settings"
+                href={ctaHref}
                 className={cn(buttonVariants(), 'gap-1.5')}
                 onClick={() => setMobileOpen(false)}
               >
-                {m['common.nav.get_started']()}
+                {ctaText}
               </Link>
             )}
           </div>

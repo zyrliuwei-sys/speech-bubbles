@@ -28,24 +28,14 @@ export function Footer() {
     {
       title: m['landing.footer.feature'](),
       links: [
-        {
-          label: m['landing.footer.settings'](),
-          href: '/settings',
-          external: true,
-        },
-        { label: m['landing.footer.admin'](), href: '/admin', external: true },
+        { label: m['landing.nav.editor'](), href: '/editor' },
+        { label: m['landing.nav.features'](), href: '/#features' },
+        { label: m['landing.nav.pricing'](), href: '/pricing' },
       ],
     },
     {
       title: m['landing.footer.resources'](),
-      links: [
-        { label: m['landing.footer.blog'](), href: '/blog' },
-        {
-          label: m['landing.footer.github'](),
-          href: 'https://github.com',
-          external: true,
-        },
-      ],
+      links: [{ label: m['landing.footer.blog'](), href: '/blog' }],
     },
     {
       title: m['landing.footer.legal'](),

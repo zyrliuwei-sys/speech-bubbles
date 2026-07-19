@@ -148,6 +148,10 @@ export class KieProvider implements AIProvider {
       if (options.image_input && Array.isArray(options.image_input)) {
         payload.input.image_input = options.image_input;
       }
+      // nano-banana / Google image models use `image_urls` (not `image_input`).
+      if (options.image_urls && Array.isArray(options.image_urls)) {
+        payload.input.image_urls = options.image_urls;
+      }
       if (options.aspect_ratio) {
         payload.input.aspect_ratio = options.aspect_ratio;
       }

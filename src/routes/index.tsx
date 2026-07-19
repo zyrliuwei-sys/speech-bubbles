@@ -10,15 +10,16 @@ import { Features } from '@/blocks/features';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
 import { Hero } from '@/blocks/hero';
+import { HowItWorks } from '@/blocks/how-it-works';
 import { Pricing } from '@/blocks/pricing';
+import { SeoContent } from '@/blocks/seo-content';
+import { Showcase } from '@/blocks/showcase';
 import { SupportWidget } from '@/blocks/support-widget';
+import { Testimonials } from '@/blocks/testimonials';
+import { TryIt } from '@/blocks/try-it';
+import { WhyChoose } from '@/blocks/why-choose';
 import { getBlogPostsFn } from '@/content/posts/server';
 
-/**
- * Default landing page — demo content. Rewrite this file (and the blocks in
- * src/blocks/) for your project. The primitives in src/components/ stay.
- * See /quick-start or /clone-website to automate the rewrite.
- */
 function HomePage() {
   const { posts } = Route.useLoaderData();
 
@@ -27,11 +28,17 @@ function HomePage() {
       <Header />
       <main>
         <Hero />
+        <Showcase />
+        <TryIt />
+        <WhyChoose />
+        <HowItWorks />
         <Features />
+        <Testimonials />
         <Pricing />
         <FAQ />
         <Blog posts={posts} />
         <CTA />
+        <SeoContent />
       </main>
       <Footer />
       <SupportWidget />
@@ -51,9 +58,10 @@ export const Route = createFileRoute('/')({
       localizeUrl(`${envConfigs.app_url}/`, { locale: loc as any }).href;
     return {
       meta: [
+        { title: m['landing.seo.title']({}, { locale: locale as any }) },
         {
           name: 'description',
-          content: m['landing.hero.subheadline']({}, { locale: locale as any }),
+          content: m['landing.seo.description']({}, { locale: locale as any }),
         },
       ],
       links: [
