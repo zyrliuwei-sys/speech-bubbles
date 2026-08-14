@@ -13,43 +13,74 @@ import {
   AlignCenter,
   AlignLeft,
   AlignRight,
+  Cat,
   Circle,
   Cloud,
   Copy,
+  Dog,
   Download,
   Heart,
   Loader2,
   MessageCircle,
   Plus,
+  PlusCircle,
   Sparkles,
   Square,
   Star,
   Trash2,
   Type,
   Upload,
+  X,
   Zap,
 } from 'lucide-react';
 import { toast } from 'sonner';
 
 import { useSession } from '@/core/auth/client';
+import { tDynamic } from '@/core/i18n/dynamic';
 import { apiGet, apiPost } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { Button } from '@/components/ui/button';
 
-import { buildBubbleShape } from './bubble-shapes';
-import { downloadCanvas, renderToCanvas, saveBlobWithPicker } from './export';
+import {
+  buildBubbleShape,
+  layoutBubbleText,
+  type TextLayout,
+} from './bubble-shapes';
+import {
+  canvasToBlob,
+  renderToCanvas,
+  saveBlobFallback,
+  saveBlobWithPicker,
+} from './export';
 import {
   defaultBubble,
   FONT_OPTIONS,
   type Bubble,
   type BubbleType,
   type EditorImage,
+  type FontGroupId,
 } from './types';
 
 const clamp = (v: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, v));
 
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+// The previous KEYWORD_SHAPE_MAP + detectBubbleShape was removed: the user
+// wants the "Add bubble" input to satisfy ANY shape or category, not just the
+// fixed list (cat/dog/bear/star/heart/...). The right-hand input now goes
+// straight to nano-banana-2-lite for any prompt. The toolbar below the stage
+// still has 8 instant local shape buttons (Speech/Thought/Shout/.../Bear)
+// for the classic cases where the user doesn't want to wait for AI.
+
+/**
+ * WeChat's in-app browser (and many other in-app WebViews) block/ignore blob
+ * downloads and the File System Access API, so a normal "download" silently
+ * produces a corrupt or empty file. Detect it so we can fall back to showing
+ * the rendered image for the user to long-press → Save Image (微信长按保存).
+ */
+function isWeChatBrowser(): boolean {
+  if (typeof navigator === 'undefined') return false;
+  return /MicroMessenger/i.test(navigator.userAgent);
+}
 
 /** Convert an image src (blob: or data: URL) into a base64 data URL. */
 async function urlToDataUrl(url: string): Promise<string | null> {
@@ -269,6 +300,10 @@ const BUBBLE_TYPES: {
   { type: 'heart', icon: Heart, key: 'editor.bubble.heart' },
   { type: 'oval', icon: Circle, key: 'editor.bubble.oval' },
   { type: 'square', icon: Square, key: 'editor.bubble.square' },
+  { type: 'paw', icon: Cat, key: 'editor.bubble.paw' },
+  { type: 'cat', icon: Cat, key: 'editor.bubble.cat' },
+  { type: 'dog', icon: Dog, key: 'editor.bubble.dog' },
+  { type: 'bear', icon: Dog, key: 'editor.bubble.bear' },
 ];
 
 export interface SpeechBubbleEditorProps {
@@ -306,23 +341,29 @@ export function SpeechBubbleEditor({
     );
   }, []);
 
-  // --- AI generation (kie nano-banana-2-lite) ------------------------------
+  // --- "Add bubble" panel (AI-driven) -------------------------------------
+  // The single right-side input. Whatever the user types — "cat", "neon cloud
+  // with sparks", "logo with a hat", anything — goes to nano-banana-2-lite via
+  // /api/editor/generate, the result comes back as a transparent PNG and
+  // drops on the canvas. Local keyword matching was removed: the user said
+  // they want "any shape / category", which the fixed-shape list can't cover.
+  // The toolbar below the stage still has 8 instant local shape buttons for
+  // the classic cases where the user doesn't want to wait ~30s for AI.
   const [ai, setAi] = useState<{
     status: 'idle' | 'creating' | 'polling';
     prompt: string;
     useImage: boolean;
     error?: string;
   }>({ status: 'idle', prompt: '', useImage: true });
-  const genRunId = useRef(0);
-  const dragDepth = useRef(0);
-
-  // Generated AI images, newest first. Each is downloadable or draggable onto
-  // the canvas to use as the background.
   const [aiResults, setAiResults] = useState<
     { id: string; dataUrl: string; prompt: string }[]
   >([]);
-  const [dropActive, setDropActive] = useState(false);
   const [aiElapsed, setAiElapsed] = useState(0);
+  const genRunId = useRef(0);
+
+  // Drop visual state (file drag) — unchanged.
+  const dragDepth = useRef(0);
+  const [dropActive, setDropActive] = useState(false);
 
   const loadImageFromUrl = useCallback((url: string) => {
     const el = new Image();
@@ -337,7 +378,43 @@ export function SpeechBubbleEditor({
     el.src = url;
   }, []);
 
-  async function handleGenerate() {
+  /**
+   * Drop a generated AI bubble onto the canvas as a movable, resizable sticker.
+   * The aspect ratio comes from the decoded image; width defaults to 30% of
+   * the canvas so a 1024×1024 AI result lands at a useful size out of the
+   * box. `onError` falls back to setting it as the canvas background — same
+   * behavior as the old flow so a broken AI result still becomes a photo.
+   */
+  const addImageBubble = useCallback(
+    (dataUrl: string, x = 0.5, y = 0.5) => {
+      const el = new Image();
+      el.onload = () => {
+        const aspect =
+          el.naturalWidth > 0 && el.naturalHeight > 0
+            ? el.naturalHeight / el.naturalWidth
+            : 1;
+        const w = 0.3;
+        const b: Bubble = {
+          ...defaultBubble('image', x, y),
+          imageSrc: dataUrl,
+          w,
+          h: w * aspect,
+        };
+        setBubbles((prev) => [...prev, b]);
+        setSelectedId(b.id);
+      };
+      el.onerror = () => loadImageFromUrl(dataUrl);
+      el.src = dataUrl;
+    },
+    [loadImageFromUrl]
+  );
+
+  const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
+
+  /** AI generation: POST to start, GET to poll, then drop the transparent PNG
+   *  on the canvas as a sticker. `genRunId` cancels a stale in-flight loop if
+   *  the user fires another request. */
+  async function handleGenerateAi() {
     const prompt = ai.prompt.trim();
     if (!prompt || ai.status !== 'idle') return;
 
@@ -353,25 +430,18 @@ export function SpeechBubbleEditor({
       if (ai.useImage && image) {
         imageDataUrl = (await urlToDataUrl(image.src)) ?? undefined;
       }
-      // No reference image → text-to-image bubble generation. The server wraps
-      // the prompt to force a 3D cartoon bubble; here we guarantee the result is
-      // a transparent PNG (iron rule) regardless of model cooperation.
-      const wasBubbleGen = !imageDataUrl;
 
       let taskId: string;
       try {
         const res = await apiPost<{ taskId: string; warning?: string }>(
           '/api/editor/generate',
-          {
-            prompt,
-            imageDataUrl,
-          }
+          { prompt, imageDataUrl }
         );
         taskId = res.taskId;
         if (res.warning) toast.info(res.warning);
       } catch (e: any) {
         if (runId !== genRunId.current) return;
-        const msg = e?.message || m['editor.ai.failed']();
+        const msg = e?.message || m['editor.bubble_panel.failed']();
         setAi((s) => ({ ...s, status: 'idle', error: msg }));
         toast.error(msg);
         return;
@@ -392,32 +462,27 @@ export function SpeechBubbleEditor({
           }>(`/api/editor/generate?taskId=${encodeURIComponent(taskId)}`);
           if (r.status === 'success' && r.imageDataUrl) {
             if (runId !== genRunId.current) return;
-            let finalUrl = r.imageDataUrl;
-            if (wasBubbleGen) {
-              try {
-                finalUrl = await makeTransparentPng(r.imageDataUrl);
-              } catch {
-                finalUrl = r.imageDataUrl; // never let post-processing break it
-              }
-            }
+            // Iron rule: every AI result lands as a transparent PNG sticker.
+            const transparent = await makeTransparentPng(r.imageDataUrl);
             if (runId !== genRunId.current) return;
+            addImageBubble(transparent);
             setAiResults((prev) =>
               [
                 {
                   id: Math.random().toString(36).slice(2, 10),
-                  dataUrl: finalUrl,
+                  dataUrl: transparent,
                   prompt,
                 },
                 ...prev,
               ].slice(0, 12)
             );
             setAi((s) => ({ ...s, status: 'idle', error: undefined }));
-            toast.success(m['editor.ai.success']());
+            toast.success(m['editor.bubble_panel.success']());
             return;
           }
           if (r.status === 'failed') {
             if (runId !== genRunId.current) return;
-            const msg = r.error || m['editor.ai.failed']();
+            const msg = r.error || m['editor.bubble_panel.failed']();
             setAi((s) => ({ ...s, status: 'idle', error: msg }));
             toast.error(msg);
             return;
@@ -427,7 +492,7 @@ export function SpeechBubbleEditor({
         }
       }
       if (runId !== genRunId.current) return;
-      const msg = m['editor.ai.timeout']();
+      const msg = m['editor.bubble_panel.timeout']();
       setAi((s) => ({ ...s, status: 'idle', error: msg }));
       toast.error(msg);
     } finally {
@@ -491,31 +556,6 @@ export function SpeechBubbleEditor({
     if (f) loadImageFile(f);
     e.target.value = '';
   };
-
-  /** Drop a generated AI bubble onto the canvas as a movable, resizable sticker. */
-  const addImageBubble = useCallback(
-    (dataUrl: string, x = 0.5, y = 0.5) => {
-      const el = new Image();
-      el.onload = () => {
-        const aspect =
-          el.naturalWidth > 0 && el.naturalHeight > 0
-            ? el.naturalHeight / el.naturalWidth
-            : 1;
-        const w = 0.3;
-        const b: Bubble = {
-          ...defaultBubble('image', x, y),
-          imageSrc: dataUrl,
-          w,
-          h: w * aspect,
-        };
-        setBubbles((prev) => [...prev, b]);
-        setSelectedId(b.id);
-      };
-      el.onerror = () => loadImageFromUrl(dataUrl); // fall back to background
-      el.src = dataUrl;
-    },
-    [loadImageFromUrl]
-  );
 
   const onDrop = (e: React.DragEvent) => {
     e.preventDefault();
@@ -585,7 +625,7 @@ export function SpeechBubbleEditor({
 
   // --- Pointer dragging -----------------------------------------------------
   const dragRef = useRef<null | {
-    mode: 'move' | 'resize' | 'tail';
+    mode: 'move' | 'resize' | 'resize-w' | 'tail' | 'scale';
     id: string;
     startX: number;
     startY: number;
@@ -607,13 +647,56 @@ export function SpeechBubbleEditor({
           y: clamp(d.orig.y + dy),
         });
       } else if (d.mode === 'resize') {
-        const dx = (e.clientX - d.startX) / renderW;
-        const newW = clamp(d.orig.w + dx, 0.08, 0.98);
-        // Image stickers keep their aspect ratio while resizing.
-        if (d.orig.type === 'image' && d.orig.w > 0) {
-          updateBubble(d.id, { w: newW, h: newW * (d.orig.h / d.orig.w) });
+        // Vertical-only resize: drag up/down changes the bubble's HEIGHT; the
+        // width stays fixed. `h` is stored as a ratio of the image WIDTH, so the
+        // pixel delta is scaled by renderW to match what the user sees.
+        const dy = (e.clientY - d.startY) / renderW;
+        const newH = clamp(d.orig.h + dy, 0.04, 2);
+        if (d.orig.type === 'image') {
+          updateBubble(d.id, { h: newH }); // width fixed, aspect ratio unlocked
         } else {
-          updateBubble(d.id, { w: newW });
+          // First manual resize flips off auto-height so the value sticks
+          // (otherwise the content-measure loop would override it next tick).
+          updateBubble(d.id, { h: newH, autoH: false });
+        }
+      } else if (d.mode === 'resize-w') {
+        // Horizontal-only resize: drag left/right changes the bubble's WIDTH
+        // (横向拉大放小). The box is positioned by its center, so changing `w`
+        // grows it symmetrically on both sides. Text keeps its font size and
+        // reflows; auto-height bubbles re-measure their height to fit.
+        const dx = (e.clientX - d.startX) / renderW;
+        const newW = clamp(d.orig.w + dx, 0.05, 1.5);
+        updateBubble(d.id, { w: newW });
+      } else if (d.mode === 'scale') {
+        // Uniform (proportional) scaling around the bubble's center — drag a
+        // corner handle and width, height, font size and stroke all scale
+        // together, so the bubble grows or shrinks as one unit (等比放大缩小).
+        // `k` is the ratio of the pointer's current distance from the center to
+        // its distance at drag start; because the handle sits on the corner,
+        // this keeps the corner under the cursor.
+        const cx = d.layerRect.left + d.orig.x * renderW;
+        const cy = d.layerRect.top + d.orig.y * renderH;
+        const startDist = Math.hypot(d.startX - cx, d.startY - cy);
+        if (startDist < 1) return;
+        const k = clamp(
+          Math.hypot(e.clientX - cx, e.clientY - cy) / startDist,
+          0.2,
+          5
+        );
+        const newW = clamp(d.orig.w * k, 0.05, 1.5);
+        const kEff = newW / d.orig.w; // honor the width clamp exactly
+        if (d.orig.type === 'image') {
+          updateBubble(d.id, { w: newW, h: d.orig.h * kEff });
+        } else {
+          const patch: Partial<Bubble> = {
+            w: newW,
+            fontSize: d.orig.fontSize * kEff,
+            strokeWidth: d.orig.strokeWidth * kEff,
+          };
+          // Only manual-height bubbles store an explicit h; auto-height
+          // bubbles recompute it from the (now scaled) text content.
+          if (!d.orig.autoH) patch.h = d.orig.h * kEff;
+          updateBubble(d.id, patch);
         }
       } else {
         const tx = clamp((e.clientX - d.layerRect.left) / renderW);
@@ -632,7 +715,7 @@ export function SpeechBubbleEditor({
 
   const startDrag = (
     e: React.PointerEvent,
-    mode: 'move' | 'resize' | 'tail',
+    mode: 'move' | 'resize' | 'resize-w' | 'tail' | 'scale',
     bubble: Bubble
   ) => {
     e.preventDefault();
@@ -679,38 +762,97 @@ export function SpeechBubbleEditor({
         {}
       ),
   });
+  const [downloading, setDownloading] = useState(false);
+  /**
+   * Rendered image shown in the long-press overlay. Used only in in-app
+   * WebViews (WeChat) where a direct download can't be triggered — the user
+   * long-presses the image to save it via the WebView's native menu.
+   */
+  const [preview, setPreview] = useState<{
+    url: string;
+    blob: Blob;
+    watermark: boolean;
+  } | null>(null);
 
   async function handleDownload() {
-    if (!image || !imgRef.current) return;
-    let hd = false;
-    let watermark = true;
+    if (!image || !imgRef.current || downloading) return;
 
-    if (session?.user) {
-      try {
-        const res = await exportMutation.mutateAsync();
-        hd = res.hd;
-        watermark = res.watermark;
-      } catch {
-        hd = false;
-        watermark = true;
+    setDownloading(true);
+    try {
+      let hd = false;
+      let watermark = true;
+
+      if (session?.user) {
+        try {
+          const res = await exportMutation.mutateAsync();
+          hd = res.hd;
+          watermark = res.watermark;
+        } catch {
+          hd = false;
+          watermark = true;
+        }
       }
+
+      const canvas = await renderToCanvas({
+        image: { ...image, el: imgRef.current ?? undefined },
+        bubbles,
+        hd,
+        watermark,
+      });
+
+      // Encode once as JPG, then open a preview the user confirms and saves
+      // from. JPG is safe here — the photo is drawn first, so the canvas is
+      // fully opaque and there's no transparency to lose.
+      const blob = await canvasToBlob(canvas, 'image/jpeg', 0.92);
+      // A null/empty blob means the canvas was tainted (cross-origin image) or
+      // rendering produced no pixels — never hand the user a 0-byte file they
+      // can't open. Surface a clear error instead.
+      if (!blob || blob.size === 0) {
+        toast.error(m['editor.error.export']());
+        return;
+      }
+
+      // Show the rendered JPG; the user saves from the preview. Revoke any
+      // previous preview URL so we don't leak object URLs across re-opens.
+      setPreview((prev) => {
+        if (prev) URL.revokeObjectURL(prev.url);
+        return { url: URL.createObjectURL(blob), blob, watermark };
+      });
+
+      // WeChat (and similar in-app WebViews) can't trigger a real download —
+      // blob/data URLs are blocked or corrupted. The long-press hint in the
+      // overlay is their only reliable save path (微信长按保存).
+      if (isWeChatBrowser()) {
+        toast.info(m['editor.save.wechat_tip']());
+      }
+    } finally {
+      setDownloading(false);
     }
+  }
 
-    const canvas = await renderToCanvas({
-      image: { ...image, el: imgRef.current },
-      bubbles,
-      hd,
-      watermark,
+  const closePreview = () => {
+    setPreview((p) => {
+      if (p) URL.revokeObjectURL(p.url);
+      return null;
     });
-    const saved = await downloadCanvas(canvas, 'speech-bubbles.png');
-    if (saved === false) return; // user cancelled the Save As dialog
+  };
 
-    if (watermark) {
+  const savePreview = () => {
+    if (!preview) return;
+    // Direct download as speech-bubbles.jpg. No "Save As" dialog — see the
+    // note on saveBlobFallback for why the File System Access picker was
+    // dropped (it could leave a 0-byte, unopenable file behind).
+    if (!saveBlobFallback(preview.blob, 'speech-bubbles.jpg')) {
+      toast.error(m['editor.error.export']());
+      return;
+    }
+    if (preview.watermark) {
       toast.info(m['editor.toast.free']());
     } else {
       toast.success(m['editor.toast.hd']());
     }
-  }
+    closePreview();
+  };
 
   // --- Render ---------------------------------------------------------------
   const layerOffset = useMemo(() => {
@@ -845,14 +987,14 @@ export function SpeechBubbleEditor({
               onClick={() => addBubble(type)}
             >
               <Icon className="size-4" />
-              <span className="hidden sm:inline">{m[key]()}</span>
+              <span className="hidden sm:inline">{tDynamic(key)}</span>
             </Button>
           ))}
           <div className="ml-auto flex items-center gap-2">
             <Button
               size="sm"
               onClick={handleDownload}
-              disabled={!image || exportMutation.isPending}
+              disabled={!image || downloading}
             >
               <Download className="size-4" />
               {m['editor.download']()}
@@ -861,17 +1003,20 @@ export function SpeechBubbleEditor({
         </div>
       </div>
 
-      {/* Side panel */}
+      {/* Side panel — single AI-driven input. The user types whatever shape or
+          category they want, we call nano-banana-2-lite via /api/editor/generate,
+          drop the transparent PNG on the canvas. The toolbar below the stage
+          still has the 8 instant local shape buttons for classic cases. */}
       {!compact && (
         <aside className="bg-card w-full shrink-0 space-y-4 overflow-y-auto rounded-2xl border p-4 lg:w-80">
-          <AiPanel
-            hasImage={!!image}
-            state={ai}
+          <BubblePanel
+            ai={ai}
             elapsed={aiElapsed}
             results={aiResults}
+            hasImage={!!image}
             onPromptChange={(prompt) => setAi((s) => ({ ...s, prompt }))}
             onUseImageChange={(useImage) => setAi((s) => ({ ...s, useImage }))}
-            onGenerate={handleGenerate}
+            onGenerate={handleGenerateAi}
           />
           <div className="border-t" />
           {!selected ? (
@@ -893,6 +1038,49 @@ export function SpeechBubbleEditor({
           </p>
         </aside>
       )}
+
+      {/* Export preview — shows the rendered JPG; save from here. WeChat & other
+          in-app WebViews that can't trigger a real download long-press the image
+          to save it via the WebView's native menu. Tap the backdrop or ✕ to
+          dismiss. */}
+      {preview && (
+        <div
+          className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/85 p-4"
+          onClick={closePreview}
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 rounded-full bg-white/10 p-2 text-white/80 hover:bg-white/20 hover:text-white"
+            onClick={(e) => {
+              e.stopPropagation();
+              closePreview();
+            }}
+            aria-label="Close"
+          >
+            <X className="size-6" />
+          </button>
+          <img
+            src={preview.url}
+            alt="Speech Bubbles export"
+            className="max-h-[72vh] max-w-full rounded-lg object-contain shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          />
+          <div
+            className="mt-4 flex items-center gap-3"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <Button onClick={savePreview}>
+              <Download className="size-4" />
+              {m['editor.download']()}
+            </Button>
+          </div>
+          {isWeChatBrowser() && (
+            <p className="mt-3 text-center text-sm text-white/90">
+              {m['editor.save.long_press_hint']()}
+            </p>
+          )}
+        </div>
+      )}
     </div>
   );
 }
@@ -913,13 +1101,27 @@ interface BubbleViewProps {
   onTextChange: (text: string) => void;
   onStartDrag: (
     e: React.PointerEvent,
-    mode: 'move' | 'resize' | 'tail',
+    mode: 'move' | 'resize' | 'resize-w' | 'tail' | 'scale',
     bubble: Bubble
   ) => void;
   onDuplicate: (id: string) => void;
   onDelete: (id: string) => void;
   /** Report the measured height (ratio of width) back so export matches preview. */
   onMeasure: (ratio: number) => void;
+}
+
+/**
+ * Shared offscreen 2D context used to measure bubble text with canvas metrics.
+ * The preview MUST size/​wrap text with the same `measureText` the export uses,
+ * or the two surfaces diverge on borderline wraps (see `layoutBubbleText`).
+ */
+let textMeasureCtx: CanvasRenderingContext2D | null = null;
+function getTextMeasureCtx(): CanvasRenderingContext2D | null {
+  if (!textMeasureCtx) {
+    const c = document.createElement('canvas');
+    textMeasureCtx = c.getContext('2d');
+  }
+  return textMeasureCtx;
 }
 
 function BubbleView({
@@ -939,7 +1141,13 @@ function BubbleView({
 }: BubbleViewProps) {
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const taRef = useRef<HTMLTextAreaElement | null>(null);
-  const [measuredH, setMeasuredH] = useState(bubble.h * renderW);
+
+  // Bump once the bubble's font has actually loaded. @fontsource faces load
+  // asynchronously, so the first layout pass measures with a fallback face and
+  // wraps to a different line count than the exported PNG (which waits for
+  // fonts). Re-measuring on load keeps the preview's box height == the export's,
+  // so a bubble stays put between preview and export (不再「框乱/位置跑掉」).
+  const [fontLoadTick, bumpFontLoadTick] = useState(0);
 
   // Focus + auto-grow the inline editor once when editing starts.
   useEffect(() => {
@@ -951,35 +1159,83 @@ function BubbleView({
     ta.style.height = `${ta.scrollHeight}px`;
   }, [editing]);
 
-  // Keep bubble.h (ratio of width) in sync with the rendered height.
-  useEffect(() => {
-    const el = wrapRef.current;
-    if (!el) return;
-    const update = () => {
-      const h = el.offsetHeight;
-      setMeasuredH(h);
-      if (renderW > 0) onMeasure(h / renderW);
-    };
-    update();
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-    return () => ro.disconnect();
-    // onMeasure identity is stable enough; we intentionally track text/font/size drivers.
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [
-    bubble.text,
-    bubble.fontSize,
-    bubble.fontFamily,
-    bubble.fontWeight,
-    renderW,
-  ]);
-
   const isImage = !!bubble.imageSrc;
   const boxW = bubble.w * renderW;
+  const fontPx = bubble.fontSize * renderW;
+
+  // Trigger the layout memo to re-run once the primary font face is available.
+  useEffect(() => {
+    if (isImage || typeof document === 'undefined' || !document.fonts) return;
+    const first = bubble.fontFamily
+      .split(',')[0]
+      ?.trim()
+      .replace(/^['"]|['"]$/g, '');
+    if (!first) return;
+    let alive = true;
+    document.fonts
+      .load(`${bubble.fontWeight} 64px "${first}"`)
+      .then(() => {
+        if (alive) bumpFontLoadTick((v) => v + 1);
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, [isImage, bubble.fontFamily, bubble.fontWeight]);
+
+  // Text layout via CANVAS metrics — the SAME source of truth the exported PNG
+  // uses. The old code measured height from the DOM (offsetHeight), but the
+  // browser's HTML layout and canvas measureText disagree on borderline wraps,
+  // so the preview and the export could wrap the same text to a different
+  // number of lines and the exported box ended up the wrong height. Running
+  // both through layoutBubbleText makes them wrap and size identically.
+  const textLayout: TextLayout | null = useMemo(() => {
+    if (isImage) return null;
+    const ctx = getTextMeasureCtx();
+    if (!ctx) return null;
+    return layoutBubbleText(
+      ctx,
+      bubble.text,
+      bubble.fontFamily,
+      bubble.fontWeight,
+      fontPx,
+      boxW
+    );
+    // boxW derives from bubble.w + renderW; fontPx from bubble.fontSize + renderW.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [
+    isImage,
+    bubble.text,
+    bubble.fontFamily,
+    bubble.fontWeight,
+    bubble.fontSize,
+    bubble.w,
+    renderW,
+    fontLoadTick,
+  ]);
+
+  const measuredH = textLayout?.height ?? bubble.h * renderW;
+  // Render the canvas-broken lines verbatim (white-space: pre) so the on-screen
+  // text wraps exactly like the export, instead of letting CSS re-wrap.
+  const displayText = textLayout
+    ? textLayout.lines.join('\n')
+    : bubble.text || ' ';
+
+  // Keep bubble.h (ratio of width) in sync with the canvas-measured height, so
+  // manual-height and image bubbles (which read b.h in the export) stay correct.
+  useEffect(() => {
+    if (bubble.autoH && renderW > 0 && textLayout) {
+      onMeasure(textLayout.height / renderW);
+    }
+    // onMeasure identity is stable; we track the layout drivers only.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [textLayout, bubble.autoH, renderW]);
+
   const boxH = isImage
     ? bubble.h * renderW
-    : measuredH || bubble.h * renderW || boxW * 0.3;
-  const fontPx = bubble.fontSize * renderW;
+    : bubble.autoH
+      ? measuredH || bubble.h * renderW || boxW * 0.3
+      : bubble.h * renderW;
   const strokePx = bubble.strokeWidth * renderW;
   const padX = fontPx * 0.6;
   const padY = fontPx * 0.45;
@@ -1016,6 +1272,9 @@ function BubbleView({
           left: bubble.x * renderW - boxW / 2,
           top: bubble.y * renderH - boxH / 2,
           width: boxW,
+          // Fixed height once the user has manually resized vertically; before
+          // that the height is content-driven (no explicit height here).
+          ...(bubble.autoH ? {} : { height: boxH }),
         }}
         onPointerDown={(e) => {
           if (editing) return; // let clicks place the caret, not drag
@@ -1096,9 +1355,9 @@ function BubbleView({
                   lineHeight: 1.25,
                 }}
               />
-            ) : (
+            ) : bubble.autoH ? (
               <div
-                className="relative break-words whitespace-pre-wrap"
+                className="relative whitespace-pre"
                 style={{
                   padding: `${padY}px ${padX}px`,
                   fontFamily: bubble.fontFamily,
@@ -1110,7 +1369,30 @@ function BubbleView({
                   userSelect: 'none',
                 }}
               >
-                {bubble.text || ' '}
+                {displayText}
+              </div>
+            ) : (
+              // Manual height: vertically center the text inside the fixed box.
+              <div
+                className="absolute inset-0 flex items-center"
+                style={{
+                  fontFamily: bubble.fontFamily,
+                  fontSize: fontPx,
+                  fontWeight: bubble.fontWeight,
+                  color: bubble.color,
+                  lineHeight: 1.25,
+                  userSelect: 'none',
+                }}
+              >
+                <div
+                  className="w-full whitespace-pre"
+                  style={{
+                    padding: `0 ${padX}px`,
+                    textAlign: bubble.align,
+                  }}
+                >
+                  {displayText}
+                </div>
               </div>
             )}
           </>
@@ -1120,11 +1402,57 @@ function BubbleView({
         {selected && (
           <>
             <div className="border-primary pointer-events-none absolute -inset-1 rounded-[4px] border-2" />
-            {/* Resize handle */}
+            {/* Corner handles — drag to scale the bubble proportionally (等比). */}
+            {(
+              [
+                ['-top-1.5 -left-1.5', 'cursor-nwse-resize'],
+                ['-top-1.5 -right-1.5', 'cursor-nesw-resize'],
+                ['-bottom-1.5 -left-1.5', 'cursor-nesw-resize'],
+                ['-bottom-1.5 -right-1.5', 'cursor-nwse-resize'],
+              ] as const
+            ).map(([pos, cursor]) => (
+              <div
+                key={pos}
+                className={cn(
+                  'bg-primary border-background absolute size-3 rounded-sm border-2',
+                  pos,
+                  cursor
+                )}
+                onPointerDown={(e) => onStartDrag(e, 'scale', bubble)}
+                title="Scale proportionally"
+              />
+            ))}
+            {/* Edge handles — drag to resize one axis only. */}
+            {(
+              [
+                [
+                  '-left-1.5 top-1/2 -translate-y-1/2',
+                  'cursor-ew-resize',
+                  'resize-w',
+                ],
+                [
+                  '-right-1.5 top-1/2 -translate-y-1/2',
+                  'cursor-ew-resize',
+                  'resize-w',
+                ],
+              ] as const
+            ).map(([pos, cursor, mode]) => (
+              <div
+                key={pos}
+                className={cn(
+                  'bg-primary border-background absolute size-3 rounded-sm border-2',
+                  pos,
+                  cursor
+                )}
+                onPointerDown={(e) => onStartDrag(e, mode, bubble)}
+                title="Resize width"
+              />
+            ))}
+            {/* Resize handle (vertical — drag to change height) */}
             <div
-              className="bg-primary border-background absolute -right-1.5 -bottom-1.5 size-3 cursor-nwse-resize rounded-sm border-2"
+              className="bg-primary border-background absolute -bottom-1.5 left-1/2 size-3 -translate-x-1/2 cursor-ns-resize rounded-sm border-2"
               onPointerDown={(e) => onStartDrag(e, 'resize', bubble)}
-              title="Resize"
+              title="Resize height"
             />
             {/* Quick actions */}
             <div className="bg-background absolute -top-9 right-0 flex items-center gap-0.5 rounded-md border p-0.5 shadow-sm">
@@ -1159,12 +1487,20 @@ function BubbleView({
 }
 
 // ---------------------------------------------------------------------------
-// AI panel (kie nano-banana-2-lite)
+// "Add bubble" panel — what the user types becomes the new bubble's text.
+// Clicking Add drops a classic editable speech bubble on the canvas.
+// ---------------------------------------------------------------------------
+// "Add bubble" panel — the single input box. The user types whatever bubble
+// shape or category they want ("cat", "shouting sun", "neon cloud", "cute
+// rabbit", "logo with a hat" — anything). Clicking Add calls
+// /api/editor/generate (Kie nano-banana-2-lite), drops the transparent PNG
+// on the canvas. The toolbar below the stage still has 8 instant local
+// shape buttons for the classic cases where the user doesn't want to wait
+// ~30s for an AI round-trip.
 // ---------------------------------------------------------------------------
 
-interface AiPanelProps {
-  hasImage: boolean;
-  state: {
+interface BubblePanelProps {
+  ai: {
     status: 'idle' | 'creating' | 'polling';
     prompt: string;
     useImage: boolean;
@@ -1172,72 +1508,74 @@ interface AiPanelProps {
   };
   elapsed: number;
   results: { id: string; dataUrl: string; prompt: string }[];
+  hasImage: boolean;
   onPromptChange: (v: string) => void;
   onUseImageChange: (v: boolean) => void;
   onGenerate: () => void;
 }
 
-function AiPanel({
-  hasImage,
-  state,
+function BubblePanel({
+  ai,
   elapsed,
   results,
+  hasImage,
   onPromptChange,
   onUseImageChange,
   onGenerate,
-}: AiPanelProps) {
-  const busy = state.status !== 'idle';
+}: BubblePanelProps) {
+  const busy = ai.status !== 'idle';
   return (
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <Sparkles className="text-primary size-4" />
-        <span className="text-sm font-medium">{m['editor.ai.title']()}</span>
+        <span className="text-sm font-medium">
+          {m['editor.bubble_panel.title']()}
+        </span>
       </div>
       <textarea
-        value={state.prompt}
+        value={ai.prompt}
         onChange={(e) => onPromptChange(e.target.value)}
         rows={3}
         disabled={busy}
-        placeholder={m['editor.ai.prompt_placeholder']()}
+        placeholder={m['editor.bubble_panel.placeholder']()}
         className="border-input bg-background focus-visible:ring-ring w-full resize-none rounded-md border px-3 py-2 text-sm outline-none focus-visible:ring-2 disabled:opacity-60"
       />
       {hasImage && (
         <label className="text-muted-foreground flex items-center gap-2 text-xs">
           <input
             type="checkbox"
-            checked={state.useImage}
+            checked={ai.useImage}
             disabled={busy}
             onChange={(e) => onUseImageChange(e.target.checked)}
             className="accent-[var(--primary)]"
           />
-          {m['editor.ai.use_image']()}
+          {m['editor.bubble_panel.use_image']()}
         </label>
       )}
       <Button
         size="sm"
         className="w-full gap-1.5"
         onClick={onGenerate}
-        disabled={busy || !state.prompt.trim()}
+        disabled={busy || !ai.prompt.trim()}
       >
         {busy ? (
           <Loader2 className="size-4 animate-spin" />
         ) : (
           <Sparkles className="size-4" />
         )}
-        {busy ? m['editor.ai.generating']() : m['editor.ai.generate']()}
+        {busy
+          ? m['editor.bubble_panel.generating']({ seconds: elapsed })
+          : m['editor.bubble_panel.add']()}
       </Button>
-      {busy && (
-        <p className="text-muted-foreground text-xs">
-          {m['editor.ai.polling']()} ({elapsed}s)
-        </p>
-      )}
-      {state.error && <p className="text-destructive text-xs">{state.error}</p>}
+      {ai.error && <p className="text-destructive text-xs">{ai.error}</p>}
 
-      {/* Results gallery */}
+      {/* Results gallery — drag a result onto the canvas to use it elsewhere,
+          or hover and click download. The latest result is auto-dropped on
+          the canvas by handleGenerateAi. */}
       {results.length > 0 && (
         <div className="space-y-2 border-t pt-3">
           <div className="text-muted-foreground text-xs font-medium">
-            {m['editor.ai.results']()}
+            {m['editor.bubble_panel.results']()}
           </div>
           <div className="grid grid-cols-2 gap-2">
             {results.map((r) => (
@@ -1260,7 +1598,7 @@ function AiPanel({
                   type="button"
                   className="bg-background/80 absolute top-1 right-1 rounded p-1 opacity-0 shadow-sm transition group-hover:opacity-100"
                   onClick={() => downloadDataUrl(r.dataUrl, `ai-${r.id}.png`)}
-                  title={m['editor.ai.download']()}
+                  title={m['editor.bubble_panel.download']()}
                 >
                   <Download className="size-3.5" />
                 </button>
@@ -1268,13 +1606,20 @@ function AiPanel({
             ))}
           </div>
           <p className="text-muted-foreground text-xs">
-            {m['editor.ai.drag_hint']()}
+            {m['editor.bubble_panel.drag_hint']()}
           </p>
         </div>
       )}
     </div>
   );
 }
+
+// ---------------------------------------------------------------------------
+// ---------------------------------------------------------------------------
+// AiPanel was merged into BubblePanel above — the user wants a single
+// "Add bubble" input that goes straight to nano-banana-2-lite for any
+// shape or category. Removed.
+// ---------------------------------------------------------------------------
 
 // ---------------------------------------------------------------------------
 // Side-panel controls
@@ -1295,6 +1640,12 @@ function BubbleControls({
   onDelete,
   onLayer,
 }: BubbleControlsProps) {
+  // Font <optgroup> labels — resolved per-render so they follow the active locale.
+  const fontGroupLabels: Record<FontGroupId, string> = {
+    standard: m['editor.controls.font_standard'](),
+    cartoon: m['editor.controls.font_cartoon'](),
+  };
+
   // Image (AI) sticker bubbles have no text/shape/style — only arrange/delete.
   if (bubble.type === 'image') {
     return (
@@ -1370,10 +1721,14 @@ function BubbleControls({
           onChange={(e) => onChange({ fontFamily: e.target.value })}
           className="border-input bg-background w-full rounded-md border px-2 py-1.5 text-sm"
         >
-          {FONT_OPTIONS.map((f) => (
-            <option key={f.label} value={f.value}>
-              {f.label}
-            </option>
+          {FONT_OPTIONS.map((g) => (
+            <optgroup key={g.id} label={fontGroupLabels[g.id]}>
+              {g.options.map((f) => (
+                <option key={f.label} value={f.value}>
+                  {f.label}
+                </option>
+              ))}
+            </optgroup>
           ))}
         </select>
       </Field>

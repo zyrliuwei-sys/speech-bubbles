@@ -25,6 +25,14 @@ import '@fontsource-variable/inter';
 import '@fontsource/libre-baskerville/400.css';
 import '@fontsource/libre-baskerville/700.css';
 import '@fontsource/libre-baskerville/400-italic.css';
+// Cartoon / display faces for speech-bubble text. Mostly single-weight; Fredoka
+// ships 700 too so the bold weight used by shout bubbles stays true.
+import '@fontsource/bangers/400.css';
+import '@fontsource/permanent-marker/400.css';
+import '@fontsource/fredoka/400.css';
+import '@fontsource/fredoka/700.css';
+import '@fontsource/patrick-hand/400.css';
+import '@fontsource/luckiest-guy/400.css';
 import '@/styles/globals.css';
 
 // Analytics IDs live in the DB config (1h-cached service). Fetched via a

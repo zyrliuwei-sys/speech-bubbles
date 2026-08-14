@@ -34,7 +34,12 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@fontsource-variable/inter": "^5.2.8",
+    "@fontsource/bangers": "^5.3.0",
+    "@fontsource/fredoka": "^5.3.0",
     "@fontsource/libre-baskerville": "^5.2.10",
+    "@fontsource/luckiest-guy": "^5.3.0",
+    "@fontsource/patrick-hand": "^5.3.0",
+    "@fontsource/permanent-marker": "^5.3.0",
     "@libsql/client": "^0.14.0",
     "@mdx-js/react": "^3.1.1",
     "@react-email/components": "^1.0.0",
@@ -99,14 +104,5 @@
     "typescript": "^5.9.0",
     "vite": "^8.0.16",
     "wrangler": "^4.98.0"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@swc/core",
-      "esbuild",
-      "msw",
-      "sharp"
-    ]
   }
 }

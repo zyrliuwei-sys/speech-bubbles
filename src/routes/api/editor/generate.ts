@@ -22,24 +22,30 @@ const EDITOR_AI_ASPECT = 'auto';
 
 /**
  * Iron rule for text-to-image in the editor: every result MUST be a single 3D
- * cartoon speech-bubble sticker on a fully transparent background, exported as
- * PNG. The client then flood-removes any residual background and turns it into
- * a transparent sticker bubble. Image-to-image (photo editing) leaves the
- * prompt untouched so users can edit their picture freely.
+ * cartoon sticker whose SHAPE resembles the user's subject, on a fully
+ * transparent background, exported as PNG. The client then flood-removes any
+ * residual background and turns it into a transparent sticker bubble.
+ *
+ * The user's text describes the *shape* of the bubble, NOT text to write
+ * inside it. "狗熊" → a bear-shaped bubble (round head + two small round
+ * ears on top). "闪电" → a lightning-bolt-shaped bubble. "心" → a heart
+ * silhouette. "狗" → a dog-head silhouette. The shape IS the message;
+ * writing the word as text inside a generic cloud defeats the point.
  */
 function buildBubblePrompt(userPrompt: string): string {
   return [
-    'A single comic speech-bubble sticker, isolated by itself.',
+    'A single sticker whose OUTLINE and overall shape look like the subject below.',
+    'The bubble silhouette and silhouette are the entire message — there is',
+    'NO text, NO letters, NO words inside the bubble. The shape itself IS the',
+    'subject. If the subject has distinguishing parts (head, ears, tail, body,',
+    'limbs, etc.), those parts must be visible as part of the silhouette.',
     'Style: bold 3D cartoon — glossy, inflated puffy volume, thick dark outline,',
     'vivid saturated colors, soft cel shading, cute playful cartoon look, and a',
     'subtle drop shadow for depth. NOT flat 2D, NOT photorealistic.',
-    'Shape: creative and varied — pick a fun silhouette such as a rounded',
-    'rectangle with a tail, a fluffy thought cloud, a spiky starburst, an',
-    'explosion burst, a star, a heart, an oval, or a jagged shout bubble.',
     'Background: FULLY TRANSPARENT — no scene, no backdrop, no border, no margin.',
-    'Render the bubble on a transparent background with an alpha channel.',
+    'Render on a transparent background with an alpha channel.',
     'Output: PNG with transparency.',
-    `User request: "${userPrompt}".`,
+    `Shape the sticker to look like: ${userPrompt}.`,
   ].join(' ');
 }
 
