@@ -34,18 +34,17 @@ const EDITOR_AI_ASPECT = 'auto';
  */
 function buildBubblePrompt(userPrompt: string): string {
   return [
-    'A single sticker whose OUTLINE and overall shape look like the subject below.',
-    'The bubble silhouette and silhouette are the entire message — there is',
-    'NO text, NO letters, NO words inside the bubble. The shape itself IS the',
-    'subject. If the subject has distinguishing parts (head, ears, tail, body,',
-    'limbs, etc.), those parts must be visible as part of the silhouette.',
-    'Style: bold 3D cartoon — glossy, inflated puffy volume, thick dark outline,',
-    'vivid saturated colors, soft cel shading, cute playful cartoon look, and a',
-    'subtle drop shadow for depth. NOT flat 2D, NOT photorealistic.',
-    'Background: FULLY TRANSPARENT — no scene, no backdrop, no border, no margin.',
-    'Render on a transparent background with an alpha channel.',
-    'Output: PNG with transparency.',
-    `Shape the sticker to look like: ${userPrompt}.`,
+    'Create ONE hollow speech bubble FRAME shaped like the subject described below.',
+    'The OUTLINE must visibly resemble the subject, with a small speech tail.',
+    'Leave a large empty central opening for text that will be added later.',
+    'Draw only the decorative frame, with a clean bold dark outline and playful cartoon details.',
+    'NO text, letters, words, logo lettering, filled sticker, scene, or photographic background.',
+    'For exact chroma-key removal: use perfectly flat pure magenta RGB(255,0,255)',
+    'everywhere outside the frame AND inside its empty central opening.',
+    'Never use magenta on the frame itself. No checkerboard, gradients, or shadows on the background.',
+    'Center the complete frame with an 8 percent margin so nothing touches the image edges.',
+    'Output a PNG image. The application removes the magenta to produce transparent PNG.',
+    `Requested frame shape and style: ${userPrompt}`,
   ].join(' ');
 }
 
@@ -179,6 +178,8 @@ async function POST({ request }: { request: Request }) {
     const prompt = (body as any)?.prompt?.toString().trim();
     const imageDataUrl = (body as any)?.imageDataUrl?.toString();
     if (!prompt) return respErr('Prompt is required');
+    if (prompt.length > 2000)
+      return respErr('Prompt is too long (maximum 2000 characters)');
 
     // For image editing, host the reference image so Kie can fetch it. If
     // hosting isn't possible (localhost / no storage / too large), fall back to

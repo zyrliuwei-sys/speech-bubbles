@@ -1,5 +1,3 @@
-'use client';
-
 import {
   useCallback,
   useEffect,
@@ -8,7 +6,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import {
   AlignCenter,
   AlignLeft,
@@ -136,8 +134,7 @@ async function downloadDataUrl(dataUrl: string, filename: string) {
  * removes the uniform background (sampled from the borders, expanding through
  * connected pixels within a color tolerance) and re-encodes as PNG with an
  * alpha channel. If the model already returned transparency, it's kept and
- * just re-encoded. Always returns a `data:image/png` URL; on any failure it
- * falls back to the original so generation never breaks.
+ * just re-encoded. Returns a `data:image/png` URL or throws on decoding failure.
  */
 async function makeTransparentPng(dataUrl: string): Promise<string> {
   const img = await new Promise<HTMLImageElement | null>((resolve) => {
@@ -146,7 +143,7 @@ async function makeTransparentPng(dataUrl: string): Promise<string> {
     el.onerror = () => resolve(null);
     el.src = dataUrl;
   });
-  if (!img) return dataUrl;
+  if (!img) throw new Error(m['editor.bubble_panel.failed']());
 
   // Cap the working size — pixel ops on a 4K image are slow and unnecessary.
   const maxDim = 1024;
@@ -160,16 +157,30 @@ async function makeTransparentPng(dataUrl: string): Promise<string> {
   canvas.width = w;
   canvas.height = h;
   const ctx = canvas.getContext('2d', { willReadFrequently: true });
-  if (!ctx) return dataUrl;
+  if (!ctx) throw new Error(m['editor.bubble_panel.failed']());
   ctx.drawImage(img, 0, 0, w, h);
 
   let imageData: ImageData;
   try {
     imageData = ctx.getImageData(0, 0, w, h);
   } catch {
-    return dataUrl; // cross-origin taint — can't read pixels
+    throw new Error(m['editor.bubble_panel.failed']());
   }
   const px = imageData.data;
+
+  // Remove chroma everywhere, including the enclosed opening of the frame.
+  let keyed = 0;
+  for (let i = 0; i < px.length; i += 4) {
+    const chroma = Math.min(px[i], px[i + 2]) - px[i + 1];
+    if (chroma > 65 && px[i] > 120 && px[i + 2] > 120) {
+      px[i + 3] = Math.round(px[i + 3] * Math.max(0, 1 - (chroma - 65) / 70));
+      keyed++;
+    }
+  }
+  if (keyed > w * h * 0.05) {
+    ctx.putImageData(imageData, 0, 0);
+    return canvas.toDataURL('image/png');
+  }
 
   // If most border pixels are already transparent, the model honored the
   // transparency request — just re-encode as PNG.
@@ -354,7 +365,7 @@ export function SpeechBubbleEditor({
     prompt: string;
     useImage: boolean;
     error?: string;
-  }>({ status: 'idle', prompt: '', useImage: true });
+  }>({ status: 'idle', prompt: '', useImage: false });
   const [aiResults, setAiResults] = useState<
     { id: string; dataUrl: string; prompt: string }[]
   >([]);
@@ -400,14 +411,33 @@ export function SpeechBubbleEditor({
           w,
           h: w * aspect,
         };
+        if (!image) {
+          const blank = document.createElement('canvas');
+          blank.width = 1024;
+          blank.height = 1024;
+          setImage({
+            src: blank.toDataURL('image/png'),
+            naturalWidth: 1024,
+            naturalHeight: 1024,
+          });
+        }
         setBubbles((prev) => [...prev, b]);
         setSelectedId(b.id);
       };
       el.onerror = () => loadImageFromUrl(dataUrl);
       el.src = dataUrl;
     },
-    [loadImageFromUrl]
+    [loadImageFromUrl, image]
   );
+
+  const queryClient = useQueryClient();
+  const generateMutation = useMutation({
+    mutationFn: (body: { prompt: string; imageDataUrl?: string }) =>
+      apiPost<{ taskId: string; warning?: string }>(
+        '/api/editor/generate',
+        body
+      ),
+  });
 
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -433,10 +463,10 @@ export function SpeechBubbleEditor({
 
       let taskId: string;
       try {
-        const res = await apiPost<{ taskId: string; warning?: string }>(
-          '/api/editor/generate',
-          { prompt, imageDataUrl }
-        );
+        const res = await generateMutation.mutateAsync({
+          prompt,
+          imageDataUrl,
+        });
         taskId = res.taskId;
         if (res.warning) toast.info(res.warning);
       } catch (e: any) {
@@ -450,20 +480,33 @@ export function SpeechBubbleEditor({
 
       setAi((s) => ({ ...s, status: 'polling' }));
 
-      const maxAttempts = 60; // ~2 minutes
+      const maxAttempts = 150; // Allow for upstream queueing (about five minutes).
       for (let i = 0; i < maxAttempts; i++) {
         await sleep(2000);
         if (runId !== genRunId.current) return;
         try {
-          const r = await apiGet<{
-            status: string;
-            imageDataUrl?: string;
-            error?: string;
-          }>(`/api/editor/generate?taskId=${encodeURIComponent(taskId)}`);
+          const r = await queryClient.fetchQuery({
+            queryKey: ['editor-generation', taskId],
+            staleTime: 0,
+            queryFn: () =>
+              apiGet<{ status: string; imageDataUrl?: string; error?: string }>(
+                `/api/editor/generate?taskId=${encodeURIComponent(taskId)}`
+              ),
+          });
           if (r.status === 'success' && r.imageDataUrl) {
             if (runId !== genRunId.current) return;
             // Iron rule: every AI result lands as a transparent PNG sticker.
-            const transparent = await makeTransparentPng(r.imageDataUrl);
+            let transparent: string;
+            try {
+              transparent = await makeTransparentPng(r.imageDataUrl);
+            } catch {
+              setAi((s) => ({
+                ...s,
+                status: 'idle',
+                error: m['editor.bubble_panel.failed'](),
+              }));
+              return;
+            }
             if (runId !== genRunId.current) return;
             addImageBubble(transparent);
             setAiResults((prev) =>
@@ -1536,6 +1579,8 @@ function BubblePanel({
         value={ai.prompt}
         onChange={(e) => onPromptChange(e.target.value)}
         rows={3}
+        maxLength={2000}
+        aria-label={m['editor.bubble_panel.title']()}
         disabled={busy}
         placeholder={m['editor.bubble_panel.placeholder']()}
         className="border-input bg-background focus-visible:ring-ring w-full resize-none rounded-md border px-3 py-2 text-sm outline-none focus-visible:ring-2 disabled:opacity-60"
