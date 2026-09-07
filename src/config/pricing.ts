@@ -40,9 +40,9 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     planName: 'Starter',
     description: 'Starter Monthly',
     type: PaymentType.SUBSCRIPTION,
-    priceInCents: 900,
+    priceInCents: 99,
     currency: 'usd',
-    credits: 5000,
+    credits: 50,
     plan: {
       name: 'Starter',
       interval: PaymentInterval.MONTH,
@@ -55,9 +55,9 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     planName: 'Pro',
     description: 'Pro Monthly',
     type: PaymentType.SUBSCRIPTION,
-    priceInCents: 2900,
+    priceInCents: 199,
     currency: 'usd',
-    credits: 50000,
+    credits: 200,
     plan: { name: 'Pro', interval: PaymentInterval.MONTH, intervalCount: 1 },
   },
   enterprise_monthly: {
