@@ -17,6 +17,7 @@ import {
   AlipayProvider,
   CreemProvider,
   PayPalProvider,
+  resolvePayPalEnvironment,
   StripeProvider,
   WechatPayProvider,
 } from '@/core/payment';
@@ -207,8 +208,7 @@ async function testPaypal(
   const provider = new PayPalProvider({
     clientId: configs.paypal_client_id,
     clientSecret: configs.paypal_client_secret,
-    environment:
-      configs.paypal_environment === 'live' ? 'production' : 'sandbox',
+    environment: resolvePayPalEnvironment(configs.paypal_environment),
     webhookId: configs.paypal_webhook_id || undefined,
   });
 

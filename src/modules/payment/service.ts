@@ -6,6 +6,7 @@ import {
   CreemProvider,
   PaymentManager,
   PayPalProvider,
+  resolvePayPalEnvironment,
   StripeProvider,
   WechatPayProvider,
 } from '@/core/payment';
@@ -108,8 +109,7 @@ async function getPaymentManager(): Promise<PaymentManager> {
         clientId: c('paypal_client_id'),
         clientSecret: c('paypal_client_secret'),
         webhookId: c('paypal_webhook_id') || undefined,
-        environment:
-          c('paypal_environment') === 'live' ? 'production' : 'sandbox',
+        environment: resolvePayPalEnvironment(c('paypal_environment')),
       }),
       isDefault
     );

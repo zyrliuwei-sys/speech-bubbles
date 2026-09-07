@@ -16,6 +16,14 @@ import {
   type PaymentSession,
 } from './types';
 
+/** Accept both the admin UI's `live` and the environment's `production`. */
+export function resolvePayPalEnvironment(
+  environment: string | undefined
+): 'sandbox' | 'production' {
+  const value = environment?.trim().toLowerCase();
+  return value === 'live' || value === 'production' ? 'production' : 'sandbox';
+}
+
 /**
  * PayPal payment provider configs
  * @docs https://developer.paypal.com/docs/
