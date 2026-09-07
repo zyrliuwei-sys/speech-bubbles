@@ -13,8 +13,8 @@ export function Header() {
   return (
     <SiteHeader
       navLinks={navLinks}
-      ctaHref="/editor"
-      ctaLabel={m['landing.hero.cta']()}
+      ctaHref="/sign-in"
+      ctaLabel={m['common.nav.sign_in']()}
     />
   );
 }
