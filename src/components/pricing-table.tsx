@@ -1,5 +1,3 @@
-'use client';
-
 import { useState, type ComponentType, type SVGProps } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import { Check } from 'lucide-react';
@@ -134,22 +132,27 @@ export function PricingTable({
           <div
             key={plan.id}
             className={cn(
-              'border-border relative flex flex-col rounded-2xl border p-8 transition-all',
+              'border-border relative flex flex-col rounded-3xl border p-6 pt-8 transition-colors xl:p-8',
               plan.featured
-                ? 'bg-card ring-foreground/10 shadow-md ring-1'
+                ? 'bg-primary/5 border-primary ring-primary shadow-[0_8px_0_-4px_var(--primary)] ring-1'
                 : 'bg-background hover:border-foreground/30'
             )}
           >
+            {plan.badge && (
+              <span className="bg-primary text-primary-foreground absolute -top-3.5 left-6 rounded-full px-3 py-1 text-xs font-semibold">
+                {plan.badge}
+              </span>
+            )}
             {/* Plan name */}
             {plan.name && (
-              <p className="text-foreground mb-2 text-sm font-medium">
+              <p className="text-foreground mb-5 text-lg font-semibold">
                 {plan.name}
               </p>
             )}
 
             {/* Price */}
             <div className="mb-2 flex items-baseline gap-1">
-              <span className="font-serif text-5xl tracking-tight">
+              <span className="text-4xl font-semibold tracking-tight tabular-nums xl:text-5xl">
                 {plan.price}
               </span>
               {plan.interval && (
@@ -166,7 +169,7 @@ export function PricingTable({
 
             {/* Description */}
             {plan.description && (
-              <p className="text-muted-foreground mb-8 text-sm">
+              <p className="text-muted-foreground mb-8 min-h-10 text-sm">
                 {plan.description}
               </p>
             )}
@@ -184,7 +187,7 @@ export function PricingTable({
             </Button>
 
             {/* Features */}
-            <ul className="mt-8 space-y-3">
+            <ul className="border-border mt-7 space-y-4 border-t pt-6">
               {plan.features.map((feature, i) => {
                 const isObj = typeof feature !== 'string';
                 const Icon: IconComponent = (isObj && feature.icon) || Check;

@@ -1,11 +1,8 @@
-'use client';
-
 import { useMemo, useState } from 'react';
 import { useMutation } from '@tanstack/react-query';
 import {
   Check,
   Globe,
-  Headphones,
   Image as ImageIcon,
   Palette,
   Sparkles,
@@ -15,6 +12,7 @@ import { toast } from 'sonner';
 
 import { useSession } from '@/core/auth/client';
 import { useRouter } from '@/core/i18n/navigation';
+import { pricingCatalog } from '@/config/pricing';
 import { apiPost } from '@/lib/api-client';
 import { m } from '@/paraglide/messages.js';
 import { usePublicConfig } from '@/hooks/use-public-config';
@@ -58,20 +56,14 @@ export function Pricing({ title }: { title?: string } = {}) {
     { icon: Globe, label: m['landing.pricing.feature_browser_edit']() },
     { icon: Check, label: m['landing.pricing.feature_watermark']() },
   ];
-  const starterFeatures = [
+  const paidFeatures = (credits: number) => [
+    {
+      icon: Zap,
+      label: m['landing.pricing.monthly_credits']({ count: credits }),
+    },
     { icon: Check, label: m['landing.pricing.feature_no_watermark']() },
     { icon: Sparkles, label: m['landing.pricing.feature_hd_export']() },
-    { icon: Zap, label: m['landing.pricing.feature_credits_50']() },
     { icon: Palette, label: m['landing.pricing.feature_all_fonts']() },
-  ];
-  const proFeatures = [
-    { icon: Check, label: m['landing.pricing.feature_everything_basic']() },
-    { icon: Zap, label: m['landing.pricing.feature_credits_200']() },
-    {
-      icon: Headphones,
-      label: m['landing.pricing.feature_priority_support'](),
-    },
-    { icon: Sparkles, label: m['landing.pricing.feature_early_styles']() },
   ];
 
   const groups: PricingGroup[] = [
@@ -83,7 +75,7 @@ export function Pricing({ title }: { title?: string } = {}) {
           id: 'free',
           name: m['landing.pricing.free'](),
           description: m['landing.pricing.free_desc'](),
-          price: m['landing.pricing.free'](),
+          price: '$0',
           features: freeFeatures,
           productId: 'free',
           priceInCents: 0,
@@ -91,34 +83,39 @@ export function Pricing({ title }: { title?: string } = {}) {
           credits: 0,
           buttonText: m['landing.pricing.free_cta'](),
         },
-        {
-          id: 'starter-monthly',
-          name: m['landing.pricing.starter'](),
-          description: m['landing.pricing.starter_desc'](),
-          price: '¥5',
+        ...[
+          {
+            product: pricingCatalog.starter_monthly,
+            name: m['landing.pricing.starter'](),
+            description: m['landing.pricing.starter_desc'](),
+          },
+          {
+            product: pricingCatalog.pro_monthly,
+            name: m['landing.pricing.pro'](),
+            description: m['landing.pricing.pro_desc'](),
+            featured: true,
+          },
+          {
+            product: pricingCatalog.studio_monthly,
+            name: m['landing.pricing.studio'](),
+            description: m['landing.pricing.studio_desc'](),
+          },
+        ].map(({ product, name, description, featured }) => ({
+          id: product.productId,
+          productId: product.productId,
+          name,
+          description,
+          price: `$${product.priceInCents / 100}`,
+          priceInCents: product.priceInCents,
+          currency: product.currency,
+          credits: product.credits,
+          plan: product.plan,
+          features: paidFeatures(product.credits),
+          featured,
+          badge: featured ? m['landing.pricing.popular']() : undefined,
           interval: m['landing.pricing.per_month'](),
-          features: starterFeatures,
-          productId: 'starter_monthly',
-          priceInCents: 500,
-          currency: 'cny',
-          credits: 50,
-          plan: { name: 'Starter', interval: 'month', intervalCount: 1 },
-        },
-        {
-          id: 'pro-monthly',
-          name: m['landing.pricing.pro'](),
-          description: m['landing.pricing.pro_desc'](),
-          price: '¥10',
-          interval: m['landing.pricing.per_month'](),
-          featured: true,
-          badge: m['landing.pricing.popular'](),
-          features: proFeatures,
-          productId: 'pro_monthly',
-          priceInCents: 1000,
-          currency: 'cny',
-          credits: 200,
-          plan: { name: 'Pro', interval: 'month', intervalCount: 1 },
-        },
+          buttonText: m['landing.pricing.subscribe'](),
+        })),
       ],
     },
   ];
@@ -202,8 +199,8 @@ export function Pricing({ title }: { title?: string } = {}) {
       id="pricing"
       className="border-border border-t px-4 py-24 sm:py-32"
     >
-      <div className="mx-auto max-w-5xl">
-        <div className="mb-20 text-center">
+      <div className="mx-auto max-w-6xl">
+        <div className="mb-14 text-center">
           <h2 className="font-serif text-4xl font-normal tracking-tight sm:text-5xl">
             {title ?? m['landing.pricing.title']()}
           </h2>
@@ -212,6 +209,9 @@ export function Pricing({ title }: { title?: string } = {}) {
           </p>
         </div>
         <PricingTable groups={groups} onCheckout={handleCheckout} />
+        <p className="text-muted-foreground mt-8 text-center text-sm">
+          {m['landing.pricing.billing_note']()}
+        </p>
       </div>
 
       <PaymentProviderModal

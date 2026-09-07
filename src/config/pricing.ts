@@ -34,15 +34,17 @@ export type PricingProduct = {
  * Keys MUST match what the pricing UI sends as product_id.
  */
 export const pricingCatalog: Record<string, PricingProduct> = {
+  // Base procurement: $5 / 1,000 credits. Retail: 7 × $0.005 = $0.035 / credit.
+  // Do not advertise image counts until the model's per-image debit is confirmed.
   starter_monthly: {
     productId: 'starter_monthly',
     productName: 'Starter',
     planName: 'Starter',
     description: 'Starter Monthly',
     type: PaymentType.SUBSCRIPTION,
-    priceInCents: 500,
-    currency: 'cny',
-    credits: 50,
+    priceInCents: 350,
+    currency: 'usd',
+    credits: 100,
     plan: {
       name: 'Starter',
       interval: PaymentInterval.MONTH,
@@ -55,10 +57,21 @@ export const pricingCatalog: Record<string, PricingProduct> = {
     planName: 'Pro',
     description: 'Pro Monthly',
     type: PaymentType.SUBSCRIPTION,
-    priceInCents: 1000,
-    currency: 'cny',
+    priceInCents: 700,
+    currency: 'usd',
     credits: 200,
     plan: { name: 'Pro', interval: PaymentInterval.MONTH, intervalCount: 1 },
+  },
+  studio_monthly: {
+    productId: 'studio_monthly',
+    productName: 'Studio',
+    planName: 'Studio',
+    description: 'Studio Monthly',
+    type: PaymentType.SUBSCRIPTION,
+    priceInCents: 1400,
+    currency: 'usd',
+    credits: 400,
+    plan: { name: 'Studio', interval: PaymentInterval.MONTH, intervalCount: 1 },
   },
   enterprise_monthly: {
     productId: 'enterprise_monthly',
