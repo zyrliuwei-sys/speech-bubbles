@@ -1011,5 +1011,12 @@
   "landing.pricing.studio_desc": "For creators with more to make.",
   "landing.pricing.monthly_credits": "{count} credits per month",
   "landing.pricing.subscribe": "Choose monthly plan",
-  "landing.pricing.billing_note": "Prices in USD. Paid plans are billed monthly. Cancel future renewals anytime."
+  "landing.pricing.billing_note": "Prices in USD. Paid plans are billed monthly. Cancel future renewals anytime.",
+  "editor.credits.login_title": "Sign in to generate",
+  "editor.credits.login_description": "New accounts receive 100 free credits. Each generation costs 21 credits.",
+  "editor.credits.login_action": "Sign in / Create account",
+  "editor.credits.payment_title": "More credits needed",
+  "editor.credits.payment_description": "Each generation costs 21 credits. Your balance is too low. Purchase a plan to continue creating.",
+  "editor.credits.payment_action": "View plans",
+  "editor.credits.cost": "21 credits per generation · New accounts receive 100 credits"
 }

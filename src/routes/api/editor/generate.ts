@@ -4,8 +4,17 @@ import { createFileRoute } from '@tanstack/react-router';
 
 import { KieProvider } from '@/core/ai/kie';
 import { AIMediaType, AITaskStatus } from '@/core/ai/types';
+import { getAuth } from '@/core/auth';
 import { envConfigs } from '@/config';
+import {
+  createTask,
+  findTask,
+  setProviderTaskId,
+  AITaskStatus as StoredStatus,
+  updateTask,
+} from '@/modules/ai-tasks/service';
 import { getAllConfigs } from '@/modules/config/service';
+import { getBalance } from '@/modules/credits/service';
 import { getStorage } from '@/modules/storage/service';
 import { md5 } from '@/lib/hash';
 import { enforceMinIntervalRateLimit } from '@/lib/rate-limit';
@@ -170,7 +179,12 @@ async function POST({ request }: { request: Request }) {
   });
   if (limited) return limited;
 
+  let chargedTaskId: string | undefined;
   try {
+    const session = await getAuth().api.getSession({
+      headers: request.headers,
+    });
+    if (!session?.user) return respErr('AUTH_REQUIRED', { status: 401 });
     const provider = await getKieProvider();
     if (!provider) return respErr('AI is not configured');
 
@@ -180,6 +194,9 @@ async function POST({ request }: { request: Request }) {
     if (!prompt) return respErr('Prompt is required');
     if (prompt.length > 2000)
       return respErr('Prompt is too long (maximum 2000 characters)');
+
+    if ((await getBalance(session.user.id)) < 21)
+      return respErr('INSUFFICIENT_CREDITS', { status: 402 });
 
     // For image editing, host the reference image so Kie can fetch it. If
     // hosting isn't possible (localhost / no storage / too large), fall back to
@@ -204,6 +221,15 @@ async function POST({ request }: { request: Request }) {
     const isBubbleGen = !refUrl;
     const finalPrompt = isBubbleGen ? buildBubblePrompt(prompt) : prompt;
 
+    const task = await createTask({
+      userId: session.user.id,
+      mediaType: 'image',
+      provider: 'kie',
+      model: EDITOR_AI_MODEL,
+      prompt: finalPrompt,
+      costCredits: 21,
+    });
+    chargedTaskId = task.id;
     const result = await provider.generate({
       params: {
         mediaType: AIMediaType.IMAGE,
@@ -218,8 +244,14 @@ async function POST({ request }: { request: Request }) {
       },
     });
 
-    return respData({ taskId: result.taskId, warning });
+    if (!result.taskId) throw new Error('No task ID returned');
+    await setProviderTaskId(task.id, result.taskId);
+    return respData({ taskId: task.id, warning });
   } catch (e: any) {
+    if (chargedTaskId)
+      await updateTask({ taskId: chargedTaskId, status: StoredStatus.FAILED });
+    if (e?.message === 'Insufficient credits')
+      return respErr('INSUFFICIENT_CREDITS', { status: 402 });
     console.error('editor generate failed:', e);
     return respErr(e?.message || 'Failed to start generation');
   }
@@ -231,16 +263,33 @@ async function POST({ request }: { request: Request }) {
  */
 async function GET({ request }: { request: Request }) {
   try {
+    const session = await getAuth().api.getSession({
+      headers: request.headers,
+    });
+    if (!session?.user) return respErr('AUTH_REQUIRED', { status: 401 });
     const provider = await getKieProvider();
     if (!provider) return respErr('AI is not configured');
 
     const taskId = new URL(request.url).searchParams.get('taskId');
     if (!taskId) return respErr('taskId is required');
+    const task = await findTask(taskId);
+    if (
+      !task ||
+      task.userId !== session.user.id ||
+      task.model !== EDITOR_AI_MODEL
+    )
+      return respErr('Task not found', { status: 404 });
+    if (task.status === StoredStatus.FAILED)
+      return respData({ status: 'failed', error: 'Generation failed' });
+    if (!task.taskId) return respData({ status: 'pending' });
 
     let status: GenStatus;
     let result;
     try {
-      result = await provider.query({ taskId, mediaType: AIMediaType.IMAGE });
+      result = await provider.query({
+        taskId: task.taskId,
+        mediaType: AIMediaType.IMAGE,
+      });
       status = mapStatus(result.taskStatus);
     } catch {
       // Task not registered yet, transient upstream blip, or an intermediate
@@ -254,15 +303,13 @@ async function GET({ request }: { request: Request }) {
         (i) => i.imageUrl
       )?.imageUrl;
       const dataUrl = firstUrl ? await fetchAsDataUrl(firstUrl) : null;
-      if (!dataUrl) {
-        return respData({
-          status: 'failed' as GenStatus,
-          error: 'No image returned',
-        });
-      }
+      if (!dataUrl) return respData({ status: 'processing' });
+      await updateTask({ taskId, status: StoredStatus.SUCCESS });
       return respData({ status, imageDataUrl: dataUrl });
     }
 
+    if (status === 'failed' && task.status !== StoredStatus.SUCCESS)
+      await updateTask({ taskId, status: StoredStatus.FAILED });
     return respData({
       status,
       error:

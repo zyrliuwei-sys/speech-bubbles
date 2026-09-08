@@ -192,6 +192,8 @@ export async function consume(params: {
       batchNo++;
     }
 
+    if (remainingToConsume > 0) throw new Error('Insufficient credits');
+
     // 3. Create consumption record
     const consumedCredit: NewCredit = {
       id: getUuid(),
@@ -218,25 +220,26 @@ export async function consume(params: {
 
 // --- Revoke (restore credits from a consumed record) ---
 
-export async function revoke(consumeCreditId: string) {
-  const [consumeRecord] = await db()
-    .select()
-    .from(credit)
-    .where(
-      and(
-        eq(credit.id, consumeCreditId),
-        eq(credit.transactionType, CreditTransactionType.CONSUME),
-        eq(credit.status, CreditStatus.ACTIVE)
+export async function revoke(consumeCreditId: string, transaction?: any) {
+  const execute = async (tx: any) => {
+    const [consumeRecord] = await tx
+      .select()
+      .from(credit)
+      .where(
+        and(
+          eq(credit.id, consumeCreditId),
+          eq(credit.transactionType, CreditTransactionType.CONSUME),
+          eq(credit.status, CreditStatus.ACTIVE)
+        )
       )
-    )
-    .limit(1);
-
-  if (!consumeRecord || !consumeRecord.consumedDetail) return;
-
-  const items = JSON.parse(consumeRecord.consumedDetail);
-
-  await db().transaction(async (tx: any) => {
-    // Atomic increment per source grant — no read-modify-write race.
+      .limit(1)
+      .for('update');
+    if (!consumeRecord?.consumedDetail) return;
+    const items = JSON.parse(consumeRecord.consumedDetail);
+    await tx
+      .update(credit)
+      .set({ status: CreditStatus.DELETED })
+      .where(eq(credit.id, consumeCreditId));
     for (const item of items) {
       await tx
         .update(credit)
@@ -245,13 +248,9 @@ export async function revoke(consumeCreditId: string) {
         })
         .where(eq(credit.id, item.creditId));
     }
-
-    // Mark consumption record as deleted
-    await tx
-      .update(credit)
-      .set({ status: CreditStatus.DELETED })
-      .where(eq(credit.id, consumeCreditId));
-  });
+  };
+  if (transaction) return execute(transaction);
+  return db().transaction(execute);
 }
 
 // --- Auto-grant for new user ---
@@ -259,30 +258,25 @@ export async function revoke(consumeCreditId: string) {
 export async function grantForNewUser(params: {
   userId: string;
   userEmail?: string;
-  configs: Record<string, string>;
 }) {
-  const { userId, userEmail, configs } = params;
-
-  if (configs.initial_credits_enabled !== 'true') return;
-
-  const credits = parseInt(configs.initial_credits_amount) || 0;
-  if (credits <= 0) return;
-
-  const validDays = parseInt(configs.initial_credits_valid_days) || 0;
-  const description = configs.initial_credits_description || 'Initial credits';
-
-  const expiresAt = calculateCreditExpirationTime({
-    creditsValidDays: validDays,
-  });
-
-  return grant({
-    userId,
-    userEmail,
-    credits,
-    description,
-    scene: CreditTransactionScene.GIFT,
-    expiresAt,
-  });
+  // A deterministic primary key makes retries safe without granting twice.
+  const id = `signup:${params.userId}`;
+  await db()
+    .insert(credit)
+    .values({
+      id,
+      userId: params.userId,
+      userEmail: params.userEmail || '',
+      transactionNo: getSnowId(),
+      transactionType: CreditTransactionType.GRANT,
+      transactionScene: CreditTransactionScene.GIFT,
+      credits: 100,
+      remainingCredits: 100,
+      status: CreditStatus.ACTIVE,
+      description: 'New account welcome credits',
+      expiresAt: null,
+    })
+    .onConflictDoUpdate({ target: credit.id, set: { id } });
 }
 
 // --- History ---

@@ -83,33 +83,37 @@ export async function updateTask(params: {
 }) {
   const { taskId, status, taskResult } = params;
 
-  const [task] = await db()
-    .select()
-    .from(aiTask)
-    .where(eq(aiTask.id, taskId))
-    .limit(1);
-
-  if (!task) throw new Error('Task not found');
-
-  // Update task
-  const updateData: any = { status };
-  if (taskResult) {
-    updateData.taskResult = JSON.stringify(taskResult);
-  }
-
-  await db().update(aiTask).set(updateData).where(eq(aiTask.id, taskId));
-
-  // Revoke credits on failure
-  if (status === AITaskStatus.FAILED && task.taskInfo) {
-    try {
-      const info = JSON.parse(task.taskInfo as string);
-      if (info.creditId) {
-        await revoke(info.creditId);
-      }
-    } catch {
-      // Ignore parse errors
+  return db().transaction(async (tx: any) => {
+    const [task] = await tx
+      .select()
+      .from(aiTask)
+      .where(eq(aiTask.id, taskId))
+      .limit(1)
+      .for('update');
+    if (!task) throw new Error('Task not found');
+    if (
+      [
+        AITaskStatus.SUCCESS,
+        AITaskStatus.FAILED,
+        AITaskStatus.CANCELED,
+      ].includes(task.status)
+    )
+      return;
+    if (
+      (status === AITaskStatus.FAILED || status === AITaskStatus.CANCELED) &&
+      task.taskInfo
+    ) {
+      const info = JSON.parse(task.taskInfo);
+      if (info.creditId) await revoke(info.creditId, tx);
     }
-  }
+    await tx
+      .update(aiTask)
+      .set({
+        status,
+        ...(taskResult ? { taskResult: JSON.stringify(taskResult) } : {}),
+      })
+      .where(eq(aiTask.id, taskId));
+  });
 }
 
 /**
@@ -150,4 +154,15 @@ export async function findTask(taskId: string) {
     .where(eq(aiTask.id, taskId))
     .limit(1);
   return result;
+}
+
+/** Persist the upstream ID separately from the internal, user-owned task ID. */
+export async function setProviderTaskId(
+  taskId: string,
+  providerTaskId: string
+) {
+  await db()
+    .update(aiTask)
+    .set({ taskId: providerTaskId })
+    .where(eq(aiTask.id, taskId));
 }

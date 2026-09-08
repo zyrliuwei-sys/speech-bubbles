@@ -35,10 +35,17 @@ import { toast } from 'sonner';
 
 import { useSession } from '@/core/auth/client';
 import { tDynamic } from '@/core/i18n/dynamic';
+import { Link } from '@/core/i18n/navigation';
 import { apiGet, apiPost } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
-import { Button } from '@/components/ui/button';
+import { Button, buttonVariants } from '@/components/ui/button';
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from '@/components/ui/dialog';
 
 import {
   buildBubbleShape,
@@ -326,6 +333,9 @@ export function SpeechBubbleEditor({
   compact = false,
 }: SpeechBubbleEditorProps) {
   const { data: session } = useSession();
+  const [creditDialog, setCreditDialog] = useState<'login' | 'payment' | null>(
+    null
+  );
   const [image, setImage] = useState<EditorImage | null>(null);
   const [bubbles, setBubbles] = useState<Bubble[]>([]);
   const [selectedId, setSelectedId] = useState<string | null>(null);
@@ -447,6 +457,10 @@ export function SpeechBubbleEditor({
   async function handleGenerateAi() {
     const prompt = ai.prompt.trim();
     if (!prompt || ai.status !== 'idle') return;
+    if (!session?.user) {
+      setCreditDialog('login');
+      return;
+    }
 
     const runId = ++genRunId.current;
     setAi((s) => ({ ...s, status: 'creating', error: undefined }));
@@ -471,6 +485,14 @@ export function SpeechBubbleEditor({
         if (res.warning) toast.info(res.warning);
       } catch (e: any) {
         if (runId !== genRunId.current) return;
+        if (
+          e?.message === 'INSUFFICIENT_CREDITS' ||
+          e?.message === 'AUTH_REQUIRED'
+        ) {
+          setCreditDialog(e.message === 'AUTH_REQUIRED' ? 'login' : 'payment');
+          setAi((s) => ({ ...s, status: 'idle', error: undefined }));
+          return;
+        }
         const msg = e?.message || m['editor.bubble_panel.failed']();
         setAi((s) => ({ ...s, status: 'idle', error: msg }));
         toast.error(msg);
@@ -912,6 +934,34 @@ export function SpeechBubbleEditor({
     <div
       className={cn('flex h-full w-full flex-col gap-4 lg:flex-row lg:gap-6')}
     >
+      <Dialog
+        open={creditDialog !== null}
+        onOpenChange={(open) => {
+          if (!open) setCreditDialog(null);
+        }}
+      >
+        <DialogContent className="gap-5 rounded-2xl p-6 sm:max-w-md">
+          <Sparkles className="text-primary size-8" />
+          <DialogTitle>
+            {creditDialog === 'login'
+              ? m['editor.credits.login_title']()
+              : m['editor.credits.payment_title']()}
+          </DialogTitle>
+          <DialogDescription>
+            {creditDialog === 'login'
+              ? m['editor.credits.login_description']()
+              : m['editor.credits.payment_description']()}
+          </DialogDescription>
+          <Link
+            href={creditDialog === 'login' ? '/sign-in' : '/pricing'}
+            className={cn(buttonVariants(), 'w-full')}
+          >
+            {creditDialog === 'login'
+              ? m['editor.credits.login_action']()
+              : m['editor.credits.payment_action']()}
+          </Link>
+        </DialogContent>
+      </Dialog>
       {/* Stage */}
       <div className="flex min-h-[360px] flex-1 flex-col">
         <div
@@ -1612,6 +1662,9 @@ function BubblePanel({
           ? m['editor.bubble_panel.generating']({ seconds: elapsed })
           : m['editor.bubble_panel.add']()}
       </Button>
+      <p className="text-muted-foreground text-xs">
+        {m['editor.credits.cost']()}
+      </p>
       {ai.error && <p className="text-destructive text-xs">{ai.error}</p>}
 
       {/* Results gallery — drag a result onto the canvas to use it elsewhere,

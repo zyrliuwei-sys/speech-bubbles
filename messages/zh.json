@@ -1011,5 +1011,12 @@
   "landing.pricing.studio_desc": "适合更频繁、更多量的创作。",
   "landing.pricing.monthly_credits": "每月 {count} 积分",
   "landing.pricing.subscribe": "选择月套餐",
-  "landing.pricing.billing_note": "价格以美元计费。付费套餐按月订阅，可随时取消后续续费。"
+  "landing.pricing.billing_note": "价格以美元计费。付费套餐按月订阅，可随时取消后续续费。",
+  "editor.credits.login_title": "登录后开始生成",
+  "editor.credits.login_description": "新用户注册赠送 100 积分，每次生成消耗 21 积分。",
+  "editor.credits.login_action": "登录 / 注册",
+  "editor.credits.payment_title": "积分不足，需要付费",
+  "editor.credits.payment_description": "每次生成需要 21 积分，当前余额不足。请购买套餐补充积分后继续创作。",
+  "editor.credits.payment_action": "查看套餐并购买",
+  "editor.credits.cost": "每次生成 21 积分 · 新用户注册赠送 100 积分"
 }
