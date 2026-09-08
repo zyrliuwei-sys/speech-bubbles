@@ -14,11 +14,11 @@ export const Route = createFileRoute('/robots.txt')({
           'Disallow: /api/',
           'Disallow: /*?*',
           '',
-          `Sitemap: ${envConfigs.app_url}/sitemap.xml`,
+          `Sitemap: ${envConfigs.app_url.replace(/\/+$/, '')}/sitemap.xml`,
           '',
         ].join('\n');
         return new Response(body, {
-          headers: { 'Content-Type': 'text/plain' },
+          headers: { 'Content-Type': 'text/plain; charset=utf-8' },
         });
       },
     },

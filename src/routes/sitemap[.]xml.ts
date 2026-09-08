@@ -20,23 +20,41 @@ type Entry = {
 };
 
 function urlFor(path: string, locale: string): string {
-  return localizeUrl(`${envConfigs.app_url}${path || '/'}`, {
-    locale: locale as (typeof locales)[number],
-  }).href;
+  return localizeUrl(
+    `${envConfigs.app_url.replace(/\/+$/, '')}${path || '/'}`,
+    {
+      locale: locale as (typeof locales)[number],
+    }
+  ).href;
 }
 
-function entryXml(e: Entry): string {
+function escapeXml(value: string): string {
+  return value.replace(/[&<>"']/g, (character) => {
+    const entities: Record<string, string> = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&apos;',
+    };
+    return entities[character];
+  });
+}
+
+function entryXml(e: Entry, locale: (typeof locales)[number]): string {
   const alternates = locales
     .map(
       (loc) =>
-        `    <xhtml:link rel="alternate" hreflang="${loc}" href="${urlFor(e.path, loc)}"/>`
+        `    <xhtml:link rel="alternate" hreflang="${loc}" href="${escapeXml(urlFor(e.path, loc))}"/>`
     )
     .join('\n');
   return [
     '  <url>',
-    `    <loc>${urlFor(e.path, baseLocale)}</loc>`,
+    `    <loc>${escapeXml(urlFor(e.path, locale))}</loc>`,
     alternates,
-    e.lastModified ? `    <lastmod>${e.lastModified}</lastmod>` : null,
+    e.lastModified
+      ? `    <lastmod>${escapeXml(e.lastModified)}</lastmod>`
+      : null,
     `    <changefreq>${e.changeFrequency}</changefreq>`,
     `    <priority>${e.priority}</priority>`,
     '  </url>',
@@ -91,13 +109,15 @@ export const Route = createFileRoute('/sitemap.xml')({
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
-          ...entries.map(entryXml),
+          ...entries.flatMap((entry) =>
+            locales.map((locale) => entryXml(entry, locale))
+          ),
           '</urlset>',
           '',
         ].join('\n');
 
         return new Response(xml, {
-          headers: { 'Content-Type': 'application/xml' },
+          headers: { 'Content-Type': 'application/xml; charset=utf-8' },
         });
       },
     },
