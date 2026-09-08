@@ -1018,5 +1018,14 @@
   "editor.credits.payment_title": "More credits needed",
   "editor.credits.payment_description": "Each generation costs 21 credits. Your balance is too low. Purchase a plan to continue creating.",
   "editor.credits.payment_action": "View plans",
-  "editor.credits.cost": "21 credits per generation · New accounts receive 100 credits"
+  "editor.credits.cost": "21 credits per generation · New accounts receive 100 credits",
+  "editor.history.title": "My generated frames",
+  "editor.history.description": "Saved to your account. Click or drag a frame to reuse it.",
+  "editor.history.login": "Sign in to see your saved frames.",
+  "editor.history.loading": "Loading frames",
+  "editor.history.error": "Unable to load this record. Please retry.",
+  "editor.history.retry": "Retry",
+  "editor.history.empty": "Your generated frames will stay here.",
+  "editor.history.more": "Load more",
+  "editor.history.add": "Add this frame to canvas"
 }

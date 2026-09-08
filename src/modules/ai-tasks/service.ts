@@ -1,4 +1,4 @@
-import { and, desc, eq, isNull } from 'drizzle-orm';
+import { and, desc, eq, isNull, ne } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { aiTask } from '@/config/db/schema';
@@ -165,4 +165,62 @@ export async function setProviderTaskId(
     .update(aiTask)
     .set({ taskId: providerTaskId })
     .where(eq(aiTask.id, taskId));
+}
+
+/** Keep the actual image bytes in the account record, not an expiring provider URL. */
+export async function saveTaskImage(
+  taskId: string,
+  userId: string,
+  imageDataUrl: string
+) {
+  return db().transaction(async (tx: any) => {
+    const [task] = await tx
+      .select()
+      .from(aiTask)
+      .where(and(eq(aiTask.id, taskId), eq(aiTask.userId, userId)))
+      .limit(1)
+      .for('update');
+    if (!task) throw new Error('Task not found');
+    if ([AITaskStatus.FAILED, AITaskStatus.CANCELED].includes(task.status))
+      throw new Error('Task has failed');
+    if (task.taskResult && JSON.parse(task.taskResult).imageDataUrl) return;
+    await tx
+      .update(aiTask)
+      .set({
+        status: AITaskStatus.SUCCESS,
+        taskResult: JSON.stringify({ imageDataUrl }),
+      })
+      .where(eq(aiTask.id, taskId));
+  });
+}
+
+/** Paginated metadata only; image bytes are fetched separately for visible cards. */
+export async function getImageHistory(
+  userId: string,
+  model: string,
+  page: number,
+  limit = 12
+) {
+  const rows = await db()
+    .select({
+      id: aiTask.id,
+      prompt: aiTask.prompt,
+      status: aiTask.status,
+      createdAt: aiTask.createdAt,
+    })
+    .from(aiTask)
+    .where(
+      and(
+        eq(aiTask.userId, userId),
+        eq(aiTask.model, model),
+        eq(aiTask.mediaType, 'image'),
+        isNull(aiTask.deletedAt),
+        ne(aiTask.status, AITaskStatus.FAILED),
+        ne(aiTask.status, AITaskStatus.CANCELED)
+      )
+    )
+    .orderBy(desc(aiTask.createdAt), desc(aiTask.id))
+    .limit(limit + 1)
+    .offset((page - 1) * limit);
+  return { items: rows.slice(0, limit), hasMore: rows.length > limit };
 }

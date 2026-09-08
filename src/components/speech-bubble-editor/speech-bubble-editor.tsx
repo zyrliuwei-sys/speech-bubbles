@@ -39,6 +39,7 @@ import { Link } from '@/core/i18n/navigation';
 import { apiGet, apiPost } from '@/lib/api-client';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
+import { EditorGenerationHistory } from '@/blocks/editor-generation-history';
 import { Button, buttonVariants } from '@/components/ui/button';
 import {
   Dialog,
@@ -376,11 +377,12 @@ export function SpeechBubbleEditor({
     useImage: boolean;
     error?: string;
   }>({ status: 'idle', prompt: '', useImage: false });
-  const [aiResults, setAiResults] = useState<
-    { id: string; dataUrl: string; prompt: string }[]
-  >([]);
   const [aiElapsed, setAiElapsed] = useState(0);
   const genRunId = useRef(0);
+  useEffect(() => {
+    genRunId.current++;
+    setAi((value) => ({ ...value, status: 'idle', error: undefined }));
+  }, [session?.user.id]);
 
   // Drop visual state (file drag) — unchanged.
   const dragDepth = useRef(0);
@@ -482,6 +484,9 @@ export function SpeechBubbleEditor({
           imageDataUrl,
         });
         taskId = res.taskId;
+        void queryClient.invalidateQueries({
+          queryKey: ['editor-history', session?.user.id],
+        });
         if (res.warning) toast.info(res.warning);
       } catch (e: any) {
         if (runId !== genRunId.current) return;
@@ -531,16 +536,9 @@ export function SpeechBubbleEditor({
             }
             if (runId !== genRunId.current) return;
             addImageBubble(transparent);
-            setAiResults((prev) =>
-              [
-                {
-                  id: Math.random().toString(36).slice(2, 10),
-                  dataUrl: transparent,
-                  prompt,
-                },
-                ...prev,
-              ].slice(0, 12)
-            );
+            void queryClient.invalidateQueries({
+              queryKey: ['editor-history', session?.user.id],
+            });
             setAi((s) => ({ ...s, status: 'idle', error: undefined }));
             toast.success(m['editor.bubble_panel.success']());
             return;
@@ -1105,19 +1103,20 @@ export function SpeechBubbleEditor({
           <BubblePanel
             ai={ai}
             elapsed={aiElapsed}
-            results={aiResults}
             hasImage={!!image}
             onPromptChange={(prompt) => setAi((s) => ({ ...s, prompt }))}
             onUseImageChange={(useImage) => setAi((s) => ({ ...s, useImage }))}
             onGenerate={handleGenerateAi}
           />
           <div className="border-t" />
-          {!selected ? (
-            <div className="text-muted-foreground space-y-3 py-6 text-center text-sm">
-              <Plus className="mx-auto size-6 opacity-50" />
-              <p>{m['editor.panel.empty']()}</p>
-            </div>
-          ) : (
+          <EditorGenerationHistory
+            key={session?.user.id || 'guest'}
+            userId={session?.user.id || ''}
+            prepareImage={makeTransparentPng}
+            onAdd={addImageBubble}
+            onDownload={downloadDataUrl}
+          />
+          {selected && (
             <BubbleControls
               bubble={selected}
               onChange={(patch) => updateBubble(selected.id, patch)}
@@ -1600,7 +1599,6 @@ interface BubblePanelProps {
     error?: string;
   };
   elapsed: number;
-  results: { id: string; dataUrl: string; prompt: string }[];
   hasImage: boolean;
   onPromptChange: (v: string) => void;
   onUseImageChange: (v: boolean) => void;
@@ -1610,7 +1608,6 @@ interface BubblePanelProps {
 function BubblePanel({
   ai,
   elapsed,
-  results,
   hasImage,
   onPromptChange,
   onUseImageChange,
@@ -1666,48 +1663,6 @@ function BubblePanel({
         {m['editor.credits.cost']()}
       </p>
       {ai.error && <p className="text-destructive text-xs">{ai.error}</p>}
-
-      {/* Results gallery — drag a result onto the canvas to use it elsewhere,
-          or hover and click download. The latest result is auto-dropped on
-          the canvas by handleGenerateAi. */}
-      {results.length > 0 && (
-        <div className="space-y-2 border-t pt-3">
-          <div className="text-muted-foreground text-xs font-medium">
-            {m['editor.bubble_panel.results']()}
-          </div>
-          <div className="grid grid-cols-2 gap-2">
-            {results.map((r) => (
-              <div
-                key={r.id}
-                className="group relative aspect-square overflow-hidden rounded-md border"
-                title={r.prompt}
-              >
-                <img
-                  src={r.dataUrl}
-                  alt={r.prompt}
-                  draggable
-                  onDragStart={(e) => {
-                    e.dataTransfer.setData('application/x-ai-image', r.dataUrl);
-                    e.dataTransfer.effectAllowed = 'copy';
-                  }}
-                  className="h-full w-full cursor-grab object-contain p-1 active:cursor-grabbing"
-                />
-                <button
-                  type="button"
-                  className="bg-background/80 absolute top-1 right-1 rounded p-1 opacity-0 shadow-sm transition group-hover:opacity-100"
-                  onClick={() => downloadDataUrl(r.dataUrl, `ai-${r.id}.png`)}
-                  title={m['editor.bubble_panel.download']()}
-                >
-                  <Download className="size-3.5" />
-                </button>
-              </div>
-            ))}
-          </div>
-          <p className="text-muted-foreground text-xs">
-            {m['editor.bubble_panel.drag_hint']()}
-          </p>
-        </div>
-      )}
     </div>
   );
 }

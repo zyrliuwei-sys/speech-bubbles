@@ -1,3 +1,4 @@
+import { createHmac, timingSafeEqual } from 'node:crypto';
 import { mkdir, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createFileRoute } from '@tanstack/react-router';
@@ -9,6 +10,8 @@ import { envConfigs } from '@/config';
 import {
   createTask,
   findTask,
+  getImageHistory,
+  saveTaskImage,
   setProviderTaskId,
   AITaskStatus as StoredStatus,
   updateTask,
@@ -172,7 +175,43 @@ async function hostReferenceImage(dataUrl: string): Promise<string | null> {
  * Text-to-image when no image is supplied; image-to-image otherwise. Returns
  * the async task's taskId.
  */
+function callbackSignature(taskId: string) {
+  return createHmac('sha256', envConfigs.auth_secret)
+    .update(`editor-image:${taskId}`)
+    .digest('hex');
+}
+
 async function POST({ request }: { request: Request }) {
+  // Provider completion also persists the image if the user has closed the page.
+  const params = new URL(request.url).searchParams;
+  const callbackTask = params.get('callbackTask');
+  if (callbackTask) {
+    const received = Buffer.from(params.get('token') || '');
+    const expected = Buffer.from(callbackSignature(callbackTask));
+    if (
+      !envConfigs.auth_secret ||
+      received.length !== expected.length ||
+      !timingSafeEqual(received, expected)
+    )
+      return respErr('Unauthorized', { status: 401 });
+    try {
+      const task = await findTask(callbackTask);
+      if (!task || task.model !== EDITOR_AI_MODEL)
+        return respErr('Task not found', { status: 404 });
+      if (!task.taskId) return respErr('Task not ready', { status: 503 });
+      const response = await resolveGeneration(task);
+      const payload = await response.json();
+      if (
+        payload.code !== 0 ||
+        !['success', 'failed'].includes(payload.data?.status)
+      )
+        return respErr('Result not ready', { status: 503 });
+      return respData({ saved: true });
+    } catch (error) {
+      console.error('editor image persistence failed:', error);
+      return respErr('Could not save generation', { status: 503 });
+    }
+  }
   const limited = enforceMinIntervalRateLimit(request, {
     intervalMs: 4000,
     keyPrefix: 'editor-ai-gen',
@@ -226,13 +265,17 @@ async function POST({ request }: { request: Request }) {
       mediaType: 'image',
       provider: 'kie',
       model: EDITOR_AI_MODEL,
-      prompt: finalPrompt,
+      prompt,
       costCredits: 21,
     });
     chargedTaskId = task.id;
+    const callback = new URL('/api/editor/generate', envConfigs.app_url);
+    callback.searchParams.set('callbackTask', task.id);
+    callback.searchParams.set('token', callbackSignature(task.id));
     const result = await provider.generate({
       params: {
         mediaType: AIMediaType.IMAGE,
+        callbackUrl: callback.href,
         model: EDITOR_AI_MODEL,
         prompt: finalPrompt,
         options: {
@@ -267,11 +310,17 @@ async function GET({ request }: { request: Request }) {
       headers: request.headers,
     });
     if (!session?.user) return respErr('AUTH_REQUIRED', { status: 401 });
-    const provider = await getKieProvider();
-    if (!provider) return respErr('AI is not configured');
-
-    const taskId = new URL(request.url).searchParams.get('taskId');
-    if (!taskId) return respErr('taskId is required');
+    const params = new URL(request.url).searchParams;
+    const taskId = params.get('taskId');
+    if (!taskId) {
+      const page = Number(params.get('page') || 1);
+      if (!Number.isSafeInteger(page) || page < 1)
+        return respErr('Invalid page', { status: 400 });
+      return respData(
+        await getImageHistory(session.user.id, EDITOR_AI_MODEL, page),
+        { headers: { 'Cache-Control': 'private, no-store' } }
+      );
+    }
     const task = await findTask(taskId);
     if (
       !task ||
@@ -279,48 +328,65 @@ async function GET({ request }: { request: Request }) {
       task.model !== EDITOR_AI_MODEL
     )
       return respErr('Task not found', { status: 404 });
-    if (task.status === StoredStatus.FAILED)
-      return respData({ status: 'failed', error: 'Generation failed' });
-    if (!task.taskId) return respData({ status: 'pending' });
-
-    let status: GenStatus;
-    let result;
-    try {
-      result = await provider.query({
-        taskId: task.taskId,
-        mediaType: AIMediaType.IMAGE,
-      });
-      status = mapStatus(result.taskStatus);
-    } catch {
-      // Task not registered yet, transient upstream blip, or an intermediate
-      // status the provider doesn't map — treat as still processing so the
-      // client keeps polling instead of erroring out into a silent timeout.
-      return respData({ status: 'pending' as GenStatus });
-    }
-
-    if (status === 'success') {
-      const firstUrl = result?.taskInfo?.images?.find(
-        (i) => i.imageUrl
-      )?.imageUrl;
-      const dataUrl = firstUrl ? await fetchAsDataUrl(firstUrl) : null;
-      if (!dataUrl) return respData({ status: 'processing' });
-      await updateTask({ taskId, status: StoredStatus.SUCCESS });
-      return respData({ status, imageDataUrl: dataUrl });
-    }
-
-    if (status === 'failed' && task.status !== StoredStatus.SUCCESS)
-      await updateTask({ taskId, status: StoredStatus.FAILED });
-    return respData({
-      status,
-      error:
-        status === 'failed'
-          ? result?.taskInfo?.errorMessage || 'Generation failed'
-          : undefined,
-    });
+    return await resolveGeneration(task);
   } catch (e: any) {
     console.error('editor generate poll failed:', e);
     return respErr(e?.message || 'Failed to query generation');
   }
+}
+
+async function resolveGeneration(
+  task: NonNullable<Awaited<ReturnType<typeof findTask>>>
+) {
+  const taskId = task.id;
+  if (task.status === StoredStatus.FAILED)
+    return respData({ status: 'failed', error: 'Generation failed' });
+  if (task.taskResult) {
+    const saved = JSON.parse(task.taskResult);
+    if (saved.imageDataUrl)
+      return respData(
+        { status: 'success', imageDataUrl: saved.imageDataUrl },
+        { headers: { 'Cache-Control': 'private, no-store' } }
+      );
+  }
+  if (!task.taskId) return respData({ status: 'pending' });
+  const provider = await getKieProvider();
+  if (!provider) return respErr('AI is not configured');
+
+  let status: GenStatus;
+  let result;
+  try {
+    result = await provider.query({
+      taskId: task.taskId,
+      mediaType: AIMediaType.IMAGE,
+    });
+    status = mapStatus(result.taskStatus);
+  } catch {
+    // Task not registered yet, transient upstream blip, or an intermediate
+    // status the provider doesn't map — treat as still processing so the
+    // client keeps polling instead of erroring out into a silent timeout.
+    return respData({ status: 'pending' as GenStatus });
+  }
+
+  if (status === 'success') {
+    const firstUrl = result?.taskInfo?.images?.find(
+      (i) => i.imageUrl
+    )?.imageUrl;
+    const dataUrl = firstUrl ? await fetchAsDataUrl(firstUrl) : null;
+    if (!dataUrl) return respData({ status: 'processing' });
+    await saveTaskImage(taskId, task.userId, dataUrl);
+    return respData({ status, imageDataUrl: dataUrl });
+  }
+
+  if (status === 'failed' && task.status !== StoredStatus.SUCCESS)
+    await updateTask({ taskId, status: StoredStatus.FAILED });
+  return respData({
+    status,
+    error:
+      status === 'failed'
+        ? result?.taskInfo?.errorMessage || 'Generation failed'
+        : undefined,
+  });
 }
 
 export const Route = createFileRoute('/api/editor/generate')({

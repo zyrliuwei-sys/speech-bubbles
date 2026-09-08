@@ -1018,5 +1018,14 @@
   "editor.credits.payment_title": "积分不足，需要付费",
   "editor.credits.payment_description": "每次生成需要 21 积分，当前余额不足。请购买套餐补充积分后继续创作。",
   "editor.credits.payment_action": "查看套餐并购买",
-  "editor.credits.cost": "每次生成 21 积分 · 新用户注册赠送 100 积分"
+  "editor.credits.cost": "每次生成 21 积分 · 新用户注册赠送 100 积分",
+  "editor.history.title": "我生成的框",
+  "editor.history.description": "已保存到账号，点击或拖动即可再次使用。",
+  "editor.history.login": "登录后查看你保存的框。",
+  "editor.history.loading": "正在加载生成记录",
+  "editor.history.error": "暂时无法加载，请重试。",
+  "editor.history.retry": "重试",
+  "editor.history.empty": "你生成的框会一直保留在这里。",
+  "editor.history.more": "加载更多",
+  "editor.history.add": "将此框添加到画布"
 }
