@@ -15,10 +15,10 @@ export function BrandMark({
   return (
     <span className={cn('inline-flex items-center gap-2', className)}>
       <Gamepad2
-        className={cn('text-brand size-6 shrink-0', iconClassName)}
+        className={cn('text-primary size-6 shrink-0', iconClassName)}
         strokeWidth={2.25}
       />
-      <span className="font-semibold tracking-tight">{name}</span>
+      <span className="font-display font-bold tracking-tight">{name}</span>
     </span>
   );
 }

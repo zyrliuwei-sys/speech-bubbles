@@ -739,7 +739,7 @@
   "landing.nav.directory": "Directory",
   "landing.nav.categories": "Categories",
   "landing.nav.submit": "Submit",
-  "landing.home.headline": "Every game search, one click away",
+  "landing.home.headline": "Find the answer. Jump straight to the game.",
   "landing.home.subtitle": "{topics} trending game topics explained, plus {sites} hand-picked game websites.",
   "landing.home.search_placeholder": "\"minecraft cape\", \"roblox codes\"",
   "landing.home.search_label": "Search games and sites",
@@ -784,5 +784,11 @@
   "landing.footer.tagline": "GameNav answers trending game searches and links you to the right site — plus a hand-picked directory of game websites.",
   "landing.footer.browse": "Browse",
   "landing.footer.categories": "Categories",
-  "landing.footer.more": "More"
+  "landing.footer.more": "More",
+  "landing.home.eyebrow": "Updated {date} · {topics} topics",
+  "landing.home.trending": "Trending searches",
+  "landing.home.popular": "Popular",
+  "landing.home.sidebar_topics": "Game topics",
+  "landing.home.topics_title": "Trending game topics",
+  "landing.home.topics_desc": "Codes, secrets, release dates and guides — each linked to the right site."
 }

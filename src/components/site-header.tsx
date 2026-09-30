@@ -37,8 +37,8 @@ export function SiteHeader({
   const ctaText = ctaLabel ?? m['common.nav.get_started']();
 
   return (
-    <header className="bg-background/80 sticky top-0 z-50 w-full backdrop-blur-sm">
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
+    <header className="bg-background/85 sticky top-0 z-50 w-full border-b backdrop-blur-md">
+      <div className="mx-auto flex h-16 max-w-7xl items-center justify-between px-4 sm:px-6">
         {/* Brand */}
         <Link href="/" className="text-lg">
           <BrandMark name={envConfigs.app_name} />

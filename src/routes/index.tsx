@@ -4,11 +4,13 @@ import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
+import { Header } from '@/blocks/header';
 import { NavDirectory } from '@/blocks/nav-directory';
 
 function HomePage() {
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
+      <Header />
       <main className="flex-1">
         <NavDirectory />
       </main>

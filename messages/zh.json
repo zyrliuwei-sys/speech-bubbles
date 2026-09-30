@@ -739,7 +739,7 @@
   "landing.nav.directory": "导航",
   "landing.nav.categories": "分类",
   "landing.nav.submit": "提交网站",
-  "landing.home.headline": "每个游戏搜索，一键直达",
+  "landing.home.headline": "查到答案，一键直达游戏。",
   "landing.home.subtitle": "{topics} 个热门游戏话题解读，外加 {sites} 个精选游戏网站。",
   "landing.home.search_placeholder": "\"minecraft 披风\"、\"roblox codes\"",
   "landing.home.search_label": "搜索游戏和网站",
@@ -784,5 +784,11 @@
   "landing.footer.tagline": "GameNav 解答热门游戏搜索并直达对应网站，同时提供精选游戏网站导航。",
   "landing.footer.browse": "浏览",
   "landing.footer.categories": "分类",
-  "landing.footer.more": "更多"
+  "landing.footer.more": "更多",
+  "landing.home.eyebrow": "更新于 {date} · {topics} 个话题",
+  "landing.home.trending": "热门搜索",
+  "landing.home.popular": "大家在搜",
+  "landing.home.sidebar_topics": "游戏话题",
+  "landing.home.topics_title": "热门游戏话题",
+  "landing.home.topics_desc": "兑换码、隐藏要素、发售日期和攻略——每条都直达对应网站。"
 }

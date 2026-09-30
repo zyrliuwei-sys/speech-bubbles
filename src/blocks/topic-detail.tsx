@@ -6,10 +6,10 @@ import { TOPICS, type Topic } from '@/config/topics';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
 import { SiteIcon } from '@/components/nav/site-icon';
+import { TONES } from '@/components/nav/tones';
 import { TopicCard } from '@/components/nav/topic-card';
-import { buttonVariants } from '@/components/ui/button';
 
-import { topicGroupLabel, topicHref } from './nav-i18n';
+import { topicGroupLabel, topicHref, topicTitle, topicTone } from './nav-i18n';
 
 export function TopicDetail({ topic }: { topic: Topic }) {
   const domain = siteDomain(topic.site.url);
@@ -28,12 +28,28 @@ export function TopicDetail({ topic }: { topic: Topic }) {
       </Link>
 
       <header className="mt-6">
-        <p className="text-muted-foreground text-sm">{topic.game}</p>
-        <h1 className="mt-1 text-3xl font-bold tracking-tight first-letter:uppercase sm:text-4xl">
-          {topic.keyword}
+        <p
+          className={cn(
+            'inline-flex items-center gap-2 rounded-full px-2.5 py-1 font-mono text-xs font-medium',
+            TONES[topicTone(topic.group)].soft,
+            TONES[topicTone(topic.group)].text
+          )}
+        >
+          <span
+            className={cn(
+              'size-1.5 rounded-full',
+              TONES[topicTone(topic.group)].dot
+            )}
+          />
+          {topic.game}
+        </p>
+        <h1 className="font-display mt-4 text-4xl leading-[1.05] font-extrabold tracking-tight text-balance sm:text-5xl">
+          {topicTitle(topic)}
         </h1>
-        <p className="mt-4 text-lg leading-relaxed">{topic.summary}</p>
-        <p className="text-muted-foreground mt-3 text-xs">
+        <p className="mt-5 text-lg leading-relaxed text-pretty">
+          {topic.summary}
+        </p>
+        <p className="text-muted-foreground mt-3 font-mono text-xs">
           {m['landing.topic.updated']({ date: topic.updatedAt })}
         </p>
       </header>
@@ -43,21 +59,21 @@ export function TopicDetail({ topic }: { topic: Topic }) {
         href={topic.site.url}
         target="_blank"
         rel="noopener noreferrer"
-        className="bg-card group mt-8 flex items-center gap-4 rounded-2xl border p-4 transition-shadow hover:shadow-md sm:p-5"
+        className="bg-ink text-ink-foreground group mt-8 flex items-center gap-4 rounded-2xl p-4 transition-transform hover:-translate-y-0.5 sm:p-5"
       >
         <SiteIcon domain={domain} name={topic.site.name} className="size-12" />
         <span className="min-w-0 flex-1">
-          <span className="text-muted-foreground block text-[11px] tracking-wider uppercase">
+          <span className="text-ink-muted block font-mono text-[11px] tracking-wider uppercase">
             {m['landing.topic.best_site']()}
           </span>
           <span className="block truncate font-bold group-hover:underline">
             {topic.site.name}
           </span>
-          <span className="text-muted-foreground block truncate text-xs">
+          <span className="text-ink-muted block truncate font-mono text-xs">
             {domain}
           </span>
         </span>
-        <span className={cn(buttonVariants(), 'hidden gap-1.5 sm:inline-flex')}>
+        <span className="text-ink hidden h-9 items-center gap-1.5 rounded-lg bg-white px-4 text-sm font-semibold sm:inline-flex">
           {m['landing.topic.visit']()}
           <ArrowUpRight className="size-4" />
         </span>
@@ -67,8 +83,10 @@ export function TopicDetail({ topic }: { topic: Topic }) {
       <article className="mt-10 space-y-8">
         {topic.sections.map((s) => (
           <section key={s.heading}>
-            <h2 className="text-xl font-bold tracking-tight">{s.heading}</h2>
-            <p className="text-muted-foreground mt-2 leading-relaxed whitespace-pre-line">
+            <h2 className="font-display text-2xl font-bold tracking-tight">
+              {s.heading}
+            </h2>
+            <p className="text-foreground/80 mt-3 leading-relaxed whitespace-pre-line">
               {s.body}
             </p>
           </section>
@@ -126,10 +144,11 @@ export function TopicDetail({ topic }: { topic: Topic }) {
               <TopicCard
                 key={t.slug}
                 href={topicHref(t)}
-                title={t.keyword}
+                title={topicTitle(t)}
                 game={t.game}
                 summary={t.summary}
                 domain={siteDomain(t.site.url)}
+                tone={topicTone(t.group)}
               />
             ))}
           </div>

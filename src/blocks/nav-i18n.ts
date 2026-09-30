@@ -10,6 +10,7 @@ import { m } from '@/paraglide/messages.js';
 import { getLocale } from '@/paraglide/runtime.js';
 import type { SiteBadgeTone } from '@/components/nav/site-badge';
 import type { SiteCardProps } from '@/components/nav/site-card';
+import type { Tone } from '@/components/nav/tones';
 
 // Shared i18n wiring for the directory blocks: maps catalog data to the props
 // the `components/nav/*` primitives expect.
@@ -99,4 +100,60 @@ export function topicSearchText(t: Topic): string {
     t.summary,
     topicGroupLabel(t.group),
   ].join(' ');
+}
+
+const TOPIC_GROUP_TONES: Record<TopicGroup, Tone> = {
+  roblox: 'red',
+  minecraft: 'green',
+  genshin: 'teal',
+  pc: 'blue',
+  indie: 'amber',
+  other: 'slate',
+};
+
+export const topicTone = (g: TopicGroup) => TOPIC_GROUP_TONES[g];
+
+const ACRONYMS: Record<string, string> = {
+  yba: 'YBA',
+  gta: 'GTA',
+  vi: 'VI',
+  ii: 'II',
+  fut: 'FUT',
+  gg: 'GG',
+  wow: 'WoW',
+  pdf: 'PDF',
+  apk: 'APK',
+  io: 'IO',
+};
+const SMALL_WORDS = new Set([
+  'a',
+  'an',
+  'the',
+  'to',
+  'in',
+  'of',
+  'and',
+  'for',
+  'on',
+  'with',
+  'vs',
+  'ist',
+  'ein',
+]);
+
+/**
+ * Display title for a topic. Keywords are stored as people search them
+ * (lowercase); proper-case those for headings. Mixed-case keywords (game
+ * titles) are already correct and pass through.
+ */
+export function topicTitle(t: Topic): string {
+  if (t.keyword !== t.keyword.toLowerCase()) return t.keyword;
+  return t.keyword
+    .split(' ')
+    .map((w, i) => {
+      if (ACRONYMS[w]) return ACRONYMS[w];
+      if (i > 0 && SMALL_WORDS.has(w)) return w;
+      return w.charAt(0).toUpperCase() + w.slice(1);
+    })
+    .join(' ');
 }

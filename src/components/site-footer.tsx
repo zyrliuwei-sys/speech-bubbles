@@ -24,7 +24,7 @@ export function SiteFooter({
 
   return (
     <footer className="bg-background text-foreground">
-      <div className="mx-auto max-w-6xl px-4 pt-12 pb-6 sm:px-6 sm:pt-16">
+      <div className="mx-auto max-w-7xl px-4 pt-12 pb-6 sm:px-6 sm:pt-16">
         <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-20">
           {tagline && (
             <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">

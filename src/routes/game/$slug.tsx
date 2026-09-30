@@ -5,9 +5,8 @@ import { getTopic } from '@/config/topics';
 import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
+import { topicTitle } from '@/blocks/nav-i18n';
 import { TopicDetail } from '@/blocks/topic-detail';
-
-const sentenceCase = (s: string) => s.charAt(0).toUpperCase() + s.slice(1);
 
 export const Route = createFileRoute('/game/$slug')({
   loader: ({ params }) => {
@@ -18,7 +17,7 @@ export const Route = createFileRoute('/game/$slug')({
   head: ({ loaderData }) => {
     const topic = loaderData && getTopic(loaderData.slug);
     if (!loaderData || !topic) return {};
-    const title = `${sentenceCase(topic.keyword)} — ${topic.game}`;
+    const title = `${topicTitle(topic)} — ${topic.game}`;
     return {
       meta: [
         { title: `${title} | ${envConfigs.app_name}` },
