@@ -74,8 +74,7 @@ function JsonLd({ data }: { data: unknown[] }) {
   );
 }
 
-function HomePage() {
-  const { locale } = Route.useLoaderData();
+export function HomePage({ locale }: { locale: string }) {
   const origin =
     (typeof window !== 'undefined' && window.location?.origin) ||
     envConfigs.app_url ||
@@ -147,5 +146,10 @@ export const Route = createFileRoute('/')({
       ],
     };
   },
-  component: HomePage,
+  component: HomeRoute,
 });
+
+function HomeRoute() {
+  const { locale } = Route.useLoaderData();
+  return <HomePage locale={locale} />;
+}
