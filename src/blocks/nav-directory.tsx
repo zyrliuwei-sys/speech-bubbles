@@ -100,10 +100,7 @@ export function NavDirectory() {
         <div className="relative mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 sm:py-16 lg:grid-cols-[1.15fr_1fr] lg:items-center lg:gap-14 lg:py-20">
           <div>
             <p className="bg-card text-muted-foreground inline-flex items-center gap-2 rounded-full border px-3 py-1 font-mono text-xs">
-              <span className="relative flex size-2">
-                <span className="bg-primary absolute inline-flex size-full animate-ping rounded-full opacity-60" />
-                <span className="bg-primary relative inline-flex size-2 rounded-full" />
-              </span>
+              <span className="bg-brand size-1.5 rounded-full" />
               {m['landing.home.eyebrow']({
                 date: LAST_UPDATED,
                 topics: TOPICS.length,

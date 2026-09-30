@@ -17,7 +17,7 @@ export interface TopicCardProps {
   className?: string;
 }
 
-/** Card linking to an internal keyword detail page. */
+/** Card linking to an internal keyword detail page, with a flat tinted cover. */
 export function TopicCard({
   href,
   title,
@@ -31,37 +31,42 @@ export function TopicCard({
     <Link
       href={href}
       className={cn(
-        'bg-card group relative flex flex-col overflow-hidden rounded-2xl border p-5 pl-6 transition-all duration-200',
-        "before:absolute before:inset-y-0 before:left-0 before:w-1 before:content-['']",
-        'hover:border-foreground/20 hover:-translate-y-0.5 hover:shadow-[0_10px_30px_-12px_rgb(0_0_0/0.25)]',
-        TONES[tone].bar,
+        'bg-card group flex flex-col overflow-hidden rounded-2xl border transition-[border-color,transform] duration-200',
+        'hover:border-foreground/25 hover:-translate-y-0.5',
         className
       )}
     >
-      <p
+      {/* Cover */}
+      <div
         className={cn(
-          'font-mono text-[11px] font-medium tracking-wide uppercase',
-          TONES[tone].text
+          'flex h-24 shrink-0 items-center gap-3 px-5',
+          TONES[tone].cover
         )}
       >
-        {game}
-      </p>
-      <h3 className="font-display mt-1.5 text-lg leading-snug font-semibold tracking-tight">
-        {title}
-      </h3>
-      <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-relaxed">
-        {summary}
-      </p>
-      <div className="mt-auto flex items-center gap-2 pt-4">
         <SiteIcon
           domain={domain}
           name={game}
-          className="size-5 rounded-md border-0 shadow-none"
+          className="size-11 rounded-xl border-0 bg-white shadow-sm"
         />
-        <span className="text-muted-foreground truncate font-mono text-xs">
-          {domain}
+        <span className="font-display line-clamp-2 text-base leading-tight font-semibold">
+          {game}
         </span>
-        <ArrowUpRight className="text-muted-foreground group-hover:text-primary ml-auto size-4 shrink-0 transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+      </div>
+
+      {/* Body */}
+      <div className="flex flex-1 flex-col p-5">
+        <h3 className="font-display text-lg leading-snug font-semibold tracking-tight">
+          {title}
+        </h3>
+        <p className="text-muted-foreground mt-2 line-clamp-2 text-sm leading-relaxed">
+          {summary}
+        </p>
+        <div className="mt-auto flex items-center gap-2 pt-4">
+          <span className="text-muted-foreground truncate font-mono text-xs">
+            {domain}
+          </span>
+          <ArrowUpRight className="text-muted-foreground group-hover:text-foreground ml-auto size-4 shrink-0 transition-colors" />
+        </div>
       </div>
     </Link>
   );
