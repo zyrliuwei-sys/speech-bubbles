@@ -23,11 +23,11 @@ export function SiteFooter({
   const year = new Date().getFullYear();
 
   return (
-    <footer className="bg-white text-black dark:bg-neutral-950 dark:text-neutral-100">
+    <footer className="bg-background text-foreground">
       <div className="mx-auto max-w-6xl px-4 pt-12 pb-6 sm:px-6 sm:pt-16">
         <div className="flex flex-col gap-10 lg:flex-row lg:justify-between lg:gap-20">
           {tagline && (
-            <p className="max-w-md font-serif text-3xl leading-[1.15] tracking-tight text-black italic sm:text-4xl dark:text-neutral-100">
+            <p className="text-muted-foreground max-w-sm text-sm leading-relaxed">
               {tagline}
             </p>
           )}

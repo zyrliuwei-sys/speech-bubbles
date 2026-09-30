@@ -8,7 +8,7 @@ import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
-import { BubbleLogo } from '@/components/bubble-logo';
+import { BrandMark } from '@/components/brand-mark';
 import { SiteUserMenu } from '@/components/site-user-menu';
 import { buttonVariants } from '@/components/ui/button';
 
@@ -40,13 +40,8 @@ export function SiteHeader({
     <header className="bg-background/80 sticky top-0 z-50 w-full backdrop-blur-sm">
       <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-4 sm:px-6">
         {/* Brand */}
-        <Link href="/" className="group flex items-center gap-2">
-          <span className="animate-bubble-float shrink-0">
-            <BubbleLogo className="size-8 transition-transform duration-200 ease-out group-hover:scale-110 group-hover:-rotate-3" />
-          </span>
-          <span className="font-serif text-lg italic">
-            {envConfigs.app_name}
-          </span>
+        <Link href="/" className="text-lg">
+          <BrandMark name={envConfigs.app_name} />
         </Link>
 
         {/* Desktop nav */}

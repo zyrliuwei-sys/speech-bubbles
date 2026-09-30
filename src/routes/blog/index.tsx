@@ -4,20 +4,8 @@ import { envConfigs } from '@/config';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 import { Blog } from '@/blocks/blog';
-import { BlogSeoContent } from '@/blocks/blog-seo-content';
-import { CTA } from '@/blocks/cta';
-import { FAQ } from '@/blocks/faq';
-import { Features } from '@/blocks/features';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
-import { Hero } from '@/blocks/hero';
-import { HowItWorks } from '@/blocks/how-it-works';
-import { Pricing } from '@/blocks/pricing';
-import { Showcase } from '@/blocks/showcase';
-import { SupportWidget } from '@/blocks/support-widget';
-import { Testimonials } from '@/blocks/testimonials';
-import { TryIt } from '@/blocks/try-it';
-import { WhyChoose } from '@/blocks/why-choose';
 import { getBlogPostsFn } from '@/content/posts/server';
 
 export const Route = createFileRoute('/blog/')({
@@ -59,21 +47,9 @@ function BlogPage() {
     <div className="bg-background text-foreground flex min-h-screen flex-col">
       <Header />
       <main>
-        <Hero />
-        <Showcase />
-        <TryIt />
-        <WhyChoose />
-        <HowItWorks />
-        <Features />
-        <Testimonials />
-        <Pricing />
-        <FAQ />
         <Blog posts={posts} />
-        <CTA />
-        <BlogSeoContent />
       </main>
       <Footer />
-      <SupportWidget />
     </div>
   );
 }

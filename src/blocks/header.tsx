@@ -3,18 +3,16 @@ import { SiteHeader } from '@/components/site-header';
 
 export function Header() {
   const navLinks = [
-    { href: '/editor', label: m['landing.nav.editor']() },
-    { href: '/#features', label: m['landing.nav.features']() },
-    { href: '/#how-it-works', label: m['landing.nav.how_it_works']() },
-    { href: '/pricing', label: m['landing.nav.pricing']() },
-    { href: '/blog', label: m['landing.nav.blog']() },
+    { href: '/#directory', label: m['landing.nav.directory']() },
+    { href: '/#categories', label: m['landing.nav.categories']() },
+    { href: '/submit', label: m['landing.nav.submit']() },
   ];
 
   return (
     <SiteHeader
       navLinks={navLinks}
-      ctaHref="/sign-in"
-      ctaLabel={m['common.nav.sign_in']()}
+      ctaHref="/submit"
+      ctaLabel={m['landing.nav.submit']()}
     />
   );
 }
