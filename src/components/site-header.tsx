@@ -26,10 +26,15 @@ export function SiteHeader({
   navLinks,
   ctaHref = '/settings',
   ctaLabel,
+  signInHref,
+  signInLabel,
 }: {
   navLinks?: NavLink[];
   ctaHref?: string;
   ctaLabel?: string;
+  /** Shown next to the CTA while signed out; omit to hide. */
+  signInHref?: string;
+  signInLabel?: string;
 }) {
   const [mobileOpen, setMobileOpen] = useState(false);
   const { data: session } = useSession();
@@ -79,10 +84,20 @@ export function SiteHeader({
               image={user.image}
             />
           ) : (
-            <Link href={ctaHref} className={cn(buttonVariants(), 'gap-1.5')}>
-              {ctaText}
-              <ArrowRight className="size-4" />
-            </Link>
+            <>
+              {signInHref && (
+                <Link
+                  href={signInHref}
+                  className={buttonVariants({ variant: 'ghost' })}
+                >
+                  {signInLabel}
+                </Link>
+              )}
+              <Link href={ctaHref} className={cn(buttonVariants(), 'gap-1.5')}>
+                {ctaText}
+                <ArrowRight className="size-4" />
+              </Link>
+            </>
           )}
         </div>
 
@@ -135,13 +150,24 @@ export function SiteHeader({
                 image={user.image}
               />
             ) : (
-              <Link
-                href={ctaHref}
-                className={cn(buttonVariants(), 'gap-1.5')}
-                onClick={() => setMobileOpen(false)}
-              >
-                {ctaText}
-              </Link>
+              <>
+                {signInHref && (
+                  <Link
+                    href={signInHref}
+                    className={buttonVariants({ variant: 'outline' })}
+                    onClick={() => setMobileOpen(false)}
+                  >
+                    {signInLabel}
+                  </Link>
+                )}
+                <Link
+                  href={ctaHref}
+                  className={cn(buttonVariants(), 'gap-1.5')}
+                  onClick={() => setMobileOpen(false)}
+                >
+                  {ctaText}
+                </Link>
+              </>
             )}
           </div>
         </div>

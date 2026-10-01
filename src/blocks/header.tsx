@@ -13,6 +13,8 @@ export function Header() {
       navLinks={navLinks}
       ctaHref="/submit"
       ctaLabel={m['landing.nav.submit']()}
+      signInHref="/sign-in"
+      signInLabel={m['common.nav.sign_in']()}
     />
   );
 }
