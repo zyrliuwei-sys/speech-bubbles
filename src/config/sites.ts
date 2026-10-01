@@ -28,6 +28,8 @@ export interface Site {
   category: CategorySlug;
   badge?: SiteBadge;
   tagline: Localized;
+  /** Added by a user via /submit (unreviewed): outbound links get nofollow ugc. */
+  submitted?: boolean;
 }
 
 export interface Category {

@@ -1,15 +1,28 @@
 import { ArrowLeft } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
-import { CATEGORIES, SITES, type CategorySlug } from '@/config/sites';
+import {
+  CATEGORIES,
+  SITES,
+  type CategorySlug,
+  type Site,
+} from '@/config/sites';
 import { m } from '@/paraglide/messages.js';
 import { SiteCard } from '@/components/nav/site-card';
 
 import { CategoryGrid } from './category-grid';
 import { categoryLabel, siteCardProps } from './nav-i18n';
 
-export function CategorySites({ slug }: { slug: CategorySlug }) {
-  const sites = SITES.filter((s) => s.category === slug);
+export function CategorySites({
+  slug,
+  extraSites = [],
+}: {
+  slug: CategorySlug;
+  /** User-submitted sites, merged after the curated list. */
+  extraSites?: Site[];
+}) {
+  const allSites = [...SITES, ...extraSites];
+  const sites = allSites.filter((s) => s.category === slug);
   const name = categoryLabel(slug);
   const emoji = CATEGORIES.find((c) => c.slug === slug)?.emoji;
 
@@ -42,7 +55,7 @@ export function CategorySites({ slug }: { slug: CategorySlug }) {
       </div>
 
       <div className="mt-16">
-        <CategoryGrid />
+        <CategoryGrid sites={allSites} />
       </div>
     </div>
   );

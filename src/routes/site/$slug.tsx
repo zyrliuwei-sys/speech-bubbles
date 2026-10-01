@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
 import { getSite } from '@/config/sites';
+import { getSubmittedSiteFn } from '@/lib/submitted-sites';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
@@ -9,14 +10,15 @@ import { Header } from '@/blocks/header';
 import { SiteDetail } from '@/blocks/site-detail';
 
 export const Route = createFileRoute('/site/$slug')({
-  loader: ({ params }) => {
-    const site = getSite(params.slug);
+  loader: async ({ params }) => {
+    const site =
+      getSite(params.slug) ?? (await getSubmittedSiteFn({ data: params.slug }));
     if (!site) throw notFound();
-    return { locale: getLocale(), slug: site.slug };
+    return { locale: getLocale(), site };
   },
   head: ({ loaderData }) => {
-    const site = loaderData && getSite(loaderData.slug);
-    if (!loaderData || !site) return {};
+    if (!loaderData) return {};
+    const site = loaderData.site;
     const locale = loaderData.locale;
     const description = locale === 'zh' ? site.tagline.zh : site.tagline.en;
     return {
@@ -40,8 +42,7 @@ export const Route = createFileRoute('/site/$slug')({
 });
 
 function SitePage() {
-  const { slug } = Route.useLoaderData();
-  const site = getSite(slug)!;
+  const { site } = Route.useLoaderData();
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
       <Header />

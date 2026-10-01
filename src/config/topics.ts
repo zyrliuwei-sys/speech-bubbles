@@ -1,4 +1,5 @@
 import { TOPIC_DATA } from './topics-data';
+import { TOPIC_FAQ } from './topics-faq';
 
 /**
  * Keyword detail pages ("topics"). Each topic targets one search intent;
@@ -34,6 +35,11 @@ export interface Topic {
   site: { name: string; url: string };
   /** Optional extra references (wiki, store page, official post). */
   links?: { name: string; url: string }[];
+  /**
+   * Question-style searches answered directly. Each `q` is the phrase people
+   * type into Google, so keep it verbatim; also emitted as FAQPage JSON-LD.
+   */
+  faq?: { q: string; a: string }[];
   updatedAt: string;
 }
 
@@ -46,7 +52,9 @@ export const TOPIC_GROUPS: { slug: TopicGroup; emoji: string }[] = [
   { slug: 'other', emoji: '🔎' },
 ];
 
-export const TOPICS: Topic[] = TOPIC_DATA;
+export const TOPICS: Topic[] = TOPIC_DATA.map((t) =>
+  TOPIC_FAQ[t.slug] ? { ...t, faq: TOPIC_FAQ[t.slug] } : t
+);
 
 export function getTopic(slug: string): Topic | undefined {
   return TOPICS.find((t) => t.slug === slug);

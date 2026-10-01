@@ -19,6 +19,8 @@ type Entry = {
   lastModified?: string;
   changeFrequency: string;
   priority: number;
+  /** English-only content: list just the base-locale URL, no alternates. */
+  baseLocaleOnly?: boolean;
 };
 
 function urlFor(path: string, locale: string): string {
@@ -44,12 +46,14 @@ function escapeXml(value: string): string {
 }
 
 function entryXml(e: Entry, locale: (typeof locales)[number]): string {
-  const alternates = locales
-    .map(
-      (loc) =>
-        `    <xhtml:link rel="alternate" hreflang="${loc}" href="${escapeXml(urlFor(e.path, loc))}"/>`
-    )
-    .join('\n');
+  const alternates = e.baseLocaleOnly
+    ? ''
+    : locales
+        .map(
+          (loc) =>
+            `    <xhtml:link rel="alternate" hreflang="${loc}" href="${escapeXml(urlFor(e.path, loc))}"/>`
+        )
+        .join('\n');
   return [
     '  <url>',
     `    <loc>${escapeXml(urlFor(e.path, locale))}</loc>`,
@@ -86,6 +90,7 @@ export const Route = createFileRoute('/sitemap.xml')({
           entries.push({
             path: `/game/${t.slug}`,
             lastModified: t.updatedAt,
+            baseLocaleOnly: true,
             changeFrequency: 'weekly',
             priority: 0.8,
           });
@@ -96,6 +101,20 @@ export const Route = createFileRoute('/sitemap.xml')({
             changeFrequency: 'monthly',
             priority: 0.5,
           });
+        }
+        try {
+          const { listSubmittedSites } =
+            await import('@/modules/submissions/service');
+          for (const s of await listSubmittedSites()) {
+            entries.push({
+              path: `/site/${s.slug}`,
+              lastModified: new Date(s.createdAt).toISOString(),
+              changeFrequency: 'monthly',
+              priority: 0.4,
+            });
+          }
+        } catch {
+          // Database not configured/reachable — curated sites still listed.
         }
 
         // Blog posts: db posts merged with local MDX posts.
@@ -134,9 +153,13 @@ export const Route = createFileRoute('/sitemap.xml')({
         const xml = [
           '<?xml version="1.0" encoding="UTF-8"?>',
           '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">',
-          ...entries.flatMap((entry) =>
-            locales.map((locale) => entryXml(entry, locale))
-          ),
+          ...entries.flatMap((entry) => {
+            const entryLocales: readonly (typeof locales)[number][] =
+              entry.baseLocaleOnly
+                ? [baseLocale as (typeof locales)[number]]
+                : locales;
+            return entryLocales.map((locale) => entryXml(entry, locale));
+          }),
           '</urlset>',
           '',
         ].join('\n');

@@ -56,7 +56,11 @@ export function SiteDetail({ site }: { site: Site }) {
         <a
           href={site.url}
           target="_blank"
-          rel="noopener noreferrer"
+          rel={
+            site.submitted
+              ? 'noopener noreferrer nofollow ugc'
+              : 'noopener noreferrer'
+          }
           className={cn(buttonVariants({ size: 'lg' }), 'h-11 gap-1.5 px-5')}
         >
           {m['landing.topic.visit']()}

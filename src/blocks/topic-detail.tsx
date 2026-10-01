@@ -93,6 +93,24 @@ export function TopicDetail({ topic }: { topic: Topic }) {
         ))}
       </article>
 
+      {topic.faq && topic.faq.length > 0 && (
+        <section className="mt-12">
+          <h2 className="font-display text-2xl font-bold tracking-tight">
+            {m['landing.topic.faq']()}
+          </h2>
+          <div className="mt-4 divide-y rounded-2xl border">
+            {topic.faq.map((f) => (
+              <div key={f.q} className="p-5">
+                <h3 className="font-semibold">{f.q}</h3>
+                <p className="text-foreground/80 mt-2 leading-relaxed whitespace-pre-line">
+                  {f.a}
+                </p>
+              </div>
+            ))}
+          </div>
+        </section>
+      )}
+
       {topic.links && topic.links.length > 0 && (
         <section className="mt-10">
           <h2 className="font-bold">{m['landing.topic.links']()}</h2>

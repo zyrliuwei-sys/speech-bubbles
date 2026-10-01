@@ -57,6 +57,7 @@ export function siteCardProps(site: Site): SiteCardProps {
     tagline: localized(site.tagline),
     badge: siteBadge(site),
     detail: { href: siteHref(site), label: m['landing.site.details']() },
+    ugc: site.submitted,
   };
 }
 

@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
 import { isCategorySlug, SITES } from '@/config/sites';
+import { getSubmittedSitesFn } from '@/lib/submitted-sites';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { CategorySites } from '@/blocks/category-sites';
@@ -10,15 +11,19 @@ import { Header } from '@/blocks/header';
 import { categoryLabel } from '@/blocks/nav-i18n';
 
 export const Route = createFileRoute('/category/$slug')({
-  loader: ({ params }) => {
+  loader: async ({ params }) => {
     if (!isCategorySlug(params.slug)) throw notFound();
     const locale = getLocale();
     const slug = params.slug;
     const name = categoryLabel(slug);
-    const count = SITES.filter((s) => s.category === slug).length;
+    const submitted = await getSubmittedSitesFn();
+    const count = [...SITES, ...submitted].filter(
+      (s) => s.category === slug
+    ).length;
     return {
       locale,
       slug,
+      submitted,
       title: m['landing.category.page_title']({ name }, { locale }),
       description: m['landing.category.page_desc']({ name, count }, { locale }),
     };
@@ -45,12 +50,12 @@ export const Route = createFileRoute('/category/$slug')({
 });
 
 function CategoryPage() {
-  const { slug } = Route.useLoaderData();
+  const { slug, submitted } = Route.useLoaderData();
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <CategorySites slug={slug} />
+        <CategorySites slug={slug} extraSites={submitted} />
       </main>
       <Footer />
     </div>

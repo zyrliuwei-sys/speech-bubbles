@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from 'react';
 import { ArrowRight, Plus, Search } from 'lucide-react';
 
 import { Link } from '@/core/i18n/navigation';
-import { CATEGORIES, siteDomain, SITES } from '@/config/sites';
+import { CATEGORIES, siteDomain, SITES, type Site } from '@/config/sites';
 import { getTopic, TOPIC_GROUPS, TOPICS } from '@/config/topics';
 import { matchesQuery } from '@/lib/search';
 import { cn } from '@/lib/utils';
@@ -48,7 +48,13 @@ const LAST_UPDATED = TOPICS.reduce(
 );
 
 /** Homepage body: hero, sidebar-indexed topic directory, site directory. */
-export function NavDirectory() {
+export function NavDirectory({
+  extraSites = [],
+}: {
+  /** User-submitted sites, merged after the curated list. */
+  extraSites?: Site[];
+}) {
+  const allSites = useMemo(() => [...SITES, ...extraSites], [extraSites]);
   const [query, setQuery] = useState('');
   const directoryRef = useRef<HTMLDivElement>(null);
 
@@ -71,11 +77,11 @@ export function NavDirectory() {
         id: `sites-${c.slug}`,
         emoji: c.emoji,
         title: categoryLabel(c.slug),
-        sites: SITES.filter(
+        sites: allSites.filter(
           (s) => s.category === c.slug && matchesQuery(siteSearchText(s), query)
         ),
       })).filter((s) => s.sites.length > 0),
-    [query]
+    [allSites, query]
   );
 
   const trending = TRENDING.map(getTopic).filter((t) => t !== undefined);
@@ -112,7 +118,7 @@ export function NavDirectory() {
             <p className="text-muted-foreground mt-5 max-w-xl text-lg text-pretty">
               {m['landing.home.subtitle']({
                 topics: TOPICS.length,
-                sites: SITES.length,
+                sites: allSites.length,
               })}
             </p>
 
@@ -336,7 +342,7 @@ export function NavDirectory() {
           )}
 
           <div className="mt-16">
-            <CategoryGrid id="categories" />
+            <CategoryGrid id="categories" sites={allSites} />
           </div>
         </div>
       </div>

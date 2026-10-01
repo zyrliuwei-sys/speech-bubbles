@@ -633,3 +633,31 @@ export type InviteCode = typeof inviteCode.$inferSelect;
 export type NewInviteCode = typeof inviteCode.$inferInsert;
 export type UserInvite = typeof userInvite.$inferSelect;
 export type NewUserInvite = typeof userInvite.$inferInsert;
+
+// ─── Submitted Sites ─────────────────────────────────────────────────────────
+// Game sites added by signed-in users through /submit. Published immediately
+// (no review queue); `domain` is unique so the same site can't be listed twice.
+
+export const submittedSite = table(
+  'submitted_site',
+  {
+    id: text('id').primaryKey(),
+    slug: text('slug').notNull().unique(),
+    name: text('name').notNull(),
+    url: text('url').notNull(),
+    domain: text('domain').notNull().unique(),
+    category: text('category').notNull(),
+    tagline: text('tagline').notNull(),
+    userId: text('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+  },
+  (t) => [
+    index('idx_submitted_site_user').on(t.userId),
+    index('idx_submitted_site_created').on(t.createdAt),
+  ]
+);
+
+export type SubmittedSite = typeof submittedSite.$inferSelect;
+export type NewSubmittedSite = typeof submittedSite.$inferInsert;

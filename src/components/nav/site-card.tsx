@@ -14,6 +14,8 @@ export interface SiteCardProps {
   badge?: { tone: SiteBadgeTone; label: string };
   /** Internal detail page; the name links there, the tile opens the site. */
   detail?: { href: string; label: string };
+  /** Unreviewed user submission — mark the outbound link nofollow/ugc. */
+  ugc?: boolean;
   className?: string;
 }
 
@@ -25,6 +27,7 @@ export function SiteCard({
   tagline,
   badge,
   detail,
+  ugc,
   className,
 }: SiteCardProps) {
   return (
@@ -40,7 +43,9 @@ export function SiteCard({
           <a
             href={url}
             target="_blank"
-            rel="noopener noreferrer"
+            rel={
+              ugc ? 'noopener noreferrer nofollow ugc' : 'noopener noreferrer'
+            }
             className="truncate text-sm font-semibold after:absolute after:inset-0 after:content-['']"
           >
             {name}

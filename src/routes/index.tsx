@@ -1,6 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
+import { getSubmittedSitesFn } from '@/lib/submitted-sites';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
@@ -8,11 +9,12 @@ import { Header } from '@/blocks/header';
 import { NavDirectory } from '@/blocks/nav-directory';
 
 function HomePage() {
+  const { submitted } = Route.useLoaderData();
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col">
       <Header />
       <main className="flex-1">
-        <NavDirectory />
+        <NavDirectory extraSites={submitted} />
       </main>
       <Footer />
     </div>
@@ -20,7 +22,10 @@ function HomePage() {
 }
 
 export const Route = createFileRoute('/')({
-  loader: () => ({ locale: getLocale() }),
+  loader: async () => ({
+    locale: getLocale(),
+    submitted: await getSubmittedSitesFn(),
+  }),
   head: ({ loaderData }) => {
     const locale = (loaderData?.locale ?? 'en') as (typeof locales)[number];
     const origin =
