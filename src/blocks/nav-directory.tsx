@@ -27,12 +27,12 @@ import {
 
 // Hand-picked for the hero panel and the quick-search chips.
 const TRENDING = [
-  'minecraft-the-sift',
-  'fortnitemares-2026',
-  'gta-6-release-date',
-  'control-resonant-laundry-puzzle',
-  'lumber-tycoon-2-secret-badge',
+  'control-resonant-last-taxi',
   'silver-light-genshin',
+  'aion-2-classes',
+  'ea-fc-27-lite',
+  'burger-king-fc-27',
+  'ride-a-pet-volcano',
 ];
 const POPULAR_QUERIES = [
   'minecraft cape',
@@ -182,7 +182,7 @@ export function NavDirectory() {
                     <SiteIcon
                       domain={siteDomain(t.site.url)}
                       name={t.game}
-                      className="size-8 rounded-lg border-0"
+                      className="size-8 rounded-lg"
                     />
                     <span className="min-w-0 flex-1">
                       <span className="block truncate font-medium">

@@ -119,6 +119,8 @@ const ACRONYMS: Record<string, string> = {
   vi: 'VI',
   ii: 'II',
   fut: 'FUT',
+  fc: 'FC',
+  ea: 'EA',
   gg: 'GG',
   wow: 'WoW',
   pdf: 'PDF',

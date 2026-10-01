@@ -174,15 +174,6 @@ const ROWS: Row[] = [
     'free',
   ],
   [
-    'paper-io',
-    'Paper.io 2',
-    'https://paper-io.com',
-    'io',
-    'Claim territory, don’t get cut',
-    '圈地占领，小心被切断',
-    'free',
-  ],
-  [
     'zombs-royale',
     'ZombsRoyale.io',
     'https://zombsroyale.io',

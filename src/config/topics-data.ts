@@ -236,6 +236,32 @@ const ROBLOX: Topic[] = [
     ]
   ),
   t(
+    'ride-a-pet-volcano',
+    'ride a pet volcano',
+    ['ride a pet volcanic egg', 'ride a pet volcano egg', 'ride a pet magma'],
+    'roblox',
+    'Ride A Pet (Roblox)',
+    'The Volcano arrived in Ride A Pet with the Volcanic Update on September 26, 2026. It holds the Volcanic Egg — the game’s rarest egg at 2.5T Hatch Luck — guarded by a dragon.',
+    [
+      [
+        'Where the volcano is',
+        'Travel past the Desert and cross the water to Volcano Island. The way into the crater is on the right side and can only be reached with a flying pet, so get the Phoenix (or a Griffin) first.',
+      ],
+      [
+        'Getting the Volcanic Egg out',
+        'Grabbing the egg wakes the dragon guardian and starts a 20-second timer to escape the crater. Once you are out, a second timer starts — reach your ranch and drop the egg in a nest before it runs out or the egg cracks. A fast flying pet makes both legs much easier.',
+      ],
+      [
+        'Magma mutation',
+        'You can also dip any egg into the volcano’s lava to try for the Magma mutation (10× speed and money). Each egg gets one try at about a 15% chance; failing costs the egg a few seconds of its timer.',
+      ],
+    ],
+    [
+      'Ride A Pet on Roblox',
+      'https://www.roblox.com/games/124216119978534/Ride-A-Pet',
+    ]
+  ),
+  t(
     'blue-lock-farm',
     'blue lock farm',
     ['blue lock farm codes'],
@@ -730,7 +756,11 @@ const GENSHIN: Topic[] = [
   t(
     'silver-light-genshin',
     'silver light genshin',
-    ['silverwing genshin', 'silverwing in pursuit of the moon'],
+    [
+      'genshin silver light',
+      'silverwing genshin',
+      'silverwing in pursuit of the moon',
+    ],
     'genshin',
     'Genshin Impact',
     'Silver Light is a free 4-star sword from the version 7.1 event "Silverwing in Pursuit of the Moon", available September 24 – October 12, 2026.',
@@ -960,6 +990,162 @@ const PC: Topic[] = [
     ]
   ),
   t(
+    'control-resonant-last-taxi',
+    'control resonant taxi',
+    [
+      'the last taxi control resonant',
+      'control resonant taxi locations',
+      'control resonant taxi puzzle',
+    ],
+    'pc',
+    'CONTROL Resonant',
+    'The Last Taxi is a CONTROL Resonant side story: find seven abandoned taxis across Manhattan, solve the puzzle each one opens, then answer a final payphone call.',
+    [
+      [
+        'The seven taxis',
+        'There is one taxi in each zone: West Incursion Zone, Central, the Evacuation Zone, Downtown, The Park, the Underpass and the Unknown. Some are tucked away — one sits past a floor of red lasers, another under a vendor below a parking-lot roof you reach by flying from the building to the west.',
+      ],
+      [
+        'Puzzle tips',
+        'Each puzzle has three rounds of "pick the real taxi". Watch the lights: flickering or out-of-sync streetlights, headlights and roof signs give the right cab away. In The Park you rebuild a stripped taxi with matching yellow parts; in the Unknown you shine a floodlight and read the taxi-shaped shadows.',
+      ],
+      [
+        'Reward',
+        'There is no item or weapon form — the payoff is the story told in the closing payphone call.',
+      ],
+    ],
+    [
+      'GamerGuides — all 7 taxi locations',
+      'https://www.gamerguides.com/control-resonant/checklists/taxi-locations',
+    ],
+    [
+      {
+        name: 'CONTROL Resonant on Steam',
+        url: 'https://store.steampowered.com/app/3669870/CONTROL_Resonant/',
+      },
+    ]
+  ),
+  t(
+    'control-resonant-dog',
+    'control resonant dog',
+    [
+      'control resonant mysterious dog',
+      'every dog has her day control resonant',
+      'control resonant dog toy',
+    ],
+    'pc',
+    'CONTROL Resonant',
+    'The Mysterious Dog side story ("Every Dog Has Her Day") has you find a dog in seven zones and return her lost blue dragon toy each time. It unlocks the Dog’s Best Friend achievement and the Trusted Spanner artifact.',
+    [
+      [
+        'Where she appears',
+        'Downtown, Central, the Evacuation Zone, the West Incursion Zone, The Park, the Underpass and the Unknown. In each, find the dragon toy nearby and drop it on her bed. The toy respawns if you carry it too far, and later spots need Shift and Reach to get to.',
+      ],
+      [
+        'Finishing it',
+        'After the seventh toy, go to The Gap — the dog is waiting there. You get the Dog’s Best Friend trophy/achievement and the recipe for the Trusted Spanner artifact (+15% Raw Damage for Dylan).',
+      ],
+    ],
+    [
+      'GamesRadar+ — Mysterious Dog locations',
+      'https://www.gamesradar.com/games/action-rpg/control-resonant-mysterious-dog/',
+    ]
+  ),
+  t(
+    'aion-2-classes',
+    'aion 2 classes',
+    ['aion 2 class tier list', 'aion 2 best class', 'aion 2 class guide'],
+    'pc',
+    'AION 2',
+    'AION 2 launches globally with eight classes: Templar, Gladiator, Assassin, Ranger, Sorcerer, Spiritmaster, Cleric and Chanter. The ninth, Brawler, is Korea/Taiwan-only for now.',
+    [
+      [
+        'The eight classes',
+        'Templar — main tank with shield and crowd control.\nGladiator — melee bruiser with AoE and life steal.\nAssassin — stealthy melee burst DPS.\nRanger — mobile bow DPS with traps.\nSorcerer — ranged magic burst.\nSpiritmaster — summons elemental spirits.\nCleric — main healer.\nChanter — hybrid melee support with buffs.',
+      ],
+      [
+        'Picking one',
+        'Every class pairs with one weapon type and is open to both Elyos and Asmodians. New players usually do well with Ranger or Gladiator for solo play; Templar, Cleric and Chanter are always wanted in groups.',
+      ],
+      [
+        'Global launch',
+        'Free-to-play on PC via Steam and NC’s PURPLE launcher on October 5, 2026; Founder’s Pack owners get Advance Access from September 30.',
+      ],
+    ],
+    ['AION 2 official site', 'https://aion2.plaync.com/'],
+    [
+      {
+        name: 'AION 2 on Steam',
+        url: 'https://store.steampowered.com/app/3393110/',
+      },
+      {
+        name: 'AION 2 Wiki — Classes',
+        url: 'https://aion2.wiki.fextralife.com/Classes',
+      },
+    ]
+  ),
+  t(
+    'ea-fc-27-lite',
+    'ea fc 27 lite',
+    ['fc 27 lite', 'ea sports fc 27 lite', 'fc 27 free'],
+    'pc',
+    'EA SPORTS FC 27',
+    'EA SPORTS FC 27 Lite is a free-to-download version of FC 27, released September 25, 2026, with a limited set of modes and teams. Progress carries over if you buy the full game.',
+    [
+      [
+        'What you can play',
+        'Kick-Off, Learn to Play, Online Friendlies and Online Seasons. Ultimate Team, Manager Career and The Grounds are not included.',
+      ],
+      [
+        'Teams',
+        'At launch: Real Madrid and Bayern Munich (men), Chelsea and OL Lyonnes (women). The selection rotates over the season.',
+      ],
+      [
+        'Platforms',
+        'PS5, PS4, Xbox Series X|S, Xbox One, the EA app, Steam and the Epic Games Store. It needs an internet connection — no offline play.',
+      ],
+    ],
+    [
+      'EA Help — How to play FC 27 Lite',
+      'https://help.ea.com/en/articles/ea-sports-fc/fc-27-lite/',
+    ],
+    [
+      {
+        name: 'EA SPORTS FC 27 Lite on Steam',
+        url: 'https://store.steampowered.com/app/4407750/EA_SPORTS_FC_27_Lite/',
+      },
+    ]
+  ),
+  t(
+    'burger-king-fc-27',
+    'burger king fc 27',
+    ['fc 27 burger king', 'burger king fut packs', 'burger king fc 27 code'],
+    'pc',
+    'EA SPORTS FC 27',
+    'Burger King × EA SPORTS FC 27 gives a free Ultimate Team pack code with selected Burger King meals. It is live in some countries (including Germany and France, where it runs to November 15, 2026); offers vary by country.',
+    [
+      [
+        'How to get a code',
+        'Buy a participating meal (in Germany: the Ultimate King menus or 4 Chicken Tenders with a drink). The code comes with your receipt. Redeem it on EA’s code redemption page while signed in to the same EA account you play FC 27 on, then open Ultimate Team.',
+      ],
+      [
+        'What the packs contain',
+        'Each code randomly gives one pack: Medium BK Player Pack (5 gold players 75+), King BK Player Pack (9 gold 75+, two guaranteed 83+) or Xtra BK Player Pack (11 gold 75+, two guaranteed 83+). All include Burger King kits, stadium items, tifos and celebrations.',
+      ],
+      [
+        'Limits',
+        'Up to 12 codes per EA account; duplicate packs are possible.',
+      ],
+    ],
+    ['EA — Redeem a code', 'https://www.ea.com/redeem'],
+    [
+      {
+        name: 'Dexerto — Burger King rewards in FC 27 (French)',
+        url: 'https://www.dexerto.fr/wikis/ea-fc-27/recompenses-burger-king-ea-fc-27/',
+      },
+    ]
+  ),
+  t(
     'silent-hill-townfall',
     'silent hill townfall',
     ['silent hill townfall steam'],
@@ -1121,25 +1307,6 @@ const PC: Topic[] = [
       ],
     ],
     ['itch.io — idle games', 'https://itch.io/games/tag-idle']
-  ),
-  t(
-    'wow-forever-fate-randomizer',
-    'wow forever fate randomizer',
-    ['wow forever randomizer', 'wow forever class randomizer'],
-    'pc',
-    'World of Warcraft: Forever',
-    'The WoW: Forever Fate Randomizer is a free tool that picks a random valid race/class combo for World of Warcraft: Forever, with a 5 → 3 → 1 "championship" mode.',
-    [
-      [
-        'Features',
-        'Horde and Alliance rosters (28 valid combos each across nine classes), optional Skyborne unlock, and cryptographic randomness so every combo is equally likely.',
-      ],
-      [
-        'Keep it current',
-        'It follows Blizzard’s published Forever race/class table. Offline copies don’t update automatically, so use the web version after game patches.',
-      ],
-    ],
-    ['WoW Forever Fate Randomizer', 'https://kozmek.github.io/fate-randomizer/']
   ),
 ];
 
@@ -1496,39 +1663,6 @@ const INDIE: Topic[] = [
 
 const OTHER: Topic[] = [
   t(
-    'obby-khan',
-    'obby khan',
-    ['obby khan winnipeg', 'obby khan wife'],
-    'other',
-    'Not a game — Manitoba politician',
-    'Obby Khan isn’t a Roblox obby. He is a Winnipeg politician and former CFL player, who stepped down as leader of Manitoba’s Progressive Conservatives in late September 2026.',
-    [
-      [
-        'Who he is',
-        'Ibrahim "Obby" Khan played nine CFL seasons (including with the Winnipeg Blue Bombers), opened three businesses in Winnipeg, and has been MLA for Fort Whyte since 2022. He became PC leader in April 2025.',
-      ],
-      [
-        'September 2026',
-        'He resigned as party leader and left the PC caucus, citing internal division, but remains MLA for Fort Whyte as an Independent.',
-      ],
-      [
-        'His family',
-        'Khan keeps his family life mostly private; official biographies don’t name his wife.',
-      ],
-      [
-        'Looking for Roblox obbies?',
-        'Obbies (obstacle courses) are one of Roblox’s biggest genres — search "obby" on Roblox to find them.',
-      ],
-    ],
-    ['Obby Khan — Wikipedia', 'https://en.wikipedia.org/wiki/Obby_Khan'],
-    [
-      {
-        name: 'CBC News: Khan resigns as PC leader',
-        url: 'https://www.cbc.ca/news/canada/manitoba/obby-khan-pc-leader-resigning-9.7361625',
-      },
-    ]
-  ),
-  t(
     'is-it-verity',
     'is it verity',
     ['verity game', 'verity arg'],
@@ -1554,51 +1688,6 @@ const OTHER: Topic[] = [
         name: 'Verity on Roblox',
         url: 'https://www.roblox.com/games/117401848527669/Verity',
       },
-    ]
-  ),
-  t(
-    'lynx-game',
-    'lynx game',
-    ['minnesota lynx game', 'lynx vs liberty'],
-    'other',
-    'Minnesota Lynx (WNBA)',
-    'The latest Lynx game: the New York Liberty beat the Minnesota Lynx 87–71 in Game 2 of the 2026 WNBA Playoffs on September 29, 2026.',
-    [
-      [
-        'The series',
-        'Minnesota finished the regular season first at 33–11 and faces New York in the playoffs. Game 1 was played on September 27 and Game 2 on September 29.',
-      ],
-      [
-        'Schedule & how to watch',
-        'The Lynx’s official site lists upcoming games and broadcast details.',
-      ],
-    ],
-    [
-      'Lynx vs Liberty — WNBA.com',
-      'https://www.wnba.com/game/min-vs-nyl-1042600102',
-    ],
-    [{ name: 'Minnesota Lynx schedule', url: 'https://lynx.wnba.com/schedule' }]
-  ),
-  t(
-    'lula',
-    'lula',
-    ['lula game'],
-    'other',
-    'Not a game — Brazil’s president',
-    'Most "lula" searches are about Luiz Inácio Lula da Silva, the president of Brazil, who is running for a fourth term in the 2026 election — not a video game.',
-    [
-      [
-        'Who he is',
-        'Lula has been Brazil’s president since 2023 (and previously 2003–2010). He announced he would run again in the October 2026 election.',
-      ],
-      [
-        'Looking for a game?',
-        'We couldn’t find a current game called "Lula". If you saw it on a game portal, send us the link and we’ll add it.',
-      ],
-    ],
-    [
-      'Luiz Inácio Lula da Silva — Wikipedia',
-      'https://en.wikipedia.org/wiki/Luiz_In%C3%A1cio_Lula_da_Silva',
     ]
   ),
   t(
@@ -1667,43 +1756,6 @@ const OTHER: Topic[] = [
       'Scam With Your Friends on Steam',
       'https://store.steampowered.com/app/4954910/Scam_With_Your_Friends/',
     ]
-  ),
-  t(
-    'yoshi-tracker',
-    'yoshi tracker',
-    ["yoshi's island tracker"],
-    'other',
-    "Super Mario World 2: Yoshi's Island",
-    '"Yoshi tracker" usually means a completion tracker for Yoshi’s Island streams and speedruns — a simple overlay that marks which worlds and levels are done.',
-    [
-      [
-        'What it does',
-        'Streamers put it on screen to show 100% progress through Super Mario World 2: Yoshi’s Island. It’s a small HTML/JS page you can run locally or as a browser source in OBS.',
-      ],
-      [
-        'Other meanings',
-        'The phrase also shows up for Deadlock player-stats lookups (a streamer named Yoshi) and for Hatchin’ Yoshi toy stock trackers.',
-      ],
-    ],
-    [
-      "Yoshi's Island tracker on GitHub",
-      'https://github.com/ZachBehnke/yoshi-island-tracker',
-    ]
-  ),
-  t(
-    'i-love-pdf-merge',
-    'i love pdf merge',
-    ['ilovepdf merge', 'merge pdf'],
-    'other',
-    'iLovePDF (not a game)',
-    '"I love pdf merge" is iLovePDF’s free tool for combining several PDFs into one — not a game, but it shows up in a lot of the same searches.',
-    [
-      [
-        'How to merge',
-        'Open the Merge PDF tool, upload your files, drag them into the right order, and click "Merge PDF" to download the combined file.',
-      ],
-    ],
-    ['iLovePDF — Merge PDF', 'https://www.ilovepdf.com/merge_pdf']
   ),
 ];
 

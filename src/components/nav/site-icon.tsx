@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { cn } from '@/lib/utils';
 
 /**
- * Site favicon on a white tile; falls back to the site's initial when the
+ * Site favicon, edge to edge with rounded corners; falls back to the site's initial when the
  * favicon can't be loaded.
  */
 export function SiteIcon({
@@ -21,12 +21,12 @@ export function SiteIcon({
     <span
       aria-hidden
       className={cn(
-        'bg-card inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl border shadow-xs',
+        'inline-flex size-10 shrink-0 items-center justify-center overflow-hidden rounded-xl',
         className
       )}
     >
       {failed ? (
-        <span className="text-muted-foreground text-lg font-bold uppercase">
+        <span className="bg-muted text-muted-foreground flex size-full items-center justify-center text-lg font-bold uppercase">
           {name.slice(0, 1)}
         </span>
       ) : (
@@ -36,7 +36,7 @@ export function SiteIcon({
           loading="lazy"
           width={64}
           height={64}
-          className="size-3/5 object-contain"
+          className="size-full object-contain"
           onError={() => setFailed(true)}
         />
       )}

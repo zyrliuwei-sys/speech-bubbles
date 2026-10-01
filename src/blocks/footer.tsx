@@ -1,5 +1,6 @@
 import { CATEGORIES } from '@/config/sites';
 import { m } from '@/paraglide/messages.js';
+import { FooterBadgeList } from '@/components/footer-badge-list';
 import { SiteFooter, type FooterColumn } from '@/components/site-footer';
 
 import { categoryHref, categoryLabel } from './nav-i18n';
@@ -38,6 +39,10 @@ export function Footer() {
   ];
 
   return (
-    <SiteFooter tagline={m['landing.footer.tagline']()} columns={columns} />
+    <SiteFooter
+      tagline={m['landing.footer.tagline']()}
+      columns={columns}
+      badges={<FooterBadgeList className="mt-10" />}
+    />
   );
 }

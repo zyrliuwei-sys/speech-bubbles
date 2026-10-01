@@ -1,3 +1,5 @@
+import type { ReactNode } from 'react';
+
 import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { cn } from '@/lib/utils';
@@ -15,10 +17,13 @@ export function SiteFooter({
   tagline,
   columns,
   copyright,
+  badges,
 }: {
   tagline?: string;
   columns?: FooterColumn[];
   copyright?: string;
+  /** Rendered above the bottom bar, e.g. third-party badge links. */
+  badges?: ReactNode;
 }) {
   const year = new Date().getFullYear();
 
@@ -79,6 +84,8 @@ export function SiteFooter({
             </div>
           )}
         </div>
+
+        {badges}
 
         {/* Bottom bar */}
         <div className="mt-10 flex flex-col gap-3 border-t border-neutral-200 pt-6 sm:flex-row sm:items-center sm:justify-between dark:border-neutral-800">

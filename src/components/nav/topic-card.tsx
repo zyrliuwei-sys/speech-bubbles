@@ -43,11 +43,7 @@ export function TopicCard({
           TONES[tone].cover
         )}
       >
-        <SiteIcon
-          domain={domain}
-          name={game}
-          className="size-11 rounded-xl border-0 bg-white shadow-sm"
-        />
+        <SiteIcon domain={domain} name={game} className="size-11 rounded-xl" />
         <span className="font-display line-clamp-2 text-base leading-tight font-semibold">
           {game}
         </span>
