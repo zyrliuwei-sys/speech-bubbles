@@ -548,7 +548,12 @@ const MINECRAFT: Topic[] = [
   t(
     'minecraft-the-sift',
     'minecraft the sift',
-    ['sift minecraft', 'sift dimension minecraft', 'minecraft sift'],
+    [
+      'is the sift coming to minecraft',
+      'sift minecraft',
+      'sift dimension minecraft',
+      'minecraft sift',
+    ],
     'minecraft',
     'Minecraft',
     'The Sift is Minecraft’s fourth dimension — the first new one since The End in 2011. It was revealed at Minecraft Live on September 26, 2026 and comes to Java and Bedrock in 2027.',
@@ -659,6 +664,31 @@ const MINECRAFT: Topic[] = [
       {
         name: 'Minecraft Dungeons II on Steam',
         url: 'https://store.steampowered.com/app/1912410/Minecraft_Dungeons_II/',
+      },
+    ]
+  ),
+  t(
+    'mike-tomlin-minecraft',
+    'mike tomlin minecraft',
+    ['mike tomlin minecraft city', 'mike tomlin minecraft build'],
+    'minecraft',
+    'Minecraft',
+    'Former Steelers head coach Mike Tomlin revealed the Minecraft city he has been building for 12 years in a YouTube series, "My 12 Year Minecraft City Build", which premiered September 30, 2026.',
+    [
+      [
+        'What he built',
+        'A dense creative-mode city around a body of water: a boutique hotel with a spa and elevators, apartment towers with aquariums, rooftop penthouses and public facilities. Baseball and soccer stadiums are promised for later episodes.',
+      ],
+      [
+        'Why he started',
+        'Tomlin began the world with his kids about 12 years ago and kept building after they stopped playing; he calls it "therapeutic". The world has survived three PlayStation generations.',
+      ],
+    ],
+    ['Minecraft — official site', 'https://www.minecraft.net/'],
+    [
+      {
+        name: 'ESPN — Tomlin reveals his Minecraft city',
+        url: 'https://www.espn.com/nfl/story/_/id/50073098/former-steelers-coach-mike-tomlin-minecraft-city-12-year-reveal',
       },
     ]
   ),
@@ -993,6 +1023,7 @@ const PC: Topic[] = [
     'control-resonant-last-taxi',
     'control resonant taxi',
     [
+      'taxi control resonant',
       'the last taxi control resonant',
       'control resonant taxi locations',
       'control resonant taxi puzzle',
@@ -1755,6 +1786,67 @@ const OTHER: Topic[] = [
     [
       'Scam With Your Friends on Steam',
       'https://store.steampowered.com/app/4954910/Scam_With_Your_Friends/',
+    ]
+  ),
+  t(
+    'xerneas-pokemon-go',
+    'xerneas pokemon go',
+    ['xerneas raid', 'shiny xerneas pokemon go', 'xerneas raid hour'],
+    'other',
+    'Pokémon GO',
+    'Xerneas is back in 5-star raids in Pokémon GO from September 30 to October 6, 2026 (until 10:00 p.m. local time), and it can be Shiny.',
+    [
+      [
+        'When',
+        'Raids run September 30, 6:00 a.m. – October 6, 10:00 p.m. local time. Raid Hour was Wednesday, September 30, 6–7 p.m. local time.',
+      ],
+      [
+        'How to beat it',
+        'Xerneas is a pure Fairy type, so it is weak to Steel and Poison. Bring your best Steel and Poison attackers; a group of three or more trainers is the comfortable minimum.',
+      ],
+      [
+        'Is it worth it?',
+        'Xerneas is one of the strongest Fairy-type raid attackers in the game, so it is worth catching even if you already have one.',
+      ],
+    ],
+    [
+      'Leek Duck — Xerneas raid event',
+      'https://leekduck.com/events/xerneas-in-5-star-raid-battles-september-2026/',
+    ],
+    [
+      {
+        name: 'Pokémon GO — official site',
+        url: 'https://pokemongolive.com/',
+      },
+    ]
+  ),
+  t(
+    'pokemon-center-delta-reign',
+    'pokemon center delta reign',
+    [
+      'delta reign preorder',
+      'delta reign pokemon tcg',
+      'delta reign elite trainer box',
+    ],
+    'other',
+    'Pokémon TCG',
+    'Delta Reign is the sixth expansion of the Pokémon TCG Mega Evolution series, out November 6, 2026. Pokémon Center preorders opened in late September 2026.',
+    [
+      [
+        'About the set',
+        'A 103-card main set headlined by Mega Rayquaza ex, plus Legendary Stadium cards.',
+      ],
+      [
+        'Pokémon Center preorders',
+        'Available products include the Pokémon Center Elite Trainer Box (limit 2), Booster Bundle (limit 1) and Booster Box (limit 1). The launch queue ran for 8–9+ hours, so expect a wait when restocks drop.',
+      ],
+    ],
+    ['Pokémon Center', 'https://www.pokemoncenter.com/'],
+    [
+      {
+        name: 'PokeBeach — Delta Reign preorders',
+        url: 'https://www.pokebeach.com/2026/09/delta-reign-preorders-now-live-on-pokemon-center',
+      },
     ]
   ),
 ];
