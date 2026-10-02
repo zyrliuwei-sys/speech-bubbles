@@ -23,10 +23,40 @@ function ensureCloudflareEnv(): Promise<void> {
   return cfEnvPromise;
 }
 
+// Retired speech-bubble-editor URLs (and the empty template category/blog
+// pages). They are permanently gone, so answer with a real 410 before the
+// router runs — never a soft 404 or a 200 SPA shell. Matched with or without
+// the /zh locale prefix and a trailing slash.
+const GONE_PATH =
+  /^(?:\/zh)?\/(?:editor|pricing|ai-livestream|blog|category|api\/editor)(?:\/.*)?$/;
+
+const GONE_HTML = `<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>410 Gone</title></head>
+<body style="font-family:system-ui,sans-serif;max-width:32rem;margin:15vh auto;padding:0 16px">
+<h1>410 Gone</h1><p>This page has been permanently removed.</p>
+<p><a href="/">Back to the homepage</a></p></body></html>`;
+
+function goneResponse(req: Request): Response | null {
+  const { pathname } = new URL(req.url);
+  if (!GONE_PATH.test(pathname.replace(/\/+$/, '') || '/')) return null;
+  return new Response(req.method === 'HEAD' ? null : GONE_HTML, {
+    status: 410,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'X-Robots-Tag': 'noindex',
+      'Cache-Control': 'public, max-age=3600',
+    },
+  });
+}
+
 // Custom server entry — wraps every request in Paraglide's middleware so
 // getLocale() resolves per-request (AsyncLocalStorage) during SSR.
 export default {
   async fetch(req: Request): Promise<Response> {
+    const gone = goneResponse(req);
+    if (gone) return gone;
     await ensureCloudflareEnv();
     return paraglideMiddleware(req, () => handler.fetch(req));
   },

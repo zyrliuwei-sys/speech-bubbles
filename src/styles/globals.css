@@ -186,24 +186,10 @@
       transform: translate3d(4%, 6%, 0) scale(1.08);
     }
   }
-  @keyframes bubble-float {
-    0%,
-    100% {
-      transform: translateY(0) rotate(-2deg);
-    }
-    50% {
-      transform: translateY(-2px) rotate(-1deg);
-    }
-  }
-  .animate-bubble-float {
-    animation: bubble-float 4s ease-in-out infinite;
-    transform-origin: 50% 60%;
-  }
   @media (prefers-reduced-motion: reduce) {
     .animate-drift-a,
     .animate-drift-b,
-    .animate-drift-c,
-    .animate-bubble-float {
+    .animate-drift-c {
       animation: none !important;
     }
   }

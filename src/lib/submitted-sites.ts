@@ -4,7 +4,7 @@ import type { SubmittedSite } from '@/config/db/schema';
 import type { CategorySlug, Site } from '@/config/sites';
 
 // Database access stays behind server functions (dynamic import keeps drizzle
-// out of the client bundle), mirroring src/content/posts/server.ts.
+// out of the client bundle).
 
 function toSite(row: SubmittedSite): Site {
   return {

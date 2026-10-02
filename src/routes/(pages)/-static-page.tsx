@@ -52,7 +52,7 @@ export function staticPageRouteOptions(slug: string) {
       }).href;
       return {
         meta: [
-          { title: meta.title },
+          { title: `${meta.title} | ${envConfigs.app_name}` },
           { name: 'description', content: meta.description },
         ],
         links: [{ rel: 'canonical', href: canonical }],

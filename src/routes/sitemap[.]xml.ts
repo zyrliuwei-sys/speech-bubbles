@@ -1,18 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
-import { CATEGORIES, SITES } from '@/config/sites';
+import { SITES } from '@/config/sites';
 import { TOPICS } from '@/config/topics';
 import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
-import { getLocalPosts, mergePosts } from '@/content/posts';
 
-const STATIC_PATHS = [
-  '',
-  '/submit',
-  '/blog',
-  '/privacy-policy',
-  '/terms-of-service',
-];
+const STATIC_PATHS = ['', '/submit', '/privacy-policy', '/terms-of-service'];
 
 type Entry = {
   path: string;
@@ -75,17 +68,10 @@ export const Route = createFileRoute('/sitemap.xml')({
       GET: async () => {
         const entries: Entry[] = STATIC_PATHS.map((path) => ({
           path,
-          changeFrequency: path === '/blog' ? 'daily' : 'weekly',
+          changeFrequency: 'weekly',
           priority: path === '' ? 1 : 0.8,
         }));
 
-        for (const c of CATEGORIES) {
-          entries.push({
-            path: `/category/${c.slug}`,
-            changeFrequency: 'weekly',
-            priority: 0.7,
-          });
-        }
         for (const t of TOPICS) {
           entries.push({
             path: `/game/${t.slug}`,
@@ -115,39 +101,6 @@ export const Route = createFileRoute('/sitemap.xml')({
           }
         } catch {
           // Database not configured/reachable — curated sites still listed.
-        }
-
-        // Blog posts: db posts merged with local MDX posts.
-        try {
-          const { listPublishedArticles } =
-            await import('@/modules/posts/service');
-          const rows = await listPublishedArticles().catch(() => []);
-          const dbPosts = rows.map((row) => ({
-            slug: row.slug,
-            title: row.title || row.slug,
-            description: row.description || '',
-            createdAt: new Date(row.createdAt).toISOString(),
-            source: 'db' as const,
-          }));
-          const posts = mergePosts(dbPosts, getLocalPosts(baseLocale));
-          for (const post of posts) {
-            entries.push({
-              path: `/blog/${post.slug}`,
-              lastModified: post.createdAt,
-              changeFrequency: 'monthly',
-              priority: 0.6,
-            });
-          }
-        } catch {
-          // Database unreachable — static paths + local posts still listed.
-          for (const post of getLocalPosts(baseLocale)) {
-            entries.push({
-              path: `/blog/${post.slug}`,
-              lastModified: post.createdAt,
-              changeFrequency: 'monthly',
-              priority: 0.6,
-            });
-          }
         }
 
         const xml = [
