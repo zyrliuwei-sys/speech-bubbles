@@ -67,7 +67,7 @@ export const Route = createRootRoute({
       envConfigs.app_url ||
       '';
     // Site-wide defaults come from messages (not VITE_APP_NAME/DESCRIPTION) so
-    // pages without their own head — notably the 404 — always carry GameNav TDK.
+    // pages without their own head — notably the 404 — always carry speechbubbleswithtext TDK.
     // `match` is fresh while `matches` is a pre-load snapshot: a loader's
     // notFound() only shows up as globalNotFound on the root match.
     const isNotFound =

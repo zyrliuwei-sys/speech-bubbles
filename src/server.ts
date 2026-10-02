@@ -23,7 +23,7 @@ function ensureCloudflareEnv(): Promise<void> {
   return cfEnvPromise;
 }
 
-// Retired speech-bubble-editor URLs and its blog posts. They are permanently
+// Retired legacy URLs (old tool pages and blog posts). They are permanently
 // gone, so answer with a real 410 before the router runs — never a soft 404 or a 200 SPA shell. Matched with or without
 // the /zh locale prefix and a trailing slash.
 const GONE_PATH =

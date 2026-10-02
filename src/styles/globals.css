@@ -71,7 +71,7 @@
 
 @layer base {
   :root {
-    /* GameNav — warm paper, deep ink panels, violet accent */
+    /* speechbubbleswithtext — warm paper, deep ink panels, violet accent */
     --background: oklch(0.975 0.006 85);
     --foreground: oklch(0.21 0.02 275);
     --card: oklch(0.995 0.002 85);
