@@ -47,8 +47,7 @@ export function siteBadge(site: Site) {
 }
 
 export const siteHref = (site: Site) => `/site/${site.slug}`;
-// Category pages were retired (410); categories link to their homepage section.
-export const categoryHref = (slug: CategorySlug) => `/#sites-${slug}`;
+export const categoryHref = (slug: CategorySlug) => `/category/${slug}`;
 
 export function siteCardProps(site: Site): SiteCardProps {
   return {

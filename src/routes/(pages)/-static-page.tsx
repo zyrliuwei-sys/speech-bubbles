@@ -2,6 +2,7 @@ import type { ComponentType } from 'react';
 import { notFound, useLoaderData } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
+import { hreflangLinks } from '@/lib/hreflang';
 import { m } from '@/paraglide/messages.js';
 import { baseLocale, getLocale, localizeUrl } from '@/paraglide/runtime.js';
 
@@ -55,7 +56,10 @@ export function staticPageRouteOptions(slug: string) {
           { title: `${meta.title} | ${envConfigs.app_name}` },
           { name: 'description', content: meta.description },
         ],
-        links: [{ rel: 'canonical', href: canonical }],
+        links: [
+          { rel: 'canonical', href: canonical },
+          ...hreflangLinks(`/${slug}`),
+        ],
       };
     },
     component: StaticPage,

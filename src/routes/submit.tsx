@@ -11,9 +11,10 @@ import { Link } from '@/core/i18n/navigation';
 import { envConfigs } from '@/config';
 import { CATEGORIES } from '@/config/sites';
 import { apiPost } from '@/lib/api-client';
+import { hreflangLinks } from '@/lib/hreflang';
 import { cn } from '@/lib/utils';
 import { m } from '@/paraglide/messages.js';
-import { getLocale } from '@/paraglide/runtime.js';
+import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
 import { Footer } from '@/blocks/footer';
 import { Header } from '@/blocks/header';
 import { categoryLabel } from '@/blocks/nav-i18n';
@@ -38,6 +39,7 @@ export const Route = createFileRoute('/submit')({
   loader: () => {
     const locale = getLocale();
     return {
+      locale,
       title: m['landing.submit.title']({}, { locale }),
       description: m['landing.submit.subtitle']({}, { locale }),
     };
@@ -48,6 +50,15 @@ export const Route = createFileRoute('/submit')({
           meta: [
             { title: `${loaderData.title} | ${envConfigs.app_name}` },
             { name: 'description', content: loaderData.description },
+          ],
+          links: [
+            {
+              rel: 'canonical',
+              href: localizeUrl(`${envConfigs.app_url}/submit`, {
+                locale: loaderData.locale,
+              }).href,
+            },
+            ...hreflangLinks('/submit'),
           ],
         }
       : {},

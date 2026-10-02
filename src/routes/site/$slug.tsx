@@ -2,6 +2,7 @@ import { createFileRoute, notFound } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
 import { getSite } from '@/config/sites';
+import { hreflangLinks } from '@/lib/hreflang';
 import { getSubmittedSiteFn } from '@/lib/submitted-sites';
 import { m } from '@/paraglide/messages.js';
 import { getLocale, localizeUrl } from '@/paraglide/runtime.js';
@@ -35,6 +36,7 @@ export const Route = createFileRoute('/site/$slug')({
             locale,
           }).href,
         },
+        ...hreflangLinks(`/site/${site.slug}`),
       ],
     };
   },

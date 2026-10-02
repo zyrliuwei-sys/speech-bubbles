@@ -1,7 +1,7 @@
 import { createFileRoute } from '@tanstack/react-router';
 
 import { envConfigs } from '@/config';
-import { SITES } from '@/config/sites';
+import { CATEGORIES, SITES } from '@/config/sites';
 import { TOPICS } from '@/config/topics';
 import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
 
@@ -72,6 +72,13 @@ export const Route = createFileRoute('/sitemap.xml')({
           priority: path === '' ? 1 : 0.8,
         }));
 
+        for (const c of CATEGORIES) {
+          entries.push({
+            path: `/category/${c.slug}`,
+            changeFrequency: 'weekly',
+            priority: 0.7,
+          });
+        }
         for (const t of TOPICS) {
           entries.push({
             path: `/game/${t.slug}`,

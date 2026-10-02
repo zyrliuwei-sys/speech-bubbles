@@ -23,12 +23,11 @@ function ensureCloudflareEnv(): Promise<void> {
   return cfEnvPromise;
 }
 
-// Retired speech-bubble-editor URLs (and the empty template category/blog
-// pages). They are permanently gone, so answer with a real 410 before the
-// router runs — never a soft 404 or a 200 SPA shell. Matched with or without
+// Retired speech-bubble-editor URLs and its blog posts. They are permanently
+// gone, so answer with a real 410 before the router runs — never a soft 404 or a 200 SPA shell. Matched with or without
 // the /zh locale prefix and a trailing slash.
 const GONE_PATH =
-  /^(?:\/zh)?\/(?:editor|pricing|ai-livestream|blog|category|api\/editor)(?:\/.*)?$/;
+  /^(?:\/zh)?\/(?:editor|pricing|ai-livestream|blog|api\/editor)(?:\/.*)?$/;
 
 const GONE_HTML = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex">

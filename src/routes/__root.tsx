@@ -14,7 +14,8 @@ import { ThemeProvider } from 'next-themes';
 
 import { envConfigs } from '@/config';
 import { getQueryClient } from '@/lib/query-client';
-import { getLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { m } from '@/paraglide/messages.js';
+import { getLocale } from '@/paraglide/runtime.js';
 import { GoogleAnalytics } from '@/components/analytics/google-analytics';
 import { Plausible } from '@/components/analytics/plausible';
 import { CustomerService } from '@/components/customer-service';
@@ -55,7 +56,7 @@ const getAnalyticsConfigs = createServerFn().handler(async () => {
 
 export const Route = createRootRoute({
   loader: () => getAnalyticsConfigs(),
-  head: () => {
+  head: ({ match, matches }) => {
     // head() runs on the SSR server AND again on the client during hydration.
     // On the client, app_url falls back to the localhost dev default when
     // VITE_APP_URL wasn't inlined into the client bundle at build — which would
@@ -65,12 +66,23 @@ export const Route = createRootRoute({
       (typeof window !== 'undefined' && window.location?.origin) ||
       envConfigs.app_url ||
       '';
+    // Site-wide defaults come from messages (not VITE_APP_NAME/DESCRIPTION) so
+    // pages without their own head — notably the 404 — always carry GameNav TDK.
+    // `match` is fresh while `matches` is a pre-load snapshot: a loader's
+    // notFound() only shows up as globalNotFound on the root match.
+    const isNotFound =
+      match.globalNotFound ||
+      matches.some((d) => d.status === 'notFound' || d.globalNotFound);
     return {
       meta: [
         { charSet: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { title: envConfigs.app_name },
-        { name: 'description', content: envConfigs.app_description },
+        {
+          title: isNotFound
+            ? m['common.not_found.title']()
+            : m['landing.seo.title'](),
+        },
+        { name: 'description', content: m['landing.seo.description']() },
         // Open Graph site-wide defaults (pages add og:title/description/url)
         { property: 'og:site_name', content: envConfigs.app_name },
         { property: 'og:type', content: 'website' },
@@ -82,11 +94,6 @@ export const Route = createRootRoute({
       links: [
         { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
         { rel: 'apple-touch-icon', href: '/favicon.svg' },
-        ...locales.map((loc) => ({
-          rel: 'alternate',
-          hrefLang: loc,
-          href: localizeUrl(`${appUrl}/`, { locale: loc }).href,
-        })),
       ],
     };
   },
@@ -148,9 +155,9 @@ function NotFound() {
   return (
     <div className="bg-background text-foreground flex min-h-screen flex-col items-center justify-center gap-4">
       <h1 className="text-6xl font-bold">404</h1>
-      <p className="text-muted-foreground">Page not found</p>
+      <p className="text-muted-foreground">{m['common.not_found.message']()}</p>
       <a href="/" className="text-sm underline underline-offset-4">
-        Back to home
+        {m['common.not_found.back_home']()}
       </a>
     </div>
   );
