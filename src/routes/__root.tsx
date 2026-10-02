@@ -69,10 +69,10 @@ export const Route = createRootRoute({
     // Site-wide defaults come from messages (not VITE_APP_NAME/DESCRIPTION) so
     // pages without their own head — notably the 404 — always carry speechbubbleswithtext TDK.
     // `match` is fresh while `matches` is a pre-load snapshot: a loader's
-    // notFound() only shows up as globalNotFound on the root match.
+    // notFound() only shows up as _notFound on the root match.
     const isNotFound =
-      match.globalNotFound ||
-      matches.some((d) => d.status === 'notFound' || d.globalNotFound);
+      match._notFound ||
+      matches.some((d) => d.status === 'notFound' || d._notFound);
     return {
       meta: [
         { charSet: 'utf-8' },
