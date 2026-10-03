@@ -495,12 +495,7 @@ const ROBLOX: Topic[] = [
   t(
     'fnaf-x-fortnite',
     'fnaf x fortnite',
-    [
-      'fnaf fortnite',
-      'fnaf fortnite skins',
-      'fnaf',
-      'five nights at freddys fortnite',
-    ],
+    ['fnaf fortnite', 'fnaf fortnite skins', 'five nights at freddys fortnite'],
     'roblox',
     'Fortnite',
     'FNAF x Fortnite went live on October 1, 2026 with Fortnitemares 2026: Freddy Fazbear, Chica, Bonnie and Foxy are in the Item Shop, and Freddy Fazbear’s Pizza is on the map with animatronic bosses.',
