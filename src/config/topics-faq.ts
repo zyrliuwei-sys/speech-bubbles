@@ -196,6 +196,16 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Genshin Impact, with an estimated $50.2M on mobile, followed by Honkai: Star Rail ($35.7M) and Dragon Ball Z Dokkan Battle ($27.0M).',
     },
   ],
+  'one-in-a-krillion': [
+    {
+      q: 'What is One in a Krillion in Krillion?',
+      a: 'The rarest answer tier in the Krillion daily trivia game, worth 100 points — fewer than one in a thousand players find it.',
+    },
+    {
+      q: 'Where can I play Krillion?',
+      a: 'Free in the browser at krillion.io. A new Daily Dive of seven prompts opens every day at midnight New York time.',
+    },
+  ],
   'xerneas-pokemon-go': [
     {
       q: 'Can Xerneas be shiny in Pokémon GO?',
