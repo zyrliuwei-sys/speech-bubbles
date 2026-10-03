@@ -1956,6 +1956,44 @@ const OTHER: Topic[] = [
     ]
   ),
   t(
+    'dragonkind-game',
+    'dragonkind game',
+    [
+      'dragonkind',
+      'dragonkind.com',
+      'dragonkind rebecca yarros',
+      'fourth wing threshing game',
+    ],
+    'other',
+    'Dragonkind (Fourth Wing / The Empyrean)',
+    'Dragonkind is Rebecca Yarros’s free interactive Threshing game for Fourth Wing fans: a choose-your-own-adventure at dragonkind.com where you enter the Threshing Valley and try to get a dragon to bond you. It opened on October 1, 2026.',
+    [
+      [
+        'How to play Dragonkind',
+        '1. Go to dragonkind.com and create an account with your email.\n2. You are sorted into a wing, section and squad (for example First Wing, Claw Section, Third Squad).\n3. Press “Brave Threshing” and enter the Threshing Valley.\n4. Make your choices until a dragon decides you are worthy and bonds you.',
+      ],
+      [
+        'Why you keep dying in Dragonkind',
+        'Just like in the books, Threshing can kill you. Players report dying three or four times before a dragon bonds them, with a wait before each new try — so keep coming back.',
+      ],
+      [
+        'Dragonkind and the Empyrean books',
+        'Dragonkind is set in the world of The Empyrean series (Fourth Wing, Iron Flame, Onyx Storm). The Threshing is the day dragons choose their riders; the Threshing Day collection (Book 3.5) tells thirteen characters’ Threshing stories.',
+      ],
+    ],
+    ['Dragonkind', 'https://dragonkind.com/'],
+    [
+      {
+        name: 'Rebecca Yarros — The Empyrean',
+        url: 'https://rebeccayarros.com/empyrean',
+      },
+      {
+        name: 'Threshing Day (Rebecca Yarros)',
+        url: 'https://rebeccayarros.com/threshing-day',
+      },
+    ]
+  ),
+  t(
     'xerneas-pokemon-go',
     'xerneas pokemon go',
     ['xerneas raid', 'shiny xerneas pokemon go', 'xerneas raid hour'],
