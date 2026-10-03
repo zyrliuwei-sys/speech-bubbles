@@ -160,6 +160,42 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Threshing can kill you, just like in Fourth Wing. Many players die a few times before bonding; wait for the cooldown and try again.',
     },
   ],
+  'my-anime-mine-codes': [
+    {
+      q: 'What are the new My Anime Mine codes?',
+      a: 'LifeIsRoblox (2 Enchanted Dice) is the newest; SOULFORGE, STORM, EnchantedStrength and MUTATIONLUCK also worked on October 3, 2026.',
+    },
+  ],
+  'fishing-master-codes': [
+    {
+      q: 'How do you redeem codes in Fishing Master?',
+      a: 'Open the Shop (or Settings) in Fishing Master, type the code exactly as shown — codes are case-sensitive — and press Redeem.',
+    },
+  ],
+  'shigaku-codes': [
+    {
+      q: 'Why are my Shigaku codes not working?',
+      a: 'You must join the Shigaku Roblox community group before codes redeem. Also check spelling and spaces, and copy-paste the code.',
+    },
+  ],
+  'skibidi-toilet-war-codes': [
+    {
+      q: 'Where do you put codes in Skibidi Toilet War?',
+      a: 'Press Codes on the right side of the screen, paste the code and click CLAIM.',
+    },
+  ],
+  'star-wars-galactic-racer': [
+    {
+      q: 'When does Star Wars: Galactic Racer come out?',
+      a: 'October 6, 2026 on PC, PS5 and Xbox Series X|S.',
+    },
+  ],
+  'gacha-revenue-september-2026': [
+    {
+      q: 'Which gacha game made the most money in September 2026?',
+      a: 'Genshin Impact, with an estimated $50.2M on mobile, followed by Honkai: Star Rail ($35.7M) and Dragon Ball Z Dokkan Battle ($27.0M).',
+    },
+  ],
   'xerneas-pokemon-go': [
     {
       q: 'Can Xerneas be shiny in Pokémon GO?',

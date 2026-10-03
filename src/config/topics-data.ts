@@ -468,6 +468,142 @@ const ROBLOX: Topic[] = [
     ]
   ),
   t(
+    'voltline-roblox',
+    'voltline roblox',
+    ['voltline electric scooters', 'voltline', 'voltline scooters roblox'],
+    'roblox',
+    'Voltline: Electric Scooters (Roblox)',
+    'Voltline: Electric Scooters is a Roblox scooter sim by DILLYDASHER: unbox and assemble real-world e-scooters, do food deliveries for cash, and tune your ride with better parts. It is in early testing.',
+    [
+      [
+        'How to play Voltline',
+        'Start by unpacking and assembling your first scooter, the AOVOPRO ES80. Use your in-game phone for deliveries, navigation, shopping and your garage. Watch your battery, charge between runs, and save up for faster scooters like the VSETT 9+ or KuKirin G4 — each comes with its own unboxing and assembly.',
+      ],
+      [
+        'Voltline scooter upgrades',
+        'Fit compatible batteries, motors, controllers, brakes, tires and suspension to improve range and speed. The game tracks the miles you ride.',
+      ],
+      [
+        'Is Voltline finished?',
+        'No. It is in early testing (desktop first), so expect bugs, balance changes and unfinished areas.',
+      ],
+    ],
+    [
+      'Voltline: Electric Scooters on Roblox',
+      'https://www.roblox.com/games/118315378611589/Voltline-Electric-Scooters',
+    ]
+  ),
+  t(
+    'my-anime-mine-codes',
+    'my anime mine codes',
+    ['my anime mine', 'my anime mine roblox', 'my anime mine code'],
+    'roblox',
+    'My Anime Mine (Roblox)',
+    'My Anime Mine codes give free Enchanted Dice, Summon Scrolls and luck boosts. My Anime Mine is a Roblox mining tycoon where anime characters break rocks for rare ores.',
+    [
+      [
+        'My Anime Mine codes (checked October 3, 2026)',
+        'LifeIsRoblox — 2 Enchanted Dice (new)\nSOULFORGE — 1 Enchanted Dice + 1 Summon Scroll\nSTORM — 1 Enchanted Dice + 1 Summon Scroll\nEnchantedStrength — 1 Strength Dice + 1 Enchanted Dice\nMUTATIONLUCK — 2× Mutation Luck\nCodes can expire at any time.',
+      ],
+      [
+        'How to redeem My Anime Mine codes',
+        'Open the codes menu in the game and paste the code — copy it rather than typing to avoid one-letter mistakes. If a valid code fails, leave the server and rejoin, then try again.',
+      ],
+      [
+        'About My Anime Mine',
+        'Released August 19, 2026 by Curseddd Games. Your crew of anime characters mines through layers of rock; sell the ores, level characters up, buy new pickaxes, enchant them, and finish each zone’s research tree to unlock the next mine.',
+      ],
+    ],
+    [
+      'My Anime Mine on Roblox',
+      'https://www.roblox.com/games/79389059854988/My-Anime-Mine',
+    ]
+  ),
+  t(
+    'fishing-master-codes',
+    'fishing master codes',
+    ['fishing master roblox codes', 'fishing master roblox', 'fishing master'],
+    'roblox',
+    'Fishing Master (Roblox)',
+    'Fishing Master codes give free skills, auras and rod skins. Fishing Master is a Roblox RPG fishing game where you use skills to fight and reel in giant fish weighing thousands of kilograms.',
+    [
+      [
+        'Fishing Master codes (checked October 3, 2026)',
+        'LOVE10KCCU — Blossom guitar skin\n2MVISITS — auras\n1MVISITS — skills\nTRUNGTHU2026, BUMROBLOX, KVT2K4 — free rewards\nCodes are case-sensitive and can expire at any time.',
+      ],
+      [
+        'How to redeem Fishing Master codes',
+        'Launch Fishing Master on Roblox, open the Shop (or Settings), type the code exactly as shown into the box and press Redeem. Joining the game’s Roblox group also gives an exclusive rod skin.',
+      ],
+      [
+        'How Fishing Master works',
+        'When a fish bites, a fight starts: deal enough damage to bring its HP bar to zero and you catch it. Sell catches to the Fish Merchant, then train your strength and learn new skills to take on bigger fish.',
+      ],
+    ],
+    [
+      'Fishing Master on Roblox',
+      'https://www.roblox.com/games/99925503388128/Fishing-Master',
+    ]
+  ),
+  t(
+    'shigaku-codes',
+    'roblox shigaku codes',
+    ['shigaku codes', 'shigaku roblox', 'shigaku code'],
+    'roblox',
+    'Shigaku (Roblox)',
+    'Roblox Shigaku codes give free rerolls for your student. Shigaku is an open-campus anime school RPG on Roblox inspired by Classroom of the Elite.',
+    [
+      [
+        'Shigaku codes (checked October 3, 2026)',
+        'WEREBACK — 150 rerolls (new)\n40KFAVS — 100 rerolls\n35KLIKES — 100 rerolls\nMYBADFIXESOTW, MOREMOREMORE, RELEASETHANKYOU, 1KLIKESANDDELAYSORRY — 25 rerolls each\nlapeace, JUSTTHESTART — 10 rerolls each\nMASTERMANIPULATOR — 9 rerolls\nbugfixes — 3 rerolls\nLOCKERSFIXED — 1 reroll',
+      ],
+      [
+        'How to redeem Shigaku codes',
+        'Join the Shigaku Roblox community group first. In the game, pick your character, open the menu (top-left) → Settings → Codes, enter the code and press Redeem. Codes may be case-sensitive, so copy and paste them.',
+      ],
+      [
+        'About Shigaku',
+        'Attend classes, work out, play sports and minigames, pick a fighting style and fight rivals to earn class points and move up to a better class. New codes are posted in the codes channel of the official Shigaku Discord.',
+      ],
+    ],
+    [
+      'Shigaku on Roblox',
+      'https://www.roblox.com/games/109329896664198/Shigaku',
+    ],
+    [{ name: 'Shigaku Discord', url: 'https://discord.com/invite/shigaku' }]
+  ),
+  t(
+    'skibidi-toilet-war-codes',
+    'skibidi war code',
+    [
+      'skibidi war codes',
+      'skibidi toilet war codes',
+      'skibidi toilet war code',
+      'skibidi toilet war roblox',
+    ],
+    'roblox',
+    'Skibidi Toilet War (Roblox)',
+    'Skibidi War codes (Skibidi Toilet War on Roblox) give free Gold and Metal to power up your Cameraman, Speakerman, TV-man or Titan.',
+    [
+      [
+        'Skibidi Toilet War codes (checked October 3, 2026)',
+        'DISCORDHERO — 3,000 Gold + 200 Metal\nWELCOME — 2,000 Gold + 150 Metal\nSKIBIDI — 1,500 Gold\nTITAN — 500 Metal\nCodes can expire at any time.',
+      ],
+      [
+        'How to redeem Skibidi Toilet War codes',
+        'Launch Skibidi Toilet War on Roblox, press Codes on the right side of the screen, paste a code into the box and click CLAIM.',
+      ],
+      [
+        'How Skibidi Toilet War works',
+        'Pick a Cameraman, Speakerman, TV-man or Titan, fight waves of toilets solo or with a squad, and choose power-up cards between waves. Dodge the giant bosses’ heavy attacks, unlock stronger morphs, and climb the global top-100 leaderboard.',
+      ],
+    ],
+    [
+      'Skibidi Toilet War on Roblox',
+      'https://www.roblox.com/games/13675968077/Skibidi-Toilet-War',
+    ]
+  ),
+  t(
     'fortnitemares-2026',
     'fortnitemares 2026',
     ['fortnitemares'],
@@ -1283,6 +1419,37 @@ const PC: Topic[] = [
     ]
   ),
   t(
+    'star-wars-galactic-racer',
+    'galactic racer',
+    [
+      'star wars galactic racer',
+      'galactic racer release date',
+      'galactic racer review',
+      'star wars galactic racer review',
+    ],
+    'pc',
+    'Star Wars: Galactic Racer',
+    'Galactic Racer — Star Wars: Galactic Racer — is a roguelite podracing-style racing game from Fuse Games and Lucasfilm Games, out October 6, 2026 on PC, PS5 and Xbox Series X|S. Reviews average 88 on Metacritic and OpenCritic.',
+    [
+      [
+        'Star Wars: Galactic Racer release date and price',
+        'October 6, 2026 on PC (Steam), PlayStation 5 and Xbox Series X|S. The Standard Edition is $59.99 on Steam; the Deluxe Edition adds three exclusive speeders, three Arcade events, an N-1 starfighter livery, a banner and a digital art book. A physical Collector’s Edition adds a speeder model and steelbook.',
+      ],
+      [
+        'What kind of game it is',
+        'A run-based racing roguelite set in the Outer Rim. You play Shade, an ex-racer pulled back in to help overthrow Galactic League champion Kestar Bool: pick a vehicle, race, upgrade between events and try to become champion.',
+      ],
+      [
+        'Star Wars: Galactic Racer reviews',
+        '88 on Metacritic (PS5; Xbox 86, PC 82) and 88 on OpenCritic, with perfect 10s from VGC and Giant Bomb and no score below 8 as of October 3, 2026 — the best-reviewed Star Wars game in over two decades.',
+      ],
+    ],
+    [
+      'Star Wars: Galactic Racer (StarWars.com)',
+      'https://www.starwars.com/games-apps/star-wars-galactic-racer',
+    ]
+  ),
+  t(
     'ea-fc-27-lite',
     'ea fc 27 lite',
     ['fc 27 lite', 'ea sports fc 27 lite', 'fc 27 free'],
@@ -1990,6 +2157,35 @@ const OTHER: Topic[] = [
       {
         name: 'Threshing Day (Rebecca Yarros)',
         url: 'https://rebeccayarros.com/threshing-day',
+      },
+    ]
+  ),
+  t(
+    'gacha-revenue-september-2026',
+    'gacha revenue september',
+    [
+      'gacha revenue september 2026',
+      'gacha revenue',
+      'genshin revenue september 2026',
+    ],
+    'other',
+    'Gacha games',
+    'Gacha revenue for September 2026: Genshin Impact topped the mobile chart with an estimated $50.2M, ahead of Honkai: Star Rail ($35.7M) and Dragon Ball Z Dokkan Battle ($27.0M). The 86 tracked games made about $401M combined, down 11% from August.',
+    [
+      [
+        'Top gacha games by revenue, September 2026 (mobile estimates)',
+        '1. Genshin Impact — $50.2M\n2. Honkai: Star Rail — $35.7M\n3. Dragon Ball Z Dokkan Battle — $27.0M\nLove and Deepspace — $19.5M (up from $17.7M in August, rising from 10th to 5th)\nArknights — $18.7M\nUma Musume: Pretty Derby — $17.7M',
+      ],
+      [
+        'How gacha revenue is estimated',
+        'Monthly charts are estimates of mobile app-store spending (iOS and Google Play) built from third-party data; PC and console spending is not included, so games big on PC look smaller than they are.',
+      ],
+    ],
+    ['GachaRevenue — monthly charts', 'https://revenue.ennead.cc/'],
+    [
+      {
+        name: 'Gacha revenue rankings (gacha.gg)',
+        url: 'https://www.gacha.gg/revenue',
       },
     ]
   ),
