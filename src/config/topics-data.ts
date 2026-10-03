@@ -493,6 +493,40 @@ const ROBLOX: Topic[] = [
     ]
   ),
   t(
+    'fnaf-x-fortnite',
+    'fnaf x fortnite',
+    [
+      'fnaf fortnite',
+      'fnaf fortnite skins',
+      'fnaf',
+      'five nights at freddys fortnite',
+    ],
+    'roblox',
+    'Fortnite',
+    'FNAF x Fortnite went live on October 1, 2026 with Fortnitemares 2026: Freddy Fazbear, Chica, Bonnie and Foxy are in the Item Shop, and Freddy Fazbear’s Pizza is on the map with animatronic bosses.',
+    [
+      [
+        'FNAF Fortnite skins and prices',
+        'Freddy Fazbear, Chica and Bonnie cost 1,500 V-Bucks each and Foxy costs 1,600; every outfit has a Withered style and visibly breaks down as you take damage. The Five Nights at Freddy’s Bundle (all four plus extras) was 4,500 V-Bucks when we checked on October 3, 2026. Single items: Back Blings 300, Pickaxes and Emotes 500, the FNAF Wrap 500, instruments 800 and the Freddy Fazbear Slippers Kicks 1,000 V-Bucks.',
+      ],
+      [
+        'Where Freddy Fazbear’s Pizza is in Fortnite',
+        'The new landmark sits northeast of Nightmare Neighborhood, at the crossroads with Freaky Fields. Freddy and Foxy spawn there every match; Chica and Bonnie spawn at random spots. Beat an animatronic boss to wear its suit as an extra life for that match.',
+      ],
+    ],
+    ['Fortnite Item Shop', 'https://www.fortnite.com/item-shop'],
+    [
+      {
+        name: 'Fortnite Wiki — Five Nights at Freddy’s Bundle',
+        url: 'https://fortnite.fandom.com/wiki/Five_Nights_at_Freddy%27s_Bundle',
+      },
+      {
+        name: 'FNaF x Fortnite collab details (esports.gg)',
+        url: 'https://esports.gg/news/fortnite/fnaf-fortnite-collab-fortnitemares-2026/',
+      },
+    ]
+  ),
+  t(
     'slenderman-fortnite',
     'slenderman fortnite',
     ['slender man fortnite skin'],
@@ -1115,6 +1149,141 @@ const PC: Topic[] = [
       {
         name: 'AION 2 Wiki — Classes',
         url: 'https://aion2.wiki.fextralife.com/Classes',
+      },
+    ]
+  ),
+  t(
+    'aion-2',
+    'aion2',
+    ['aion 2', 'aion 2 release date', 'aion 2 global', 'aion 2 steam'],
+    'pc',
+    'AION 2',
+    'AION 2 (Aion2) is NCSOFT’s free-to-play MMORPG sequel to Aion. The global version launches on PC on October 5, 2026 at 1:00 p.m. UTC, via Steam and NC’s PURPLE launcher.',
+    [
+      [
+        'Aion 2 global release date',
+        'October 5, 2026, 1:00 p.m. UTC, worldwide at the same moment. Founder’s Pack owners have had early access since September 30, 2026.',
+      ],
+      [
+        'Is Aion 2 free to play?',
+        'Yes. The base game is free; Founder’s Packs only add the early-access head start and cosmetic/starter items.',
+      ],
+      [
+        'Aion 2 classes',
+        'Eight classes at global launch — Templar, Gladiator, Assassin, Ranger, Sorcerer, Spiritmaster, Cleric and Chanter. See our Aion 2 classes page for a breakdown.',
+      ],
+    ],
+    ['AION 2 on Steam', 'https://store.steampowered.com/app/3393110/'],
+    [{ name: 'AION 2 official site', url: 'https://aion2.plaync.com/' }]
+  ),
+  t(
+    'wardogs-update',
+    'wardogs update',
+    [
+      'wardogs patch notes',
+      'wardogs season 2',
+      'wardogs season 2 release date',
+      'wardogs hotfix',
+    ],
+    'pc',
+    'WARDOGS',
+    'The next big WARDOGS update is Season 2, dated for October 15, 2026, with a full wipe. The latest change (October 2, 2026) was a server-side hotfix that pulled the IR Rangefinder and restored CWIS damage.',
+    [
+      [
+        'WARDOGS Season 2 (October 15, 2026)',
+        'Adds four new weapons (one per class), a Level 4 helmet, a new anti-air tank, per-map rain and fog, a higher minimum parachute height and longer seasons. It arrives with a full progression wipe.',
+      ],
+      [
+        'Latest WARDOGS hotfix (October 2, 2026)',
+        'Server-side only — no download, no downtime. IR Rangefinders were removed from the vendor as servers restarted over ~12 hours (they return in Season 2, now needing batteries), and the CWIS again kills a Havoc in about 6 seconds instead of 12. Recent server updates also improved warmup, stopped AFK kicks during seeding, tightened team switching and added Asian-region capacity.',
+      ],
+      [
+        'What WARDOGS is',
+        'A 100-player, three-team tactical all-out-warfare FPS by BULKHEAD, published by Team17. It entered Steam Early Access on September 10, 2026 at $39.99 and sold over two million copies in its first week.',
+      ],
+    ],
+    [
+      'WARDOGS news on Steam',
+      'https://steamcommunity.com/app/1867240/allnews/',
+    ],
+    [
+      {
+        name: 'WARDOGS on Steam',
+        url: 'https://store.steampowered.com/app/1867240/WARDOGS/',
+      },
+    ]
+  ),
+  t(
+    'halo-combat-evolved-browser',
+    'halo combat evolved web browser',
+    [
+      'halo combat evolved web browse',
+      'halo ce browser',
+      'play halo in browser',
+      'halo browser port',
+    ],
+    'pc',
+    'Halo: Combat Evolved',
+    'You can now play the original Xbox Halo: Combat Evolved free in a web browser, thanks to an unofficial fan port by Mitchell Hynes — full campaign, split-screen co-op and online multiplayer for up to 128 players.',
+    [
+      [
+        'How to play Halo CE in your browser',
+        'Open the port’s page in a desktop browser (Chrome runs it best) and start the campaign — no install. A gamepad works for split-screen co-op. It runs poorly on iOS and Android, so use a PC.',
+      ],
+      [
+        'Is the Halo browser port official?',
+        'No. It is a fan project built on the recent decompilation of the Xbox game and is not made or endorsed by Microsoft, so it could be taken down at any time. The official way to play is Halo: The Master Chief Collection on PC and Xbox.',
+      ],
+    ],
+    [
+      'Halo CE browser port (Mitchell Hynes)',
+      'https://mitchellhynes.com/halo/halo.html',
+    ],
+    [
+      {
+        name: 'Halo: The Master Chief Collection on Steam',
+        url: 'https://store.steampowered.com/app/976730/',
+      },
+    ]
+  ),
+  t(
+    'gears-of-war-e-day-review',
+    'gears of war e day review',
+    [
+      'gears of war e-day review',
+      'gears e-day review',
+      'gears of war e-day metacritic',
+      'gears of war e-day release date',
+    ],
+    'pc',
+    'Gears of War: E-Day',
+    'Gears of War: E-Day reviews are strong: 86 on Metacritic and 88 on OpenCritic (“Mighty”, 90% of critics recommend) as of October 3, 2026. It launches October 6, 2026 on Xbox Series X|S and PC, day one on Game Pass.',
+    [
+      [
+        'What critics liked',
+        'The long-awaited Emergence Day story with young Marcus Fenix and Dom, a darker horror-leaning tone like the original trilogy, a new jump button and weapon mods that open up cover combat, and some of the best visuals on Xbox.',
+      ],
+      [
+        'What critics didn’t like',
+        'Some reviewers found the prequel story predictable, and the semi-open-world sections don’t fully deliver.',
+      ],
+      [
+        'Gears of War: E-Day release date and platforms',
+        'October 6, 2026 at 8:00 a.m. PT on Xbox Series X|S, Windows PC and Steam, included with Game Pass Ultimate and PC Game Pass. Premium Edition owners got up to five days of early access from October 1. Not on PS5. Developed by The Coalition with People Can Fly.',
+      ],
+    ],
+    [
+      'Gears of War: E-Day on OpenCritic',
+      'https://opencritic.com/game/20801/gears-of-war-e-day',
+    ],
+    [
+      {
+        name: 'Gears of War: E-Day on Metacritic',
+        url: 'https://www.metacritic.com/game/gears-of-war-e-day/',
+      },
+      {
+        name: 'Gears of War: E-Day (Xbox)',
+        url: 'https://www.xbox.com/en-US/games/gears-of-war-eday',
       },
     ]
   ),
