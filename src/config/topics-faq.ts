@@ -150,6 +150,16 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'No. Modded APKs from third-party sites can carry malware and get your account banned. The game is free on Google Play and the App Store.',
     },
   ],
+  'dragonkind-game': [
+    {
+      q: 'How do you play Dragonkind?',
+      a: 'Create a free account at dragonkind.com, get sorted into a wing, section and squad, then press “Brave Threshing” and make choices until a dragon bonds you.',
+    },
+    {
+      q: 'Why did I die in Dragonkind?',
+      a: 'Threshing can kill you, just like in Fourth Wing. Many players die a few times before bonding; wait for the cooldown and try again.',
+    },
+  ],
   'xerneas-pokemon-go': [
     {
       q: 'Can Xerneas be shiny in Pokémon GO?',
