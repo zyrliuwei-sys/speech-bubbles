@@ -78,6 +78,44 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'For solo play, Ranger or Gladiator are the easiest starts. Templar, Cleric and Chanter are always wanted in groups.',
     },
   ],
+  'fnaf-x-fortnite': [
+    {
+      q: 'How much is the FNAF bundle in Fortnite?',
+      a: 'The Five Nights at Freddy’s Bundle was 4,500 V-Bucks on October 3, 2026. Bought separately, Freddy, Chica and Bonnie are 1,500 V-Bucks each and Foxy is 1,600.',
+    },
+    {
+      q: 'Where is Freddy Fazbear’s Pizza in Fortnite?',
+      a: 'Northeast of Nightmare Neighborhood, at the crossroads with Freaky Fields. Freddy and Foxy spawn there every match.',
+    },
+  ],
+  'aion-2': [
+    {
+      q: 'When does Aion 2 come out globally?',
+      a: 'October 5, 2026 at 1:00 p.m. UTC on PC via Steam and PURPLE. Founder’s Pack owners started early access on September 30.',
+    },
+  ],
+  'wardogs-update': [
+    {
+      q: 'When is WARDOGS Season 2?',
+      a: 'October 15, 2026. It brings four new weapons, a Level 4 helmet, an anti-air tank and rain/fog — and a full wipe.',
+    },
+  ],
+  'halo-combat-evolved-browser': [
+    {
+      q: 'Can you play Halo CE in a browser?',
+      a: 'Yes, through Mitchell Hynes’ free, unofficial browser port of the Xbox version — campaign, split-screen co-op and multiplayer. It works best in Chrome on a PC.',
+    },
+  ],
+  'gears-of-war-e-day-review': [
+    {
+      q: 'Is Gears of War: E-Day good?',
+      a: 'Critics think so: 86 on Metacritic and 88 on OpenCritic, with praise for the story, new movement and visuals, and some criticism of the semi-open-world sections.',
+    },
+    {
+      q: 'Is Gears of War: E-Day on Game Pass?',
+      a: 'Yes. It is included with Game Pass Ultimate and PC Game Pass from launch on October 6, 2026.',
+    },
+  ],
   'ea-fc-27-lite': [
     {
       q: 'Is FC 27 Lite free?',
