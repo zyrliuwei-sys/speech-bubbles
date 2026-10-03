@@ -2190,6 +2190,45 @@ const OTHER: Topic[] = [
     ]
   ),
   t(
+    'one-in-a-krillion',
+    'one in a krillion',
+    [
+      'krillion',
+      'krillion game',
+      'krillion answers',
+      'one in a krillion answers',
+      'one in a krillion game',
+    ],
+    'other',
+    'Krillion (daily trivia game)',
+    '“One in a Krillion” is the rarest answer tier in Krillion, the daily browser trivia game at krillion.io — worth 100 points, found by fewer than one in a thousand players. (Looking for the krill action game of the same name? It’s free on Steam — link below.)',
+    [
+      [
+        'How Krillion works',
+        'Everyone gets the same seven Daily Dive prompts (countries, animals, movies, food…) with a short timer on each. Type any valid answer — the rarer it is, the more points you score, and every point sinks your dive 10 metres deeper. 700 points reaches the hadal trench floor. A new dive opens every day at midnight New York time.',
+      ],
+      [
+        'Krillion answer tiers',
+        'Plankton — 5 points\nToo Clever — 10\nSchooler — 25\nRare — 40\nDeep Cut — 60\nOne in a Krillion — 100\nExample: “France” for a European country scores 5; “San Marino” scores 100.',
+      ],
+      [
+        'How to get One in a Krillion answers',
+        'Skip your first instinct — that is what everyone else types. Go for answers you are sure are correct but that few people think of; a strange answer the game does not accept scores nothing. Krillion also has an Unlimited mode and live multiplayer rooms (up to 30 players) for practice.',
+      ],
+      [
+        'One in a Krillion — the Steam game',
+        'A different game with the same name: a free deep-sea action game made by DigiPen students (June 2024). You play King Krilliam and command swarms of krill to form hammers, scissors and other shapes to fight predators.',
+      ],
+    ],
+    ['Krillion — play the daily dive', 'https://krillion.io/'],
+    [
+      {
+        name: 'One in a Krillion (action game) on Steam',
+        url: 'https://store.steampowered.com/app/2924160/One_in_a_Krillion/',
+      },
+    ]
+  ),
+  t(
     'xerneas-pokemon-go',
     'xerneas pokemon go',
     ['xerneas raid', 'shiny xerneas pokemon go', 'xerneas raid hour'],
