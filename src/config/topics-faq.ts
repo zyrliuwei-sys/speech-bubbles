@@ -10,6 +10,12 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'No. The quest stopped working for new runs when The Hunt: Roblox 20 ended on September 28, 2026. Players who already own the Glorbaxe keep it.',
     },
   ],
+  'clover-legends-codes': [
+    {
+      q: 'How do you redeem codes in Clover Legends?',
+      a: 'Click the menu button (three lines) in the top-right corner of the game, enter the code in the codes box and redeem it.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
