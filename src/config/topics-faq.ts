@@ -16,6 +16,18 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Click the menu button (three lines) in the top-right corner of the game, enter the code in the codes box and redeem it.',
     },
   ],
+  'jjs-codes': [
+    {
+      q: 'How do you redeem codes in Jujutsu Shenanigans?',
+      a: 'Click the Shop icon near the top-left, open the Codes tab, paste the code and press Redeem.',
+    },
+  ],
+  'lagos-life-game': [
+    {
+      q: 'Is Lagos Life free?',
+      a: 'Yes. Lagos Life is free to play in your browser with no download.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
@@ -170,6 +182,10 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
     {
       q: 'Why did I die in Dragonkind?',
       a: 'Threshing can kill you, just like in Fourth Wing. Many players die a few times before bonding; wait for the cooldown and try again.',
+    },
+    {
+      q: 'What dragon colors can bond you in Dragonkind?',
+      a: 'Red, green, orange, brown, blue or black. Your result card also shows the dragon’s name, tail type, age and lineage.',
     },
   ],
   'my-anime-mine-codes': [
