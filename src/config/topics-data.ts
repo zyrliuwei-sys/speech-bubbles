@@ -604,6 +604,32 @@ const ROBLOX: Topic[] = [
     ]
   ),
   t(
+    'clover-legends-codes',
+    'clover legends codes',
+    ['clover legends', 'clover legends roblox', 'clover legends code'],
+    'roblox',
+    'Clover Legends (Roblox)',
+    'Clover Legends codes give free Gems, Race Rerolls, keys and auras. Clover Legends is a Black Clover–inspired open-world RPG on Roblox where your grimoire roll decides your magic.',
+    [
+      [
+        'Clover Legends codes (checked October 4, 2026)',
+        'TREASURE50K — Wind Spirit Aura (new)\nREROLL50K — 20 Race Rerolls\n50KSQUAD — 2,000 Gems\nWORLDBOSS — 500 Gems + 3 Race Rerolls\nNIGHTFALL — 500 Gems + 10,000 Yul\nMERCURYTIME — 500 Gems + 3 Race Rerolls\nDIAMOND9000 — 500 Gems + 2 Spell Pages\nFREEGEMS — 500 Gems\nGAMERS — 200 Gems\nEXPLORER — 1 Dungeon Key\nFIGHTON — 1 Boss Key\nCodes can expire at any time.',
+      ],
+      [
+        'How to redeem Clover Legends codes',
+        'Launch Clover Legends on Roblox, click the menu button (three lines) in the top-right corner, open the codes box, paste a code and redeem it.',
+      ],
+      [
+        'About Clover Legends',
+        'Roll for one of 60+ grimoires across six rarity tiers, each with its own spells, then quest and beat the boss on each island to rank up and move on. Race rolls (Angel, Devil, High Elf and more) add stat buffs — which is why Race Reroll codes are so popular.',
+      ],
+    ],
+    [
+      'Clover Legends on Roblox',
+      'https://www.roblox.com/games/90860390610142/Clover-Legends',
+    ]
+  ),
+  t(
     'fortnitemares-2026',
     'fortnitemares 2026',
     ['fortnitemares'],
@@ -1112,11 +1138,21 @@ const PC: Topic[] = [
   t(
     'witcher-3-remastered',
     'the witcher 3 remastered release date',
-    ['the witcher 3 remastered steam', 'witcher 3 remastered release date'],
+    [
+      'the witcher 3 remastered steam',
+      'witcher 3 remastered release date',
+      'witcher 3 remaster countdown',
+      'witcher 3 remastered countdown',
+      'witcher 3 remastered release time',
+    ],
     'pc',
     'The Witcher 3: Wild Hunt – Remastered',
     'The Witcher 3 Remastered release date was September 29, 2026: The Witcher 3: Wild Hunt – Remastered is a free upgrade for existing owners on Steam.',
     [
+      [
+        'Witcher 3 Remastered countdown: release time',
+        'The countdown is over — it unlocked worldwide at the same moment on September 29, 2026 at 10:00 a.m. UTC (6:00 a.m. ET / 3:00 a.m. PT), and you can play it now.',
+      ],
       [
         'The Witcher 3 Remastered platforms',
         'PC via Steam, GOG, Epic Games Store and Battle.net, plus PS5, Xbox Series X|S and Nintendo Switch 2.',
