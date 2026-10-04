@@ -833,7 +833,7 @@ const MINECRAFT: Topic[] = [
   t(
     'minecraft-dungeons-2-release-date',
     'minecraft dungeons 2 release date',
-    ['minecraft dungeons ii'],
+    ['minecraft dungeons ii', 'minecraft dungeons 2', 'dungeons 2'],
     'minecraft',
     'Minecraft Dungeons II',
     'Minecraft Dungeons 2 release date: Minecraft Dungeons II launched on September 29, 2026 at 8:00 AM UTC worldwide.',
@@ -855,6 +855,10 @@ const MINECRAFT: Topic[] = [
       {
         name: 'Minecraft Dungeons II on Steam',
         url: 'https://store.steampowered.com/app/1912410/Minecraft_Dungeons_II/',
+      },
+      {
+        name: 'Looking for Dungeons 2 (2015, Kalypso)? It’s on Steam',
+        url: 'https://store.steampowered.com/app/262280/Dungeons_2/',
       },
     ]
   ),
@@ -1456,6 +1460,9 @@ const PC: Topic[] = [
       'gears e-day review',
       'gears of war e-day metacritic',
       'gears of war e-day release date',
+      'gears of war',
+      'gears of war e-day',
+      'new gears of war',
     ],
     'pc',
     'Gears of War: E-Day',
