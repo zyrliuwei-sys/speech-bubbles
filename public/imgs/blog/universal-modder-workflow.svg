@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900" role="img" aria-labelledby="t d">
+  <title id="t">How Universal Modder works</title>
+  <desc id="d">Seven steps an AI coding agent follows: find the game, recon the engine, read the code, build the mod, generate art, 3D and audio with fal, test in the running game, then record a showcase and write notes for the next agent.</desc>
+  <defs>
+    <marker id="ah" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#8a84a3"/>
+    </marker>
+  </defs>
+  <rect width="1600" height="900" fill="#f7f5fb"/>
+  <text x="800" y="96" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="46" font-weight="700" fill="#1b1430">How Universal Modder works</text>
+  <text x="800" y="146" text-anchor="middle" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="26" fill="#5e5878">Your AI coding agent runs the whole loop — you describe the mod</text>
+
+  <g font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif">
+    <!-- row 1 -->
+    <g transform="translate(90 220)">
+      <rect width="300" height="210" rx="22" fill="#ffffff" stroke="#d9d4e8" stroke-width="2"/>
+      <circle cx="46" cy="50" r="24" fill="#7c5cff"/><text x="46" y="59" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">1</text>
+      <text x="30" y="122" font-size="30" font-weight="700" fill="#1b1430">Find the game</text>
+      <text x="30" y="162" font-size="21" fill="#5e5878">Locate the install</text>
+      <text x="30" y="190" font-size="21" fill="#5e5878">you own on PC</text>
+    </g>
+    <g transform="translate(470 220)">
+      <rect width="300" height="210" rx="22" fill="#ffffff" stroke="#d9d4e8" stroke-width="2"/>
+      <circle cx="46" cy="50" r="24" fill="#7c5cff"/><text x="46" y="59" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">2</text>
+      <text x="30" y="122" font-size="30" font-weight="700" fill="#1b1430">Engine recon</text>
+      <text x="30" y="162" font-size="21" fill="#5e5878">Unity, Unreal, Godot,</text>
+      <text x="30" y="190" font-size="21" fill="#5e5878">.NET… pick a route</text>
+    </g>
+    <g transform="translate(850 220)">
+      <rect width="300" height="210" rx="22" fill="#ffffff" stroke="#d9d4e8" stroke-width="2"/>
+      <circle cx="46" cy="50" r="24" fill="#7c5cff"/><text x="46" y="59" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">3</text>
+      <text x="30" y="122" font-size="30" font-weight="700" fill="#1b1430">Read the code</text>
+      <text x="30" y="162" font-size="21" fill="#5e5878">Decompile and map</text>
+      <text x="30" y="190" font-size="21" fill="#5e5878">the real game logic</text>
+    </g>
+    <g transform="translate(1230 220)">
+      <rect width="300" height="210" rx="22" fill="#ffffff" stroke="#d9d4e8" stroke-width="2"/>
+      <circle cx="46" cy="50" r="24" fill="#7c5cff"/><text x="46" y="59" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">4</text>
+      <text x="30" y="122" font-size="30" font-weight="700" fill="#1b1430">Build the mod</text>
+      <text x="30" y="162" font-size="21" fill="#5e5878">New items, enemies,</text>
+      <text x="30" y="190" font-size="21" fill="#5e5878">mechanics, UI</text>
+    </g>
+    <!-- row 2 (right to left) -->
+    <g transform="translate(1230 560)">
+      <rect width="300" height="210" rx="22" fill="#fff8e1" stroke="#f0d98a" stroke-width="2"/>
+      <circle cx="46" cy="50" r="24" fill="#e0a800"/><text x="46" y="59" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">5</text>
+      <text x="30" y="122" font-size="30" font-weight="700" fill="#1b1430">Make assets</text>
+      <text x="30" y="162" font-size="21" fill="#5e5878">Sprites, 3D and audio</text>
+      <text x="30" y="190" font-size="21" fill="#5e5878">via fal (paid credits)</text>
+    </g>
+    <g transform="translate(850 560)">
+      <rect width="300" height="210" rx="22" fill="#e8f8f1" stroke="#9fdcc2" stroke-width="2"/>
+      <circle cx="46" cy="50" r="24" fill="#0f9d6b"/><text x="46" y="59" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">6</text>
+      <text x="30" y="122" font-size="30" font-weight="700" fill="#1b1430">Test in game</text>
+      <text x="30" y="162" font-size="21" fill="#5e5878">Launch the real game</text>
+      <text x="30" y="190" font-size="21" fill="#5e5878">and check it works</text>
+    </g>
+    <g transform="translate(470 560)">
+      <rect width="300" height="210" rx="22" fill="#e8f8f1" stroke="#9fdcc2" stroke-width="2"/>
+      <circle cx="46" cy="50" r="24" fill="#0f9d6b"/><text x="46" y="59" text-anchor="middle" font-size="24" font-weight="700" fill="#fff">7</text>
+      <text x="30" y="122" font-size="30" font-weight="700" fill="#1b1430">Video + notes</text>
+      <text x="30" y="162" font-size="21" fill="#5e5878">Cut a video, write down</text>
+      <text x="30" y="190" font-size="21" fill="#5e5878">lessons for next time</text>
+    </g>
+    <g transform="translate(90 560)">
+      <rect width="300" height="210" rx="22" fill="#1b1430"/>
+      <text x="150" y="98" text-anchor="middle" font-size="30" font-weight="700" fill="#ffffff">Playable mod</text>
+      <text x="150" y="140" text-anchor="middle" font-size="21" fill="#c9c3e0">Offline, single-player,</text>
+      <text x="150" y="168" text-anchor="middle" font-size="21" fill="#c9c3e0">games you own</text>
+    </g>
+  </g>
+
+  <g stroke="#8a84a3" stroke-width="4" fill="none" marker-end="url(#ah)">
+    <path d="M398 325 H462"/>
+    <path d="M778 325 H842"/>
+    <path d="M1158 325 H1222"/>
+    <path d="M1380 438 V552"/>
+    <path d="M1222 665 H1158"/>
+    <path d="M842 665 H778"/>
+    <path d="M462 665 H398"/>
+  </g>
+  <path d="M1120 552 L1236 444" stroke="#0f9d6b" stroke-width="4" fill="none" stroke-dasharray="10 8" marker-end="url(#ah)"/>
+  <text x="1100" y="500" text-anchor="end" font-family="system-ui,-apple-system,Segoe UI,Roboto,sans-serif" font-size="20" fill="#0f9d6b">bug? fix and retest</text>
+</svg>

@@ -1,4 +1,8 @@
-import type { AnchorHTMLAttributes, HTMLAttributes } from 'react';
+import type {
+  AnchorHTMLAttributes,
+  HTMLAttributes,
+  ImgHTMLAttributes,
+} from 'react';
 import type { MDXComponents } from 'mdx/types';
 
 import { cn } from '@/lib/utils';
@@ -93,5 +97,22 @@ export const mdxComponents: MDXComponents = {
   ),
   hr: ({ className, ...props }: HTMLAttributes<HTMLHRElement>) => (
     <hr className={cn('border-border my-8', className)} {...props} />
+  ),
+  pre: ({ className, ...props }: HTMLAttributes<HTMLPreElement>) => (
+    <pre
+      className={cn(
+        'bg-muted my-4 overflow-x-auto rounded-lg p-4 text-sm [&>code]:bg-transparent [&>code]:p-0',
+        className
+      )}
+      {...props}
+    />
+  ),
+  img: ({ className, alt, ...props }: ImgHTMLAttributes<HTMLImageElement>) => (
+    <img
+      alt={alt}
+      loading="lazy"
+      className={cn('border-border my-6 w-full rounded-2xl border', className)}
+      {...props}
+    />
   ),
 };
