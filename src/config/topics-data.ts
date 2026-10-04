@@ -630,6 +630,68 @@ const ROBLOX: Topic[] = [
     ]
   ),
   t(
+    'stand-out-roblox',
+    'stand out roblox game',
+    [
+      'stand out roblox',
+      'stand out',
+      'stand out jojo roblox',
+      'stand out playtest',
+    ],
+    'roblox',
+    'STAND OUT (Roblox)',
+    'STAND OUT is a JoJo’s Bizarre Adventure–inspired Roblox fighting game by Studio Umbra: Europa — summon your Stand, fight with light and heavy attacks, and follow a storyline. It is still in public playtests.',
+    [
+      [
+        'How to play STAND OUT',
+        'Summon your Stand and fight with light and heavy attacks, blocks and dashes; lock the camera onto a target, or switch to pilot mode to control your Stand directly. The game adds character customisation and a storyline on top of the combat.',
+      ],
+      [
+        'Is STAND OUT out yet?',
+        'Not fully. It runs public playtests, usually on weekends, and progress does not save during these tests. Players rate it very highly so far (around 98% positive).',
+      ],
+      [
+        'Platforms',
+        'Windows, Mac, iOS, Android, Xbox, PlayStation and Meta Quest — anywhere Roblox runs.',
+      ],
+    ],
+    [
+      'STAND OUT on Roblox',
+      'https://www.roblox.com/games/128828638194450/STAND-OUT',
+    ]
+  ),
+  t(
+    'jjs-codes',
+    'jjs codes',
+    [
+      'jujutsu shenanigans codes',
+      'jjs code',
+      'jujutsu shenanigans code',
+      'jujutsu shenanigans',
+    ],
+    'roblox',
+    'Jujutsu Shenanigans (Roblox)',
+    'JJS codes (Jujutsu Shenanigans on Roblox) give emotes, achievements and Cash. Codes are rare — new ones usually arrive with big updates, a few times a year.',
+    [
+      [
+        'Jujutsu Shenanigans codes (checked October 4, 2026)',
+        'A7D2L26RNEPG74A3Q — Nep achievement + Woven Insight emote\nSLATECONCRETE — reward (reported working)\nOlder codes that may have expired: JJS1YEAR (50 Cash + emote), X6X31F47UN8JM1NEP (achievement), RIPBOWE (emote).\nNo new codes came with the latest update.',
+      ],
+      [
+        'How to redeem JJS codes',
+        'Click the Shop icon near the top-left of the screen, open the Codes tab, paste the code and press Redeem.',
+      ],
+      [
+        'About Jujutsu Shenanigans',
+        'A Jujutsu Kaisen battlegrounds game by Tze’s Shenanigans with billions of visits. Pick a JJK character and fight: M1 for combos, 1–4 for skills, Q to dash, F to block, R for your special and G to awaken.',
+      ],
+    ],
+    [
+      'Jujutsu Shenanigans on Roblox',
+      'https://www.roblox.com/games/9391468976/Jujutsu-Shenanigans',
+    ]
+  ),
+  t(
     'fortnitemares-2026',
     'fortnitemares 2026',
     ['fortnitemares'],
@@ -2215,6 +2277,9 @@ const OTHER: Topic[] = [
       'dragonkind.com',
       'dragonkind rebecca yarros',
       'fourth wing threshing game',
+      'threshing day dragon bonding',
+      'dragonkind dragon bonding',
+      'threshing day game',
     ],
     'other',
     'Dragonkind (Fourth Wing / The Empyrean)',
@@ -2225,8 +2290,12 @@ const OTHER: Topic[] = [
         '1. Go to dragonkind.com and create an account with your email.\n2. You are sorted into a wing, section and squad (for example First Wing, Claw Section, Third Squad).\n3. Press “Brave Threshing” and enter the Threshing Valley.\n4. Make your choices until a dragon decides you are worthy and bonds you.',
       ],
       [
+        'Dragon bonding in Dragonkind: what you get',
+        'When a dragon bonds you, your result card shows its name, color, tail type (swordtail, clubtail, daggertail and so on), sex, age and lineage. The six colors: red (quick to anger), green (rational, patient), orange (hard to predict), brown (wants you steady), blue (fierce, hard to impress) and black (sharp and watchful). Identical choices can end in a bond for one player and a burn for another — there is a random element.',
+      ],
+      [
         'Why you keep dying in Dragonkind',
-        'Just like in the books, Threshing can kill you. Players report dying three or four times before a dragon bonds them, with a wait before each new try — so keep coming back.',
+        'Just like in the books, Threshing can kill you. Players report being burned three or four times before a dragon bonds them. After each death the site locks you out for about 4 hours — the countdown shows in the Rotunda — so keep coming back.',
       ],
       [
         'Dragonkind and the Empyrean books',
@@ -2312,6 +2381,29 @@ const OTHER: Topic[] = [
         url: 'https://store.steampowered.com/app/2924160/One_in_a_Krillion/',
       },
     ]
+  ),
+  t(
+    'lagos-life-game',
+    'lagos life game',
+    ['lagos life', 'lagoslife', 'lagos life online', 'lagos life sims'],
+    'other',
+    'Lagos Life',
+    'Lagos Life is a free, Sims-style browser game set in Lagos, Nigeria, made by Shalom Rayhamen. Build a character, work jobs, buy property and hang out at real Lagos spots with other players. It launched in early October 2026 and passed 100,000 players within days.',
+    [
+      [
+        'How to play Lagos Life',
+        'Open the game in your browser — no download — and create your character. Then pick a job, earn money, buy property, and visit places on the illustrated city map such as Amala Shitta, Quilox, CcHub, The Palms, the beach and nightlife spots. Ride a danfo, survive NEPA outages, and chat privately with other players you meet.',
+      ],
+      [
+        'Why everyone is playing it',
+        'It went viral on Nigerian social media in its first week, reaching more than 50,000 players online at the same time. The developer has also reset money created by an exploit, so ignore anyone offering “free” in-game cash.',
+      ],
+      [
+        'What’s next',
+        'The developer plans Abuja Life and PH Life (Port Harcourt), connected to Lagos Life through an in-game airport. Note: a $LAGOSLIFE crypto coin exists to support the developer — you do not need it to play.',
+      ],
+    ],
+    ['Lagos Life — play in your browser', 'https://lagoslife.app/']
   ),
   t(
     'xerneas-pokemon-go',
