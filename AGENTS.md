@@ -102,6 +102,7 @@ src/
 │   └── api/                     # Server routes — REST endpoints
 │
 ├── content/pages/               # MDX content for static pages (<slug>.{en,zh}.mdx)
+├── content/posts/               # Blog posts (<slug>.en.mdx, export `meta`) → /blog, /blog/<slug>; images in public/imgs/blog/
 ├── hooks/                       # Shared react-query hooks (use-public-config, use-user-permissions, use-mobile)
 ├── blocks/                      # Zero-config page sections: read i18n, wire data into components
 │                                # e.g. hero, features, pricing-section, header, footer
@@ -408,6 +409,7 @@ The split is not cosmetic — it's **what survives a rebrand**. Primitives survi
 5. **Add translations:** add `settings.<feature>.*` (or `admin.<feature>.*`) keys to **both** `messages/en.json` and `messages/zh.json`
 6. **Add nav entry:** Update the nav array in the layout `src/routes/settings/route.tsx` (or `admin/route.tsx`)
 7. **Need a static page?** Add an MDX file at `src/content/pages/<slug>.{en,zh}.mdx` plus a thin route file `src/routes/(pages)/<slug>.tsx` using `staticPageRouteOptions('<slug>')` from `(pages)/-static-page.tsx`
+8. **New blog post?** Add `src/content/posts/<slug>.en.mdx` exporting `meta` ({ title, description, date, cover?, tag? }). The list, post route, sitemap and the 410 allow-list in `src/server.ts` pick it up automatically — any other `/blog/*` URL stays 410 (retired posts).
 
 Or use skills: `/new-module`, `/new-page`, `/new-static-page`
 

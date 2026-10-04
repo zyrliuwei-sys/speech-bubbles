@@ -9,6 +9,11 @@ const STATIC_PAGES: { path: string; title: string; description: string }[] = [
     description: 'Game answers and game site directory',
   },
   {
+    path: '/blog',
+    title: 'Blog',
+    description: 'Guides and explainers about games and game tools',
+  },
+  {
     path: '/submit',
     title: 'Submit a game',
     description: 'How to list a game site',

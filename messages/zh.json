@@ -822,5 +822,10 @@
   "landing.submit.error_category": "请选择一个分类。",
   "landing.submit.error_tagline": "介绍需为 10–120 个字符。",
   "landing.submit.error_duplicate": "这个网站已经收录过了。",
-  "landing.submit.error_limit": "今天的提交次数已用完（每天 5 个），请明天再试。"
+  "landing.submit.error_limit": "今天的提交次数已用完（每天 5 个），请明天再试。",
+  "landing.nav.blog": "博客",
+  "blog.title": "博客",
+  "blog.description": "游戏、游戏工具和当下热门话题的指南、解读与资讯。",
+  "blog.back": "返回博客",
+  "blog.empty": "暂无文章，敬请期待。"
 }

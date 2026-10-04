@@ -29,6 +29,20 @@ function ensureCloudflareEnv(): Promise<void> {
 const GONE_PATH =
   /^(?:\/zh)?\/(?:editor|pricing|ai-livestream|blog|api\/editor)(?:\/.*)?$/;
 
+// The blog is live again: its index and current posts (src/content/posts)
+// are served normally; any other /blog/* URL is a retired post and stays 410.
+const BLOG_PATH = /^(?:\/zh)?\/blog(?:\/([^/]+))?$/;
+const LIVE_POST_SLUGS = new Set(
+  Object.keys(import.meta.glob('/src/content/posts/*.en.mdx')).map((path) =>
+    path.replace(/^.*\/(.+)\.en\.mdx$/, '$1')
+  )
+);
+
+function isLiveBlogPath(path: string): boolean {
+  const match = BLOG_PATH.exec(path);
+  return !!match && (!match[1] || LIVE_POST_SLUGS.has(match[1]));
+}
+
 const GONE_HTML = `<!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="robots" content="noindex">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -39,7 +53,8 @@ const GONE_HTML = `<!doctype html>
 
 function goneResponse(req: Request): Response | null {
   const { pathname } = new URL(req.url);
-  if (!GONE_PATH.test(pathname.replace(/\/+$/, '') || '/')) return null;
+  const path = pathname.replace(/\/+$/, '') || '/';
+  if (!GONE_PATH.test(path) || isLiveBlogPath(path)) return null;
   return new Response(req.method === 'HEAD' ? null : GONE_HTML, {
     status: 410,
     headers: {

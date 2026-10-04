@@ -822,5 +822,10 @@
   "landing.submit.error_category": "Choose a category.",
   "landing.submit.error_tagline": "Description must be 10–120 characters.",
   "landing.submit.error_duplicate": "This site is already listed.",
-  "landing.submit.error_limit": "Daily limit reached (5 per day). Try again tomorrow."
+  "landing.submit.error_limit": "Daily limit reached (5 per day). Try again tomorrow.",
+  "landing.nav.blog": "Blog",
+  "blog.title": "Blog",
+  "blog.description": "Guides, explainers and news about games, game tools and the stuff people are searching for right now.",
+  "blog.back": "Back to blog",
+  "blog.empty": "No posts yet — check back soon."
 }

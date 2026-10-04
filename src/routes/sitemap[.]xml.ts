@@ -4,6 +4,7 @@ import { envConfigs } from '@/config';
 import { CATEGORIES, SITES } from '@/config/sites';
 import { TOPICS } from '@/config/topics';
 import { baseLocale, locales, localizeUrl } from '@/paraglide/runtime.js';
+import { getPosts } from '@/content/posts';
 
 const STATIC_PATHS = ['', '/submit', '/privacy-policy', '/terms-of-service'];
 
@@ -86,6 +87,21 @@ export const Route = createFileRoute('/sitemap.xml')({
             baseLocaleOnly: true,
             changeFrequency: 'weekly',
             priority: 0.8,
+          });
+        }
+        entries.push({
+          path: '/blog',
+          baseLocaleOnly: true,
+          changeFrequency: 'weekly',
+          priority: 0.7,
+        });
+        for (const p of getPosts()) {
+          entries.push({
+            path: `/blog/${p.slug}`,
+            lastModified: p.date,
+            baseLocaleOnly: true,
+            changeFrequency: 'monthly',
+            priority: 0.7,
           });
         }
         for (const s of SITES) {

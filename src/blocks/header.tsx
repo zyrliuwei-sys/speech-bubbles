@@ -5,6 +5,7 @@ export function Header() {
   const navLinks = [
     { href: '/#directory', label: m['landing.nav.directory']() },
     { href: '/#categories', label: m['landing.nav.categories']() },
+    { href: '/blog', label: m['landing.nav.blog']() },
     { href: '/submit', label: m['landing.nav.submit']() },
   ];
 

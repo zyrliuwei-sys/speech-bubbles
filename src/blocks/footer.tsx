@@ -12,6 +12,7 @@ export function Footer() {
       links: [
         { label: m['landing.nav.directory'](), href: '/#directory' },
         { label: m['landing.nav.categories'](), href: '/#categories' },
+        { label: m['landing.nav.blog'](), href: '/blog' },
         { label: m['landing.nav.submit'](), href: '/submit' },
       ],
     },
