@@ -692,6 +692,97 @@ const ROBLOX: Topic[] = [
     ]
   ),
   t(
+    'steal-an-egg-wisp',
+    'steal an egg wisp',
+    [
+      'wisp steal an egg',
+      'steal an egg enchanted tree',
+      'steal an egg wisp quest',
+      'steal an egg update 7',
+    ],
+    'roblox',
+    'Steal An Egg (Roblox)',
+    'Steal An Egg Wisp: Wisp is an NPC added in Update 7 that lives in the Enchanted Forest. Grow it from Stage 1 to Stage 4 with three quests to unlock the secret Enchanted Tree.',
+    [
+      [
+        'Where to find Wisp in Steal An Egg',
+        'Go to the Enchanted Forest biome. Wisp only spawns once you have at least 50 billion Speed; its spot is marked with a yellow circle. Talk to it to start the “Grow Your Wisp” questline.',
+      ],
+      [
+        'Wisp quests (in order)',
+        '1. Steal 20 Enchanted Forest Eggs.\n2. Fuse an Enchanted Forest Pet.\n3. Steal an Eternal Pet.\nEach quest unlocks only after the previous one; finishing all three grows Wisp to Stage 4.',
+      ],
+      [
+        'What the Enchanted Tree unlocks',
+        'With Wisp at Stage 4, go to the Enchanted Tree behind the biome’s boss and interact with it. Inside: a free Butterfly Net, a Conversion Center, an Enchanted Mutation Shrine, and butterflies to catch — 240 Emerald, 115 Sapphire, 40 Amethyst and 1 Radiant.',
+      ],
+    ],
+    [
+      'Steal An Egg on Roblox',
+      'https://www.roblox.com/games/107778070777162/Steal-An-Egg',
+    ]
+  ),
+  t(
+    'illegal-soccer',
+    'illegal soccer',
+    [
+      'illegal soccer roblox',
+      'clubs illegal soccer',
+      'illegal soccer codes',
+      'illegal soccer controls',
+    ],
+    'roblox',
+    'Illegal Soccer (Roblox)',
+    'Illegal Soccer is a 4v4 Roblox soccer game by Repotted with no referees and almost no rules: score however you like — tackles, punches, guns, grappling hooks, jetpacks, oil spills and explosives are all allowed.',
+    [
+      [
+        'Illegal Soccer controls',
+        'Touch the ball to pick it up, left click to kick, right click to pass, E to slide tackle and Space to dribble past a hit. Score 3 goals in the tutorial to unlock your first free item rolls.',
+      ],
+      [
+        'Are there Illegal Soccer codes?',
+        'No. As of October 2026 the game has no code redemption menu, so any “Illegal Soccer codes” you see online do nothing. Items come from rolls you earn by playing.',
+      ],
+      [
+        'About Illegal Soccer',
+        'Released May 12, 2026, it has passed 107 million plays. Free on PC, console and mobile; play with friends or make a private server with your own rules. The latest update added Clubs.',
+      ],
+    ],
+    [
+      'Illegal Soccer on Roblox',
+      'https://www.roblox.com/games/126987974021910/Illegal-Soccer',
+    ]
+  ),
+  t(
+    'asta-fortnite',
+    'asta fortnite',
+    [
+      'black clover fortnite',
+      'asta fortnite skin',
+      'fortnite black clover skins',
+      'noelle fortnite',
+      'yuno fortnite',
+    ],
+    'roblox',
+    'Fortnite',
+    'Asta is in Fortnite: the Black Clover collab arrived in the Item Shop on October 3, 2026 with Asta, Noelle and Yuno. The Asta skin costs 1,500 V-Bucks and comes with a Devil Transformation emote.',
+    [
+      [
+        'Asta Fortnite skin',
+        'Asta costs 1,500 V-Bucks and includes a second edit style plus a Devil Transformation emote that changes his look mid-match. His gear includes the Demon-Slayer Sword and Devil Wings, and a grimoire back bling.',
+      ],
+      [
+        'All Black Clover Fortnite items',
+        'Three outfits (Asta, Noelle, Yuno), four back blings including each character’s grimoire, three pickaxes (among them Yuno’s Spirit of Boreas), an emote and a wrap. There is also a Nissan GT-R NISMO + Black Clover car bundle for 2,800 V-Bucks.',
+      ],
+      [
+        'When it came out',
+        'October 3, 2026 at the 5 p.m. PT / 8 p.m. ET Item Shop reset, as part of Fortnitemares 2026. Collab items rotate out of the shop, so check the Item Shop for whether they are still available.',
+      ],
+    ],
+    ['Fortnite Item Shop', 'https://www.fortnite.com/item-shop']
+  ),
+  t(
     'fortnitemares-2026',
     'fortnitemares 2026',
     ['fortnitemares'],
@@ -895,7 +986,14 @@ const MINECRAFT: Topic[] = [
   t(
     'minecraft-dungeons-2-release-date',
     'minecraft dungeons 2 release date',
-    ['minecraft dungeons ii', 'minecraft dungeons 2', 'dungeons 2'],
+    [
+      'minecraft dungeons ii',
+      'minecraft dungeons 2',
+      'dungeons 2',
+      'is minecraft dungeons 2 cross platform',
+      'minecraft dungeons 2 crossplay',
+      'minecraft dungeons 2 cross progression',
+    ],
     'minecraft',
     'Minecraft Dungeons II',
     'Minecraft Dungeons 2 release date: Minecraft Dungeons II launched on September 29, 2026 at 8:00 AM UTC worldwide.',
@@ -903,6 +1001,10 @@ const MINECRAFT: Topic[] = [
       [
         'Minecraft Dungeons 2 launch details',
         'The release was simultaneous around the world at 08:00 UTC. It includes an early look at The Sift, the new dimension coming to Minecraft in 2027.',
+      ],
+      [
+        'Is Minecraft Dungeons 2 cross platform?',
+        'Yes. Minecraft Dungeons II has full crossplay from launch across PC, Xbox Series X|S, PS5, Nintendo Switch and Switch 2, in parties of up to 4. Sign in to a free Microsoft account, turn on Cross-Platform Play in settings, then add friends by Gamertag or join with an eight-character party code. Your hero follows you to every platform linked to the same Microsoft account.',
       ],
       [
         'Minecraft Dungeons 2 launch cape',
@@ -1704,6 +1806,43 @@ const PC: Topic[] = [
       {
         name: 'Official changelog forum',
         url: 'https://forums.playdeadlock.com/forums/changelog.10/',
+      },
+    ]
+  ),
+  t(
+    'deadlock-tier-list',
+    'tier list deadlock',
+    [
+      'deadlock tier list',
+      'deadlock best heroes',
+      'deadlock hero tier list',
+      'deadlock meta',
+    ],
+    'pc',
+    'Deadlock',
+    'Deadlock tier list (October 2026): the strongest heroes right now are Graves, Victor, Paige and Seven, all winning about 55–57% of games, followed by Mo & Krill, Kelvin, Ivy and Haze.',
+    [
+      [
+        'Deadlock tier list by win rate (October 2026)',
+        'S tier: Graves 56.7%, Victor 56.3%, Paige 55.7%, Seven 55.4%\nA tier: Mo & Krill 53.5%, Kelvin 52.9%, Ivy 52.8%, Haze 52.7%, Abrams 52.6%, Lady Geist 52.3%, Dynamo 52.1%, Calico 52.0%\nWin rates shift with every patch — treat this as a snapshot.',
+      ],
+      [
+        'Best Deadlock heroes to pick',
+        'Victor is the strongest late-game carry if you can farm souls and survive to the late game. Seven snowballs lanes with his stun and base-shredding ultimate. Kelvin is the standout support — Arctic Beam, Frost Grenade and Ice Path change every fight, and few people pick him.',
+      ],
+      [
+        'Why the tier list changes',
+        'Valve patches Deadlock often (the last big update was September 16, 2026), so check the live stats page before ranked games.',
+      ],
+    ],
+    [
+      'Deadlock tier list — live win rates',
+      'https://seemeta.com/en/deadlock/tier-list',
+    ],
+    [
+      {
+        name: 'Deadlock on Steam',
+        url: 'https://store.steampowered.com/app/1422450/Deadlock/',
       },
     ]
   ),

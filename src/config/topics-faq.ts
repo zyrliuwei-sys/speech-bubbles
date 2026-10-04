@@ -28,6 +28,30 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Yes. Lagos Life is free to play in your browser with no download.',
     },
   ],
+  'steal-an-egg-wisp': [
+    {
+      q: 'How do you get Wisp in Steal An Egg?',
+      a: 'Reach at least 50 billion Speed, then go to the Enchanted Forest — Wisp spawns at the yellow circle. Talk to it to start its quests.',
+    },
+  ],
+  'illegal-soccer': [
+    {
+      q: 'Are there codes for Illegal Soccer?',
+      a: 'No. Illegal Soccer has no code redemption menu as of October 2026.',
+    },
+  ],
+  'asta-fortnite': [
+    {
+      q: 'How much is Asta in Fortnite?',
+      a: 'The Asta outfit costs 1,500 V-Bucks and includes a second style and a Devil Transformation emote.',
+    },
+  ],
+  'deadlock-tier-list': [
+    {
+      q: 'Who is the best hero in Deadlock right now?',
+      a: 'By win rate in October 2026: Graves, Victor, Paige and Seven, each winning about 55–57% of games.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
@@ -57,6 +81,10 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
     },
   ],
   'minecraft-dungeons-2-release-date': [
+    {
+      q: 'Is Minecraft Dungeons 2 cross platform?',
+      a: 'Yes. It has full crossplay across PC, Xbox Series X|S, PS5, Switch and Switch 2 for parties of up to 4, using a free Microsoft account.',
+    },
     {
       q: 'When did Minecraft Dungeons 2 come out?',
       a: 'Minecraft Dungeons II launched worldwide on September 29, 2026 at 8:00 AM UTC.',
