@@ -1251,6 +1251,41 @@ const PC: Topic[] = [
     ]
   ),
   t(
+    'control-resonant-push-or-ground-slam',
+    'control resonant push or ground slam',
+    [
+      'control resonant ground slam',
+      'control resonant push',
+      'control resonant dancer reward',
+      'control resonant roof panels',
+    ],
+    'pc',
+    'CONTROL Resonant',
+    'Control Resonant push or ground slam: after beating the Dancer boss you must pick one. Ground Slam is the better first pick — it hits much harder and it is the only way to break the metal roof panels/hatches you find while exploring.',
+    [
+      [
+        'Push vs Ground Slam stats',
+        'Push — 50–100 damage, 5–15 Falter, costs 200 Power.\nGround Slam — 230–460 damage, 20–30 Falter, costs 630 Power.',
+      ],
+      [
+        'Which should you pick?',
+        'Ground Slam for most players: big damage, strong from the air, and required to open metal roof hatches. Pick Push only if your build already does enough damage and you mostly struggle with crowds — it is cheap, creates space and can knock enemies off edges.',
+      ],
+      [
+        'Where you get the choice',
+        'From the Dancer, the Resonant boss in the Theater of the West Incursion Zone. You need to clear the Incursion Fault and have Shift to get there.',
+      ],
+      [
+        'Picked the wrong one?',
+        'You can swap later with a Reset Item at the Mural in the Gap.',
+      ],
+    ],
+    [
+      'CONTROL Resonant on Steam',
+      'https://store.steampowered.com/app/3669870/CONTROL_Resonant/',
+    ]
+  ),
+  t(
     'aion-2-classes',
     'aion 2 classes',
     ['aion 2 class tier list', 'aion 2 best class', 'aion 2 class guide'],
@@ -1426,11 +1461,18 @@ const PC: Topic[] = [
       'galactic racer release date',
       'galactic racer review',
       'star wars galactic racer review',
+      'star wars galactic racer early access',
+      'galactic racer early access',
+      'star wars galactic racer release time',
     ],
     'pc',
     'Star Wars: Galactic Racer',
     'Galactic Racer — Star Wars: Galactic Racer — is a roguelite podracing-style racing game from Fuse Games and Lucasfilm Games, out October 6, 2026 on PC, PS5 and Xbox Series X|S. Reviews average 88 on Metacritic and OpenCritic.',
     [
+      [
+        'Does Star Wars: Galactic Racer have early access?',
+        'No. There is no early access for any edition — the Deluxe Edition ($79.99) only adds bonus vehicles and Arcade events. Every edition unlocks at the same time: Tuesday, October 6, 2026 at 09:00 UTC (2:00 a.m. PT) on PS5, Xbox Series X|S and PC.',
+      ],
       [
         'Star Wars: Galactic Racer release date and price',
         'October 6, 2026 on PC (Steam), PlayStation 5 and Xbox Series X|S. The Standard Edition is $59.99 on Steam; the Deluxe Edition adds three exclusive speeders, three Arcade events, an N-1 starfighter livery, a banner and a digital art book. A physical Collector’s Edition adds a speeder model and steelbook.',
