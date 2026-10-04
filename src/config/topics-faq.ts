@@ -68,6 +68,12 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Ace Combat 8: Wings of Theve releases worldwide on October 2, 2026. Deluxe Edition owners got early access from September 29.',
     },
   ],
+  'control-resonant-push-or-ground-slam': [
+    {
+      q: 'Should I pick Push or Ground Slam in Control Resonant?',
+      a: 'Ground Slam for most players: it deals far more damage and is needed to break metal roof panels. You can swap later with a Reset Item at the Mural in the Gap.',
+    },
+  ],
   'aion-2-classes': [
     {
       q: 'How many classes are in Aion 2?',
@@ -185,6 +191,10 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
     },
   ],
   'star-wars-galactic-racer': [
+    {
+      q: 'Is there early access for Star Wars: Galactic Racer?',
+      a: 'No. No edition, including the Deluxe Edition, gets early access. Everyone can play from October 6, 2026 at 09:00 UTC.',
+    },
     {
       q: 'When does Star Wars: Galactic Racer come out?',
       a: 'October 6, 2026 on PC, PS5 and Xbox Series X|S.',
