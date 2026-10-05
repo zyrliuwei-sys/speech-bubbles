@@ -30,6 +30,10 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
   ],
   'steal-an-egg-wisp': [
     {
+      q: 'How do you get the Enchanted Mutation in Steal An Egg?',
+      a: 'Catch butterflies during Butterfly Bloom, craft Enchanted Essence at the Enchanted Mutation Shrine inside the Enchanted Tree, and use it on an egg — it guarantees the mutation.',
+    },
+    {
       q: 'How do you get Wisp in Steal An Egg?',
       a: 'Reach at least 50 billion Speed, then go to the Enchanted Forest — Wisp spawns at the yellow circle. Talk to it to start its quests.',
     },
@@ -50,6 +54,36 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
     {
       q: 'Who is the best hero in Deadlock right now?',
       a: 'By win rate in October 2026: Graves, Victor, Paige and Seven, each winning about 55–57% of games.',
+    },
+  ],
+  'ride-a-pet-fuse': [
+    {
+      q: 'How do you unlock the Fuse Machine in Ride A Pet?',
+      a: 'Complete Rebirth 1 ($1M Cash and a Horse pet). The machine is left of the Ride Pet with Friends board near spawn.',
+    },
+  ],
+  'break-and-steal-an-egg-codes': [
+    {
+      q: 'Are there codes for Break and Steal an Egg?',
+      a: 'No. The game has no codes menu and no working codes as of October 2026.',
+    },
+  ],
+  'fut-champions-fc-27': [
+    {
+      q: 'How many points do you need to qualify for FUT Champions in FC 27?',
+      a: '1,000 Champions Qualification Points (CQP), earned from Division Rivals and Squad Battles.',
+    },
+  ],
+  'way-of-the-hunter-2': [
+    {
+      q: 'When did Way of the Hunter 2 come out?',
+      a: 'The full release was September 29, 2026 on PC, PS5 and Xbox Series X|S.',
+    },
+  ],
+  'world-space-week-pokemon-go': [
+    {
+      q: 'Can Astronaut Pikachu be shiny?',
+      a: 'Yes. Shiny Astronaut Pikachu can appear from one-star raids and the Timed Research encounter during World Space Week (October 4–10, 2026).',
     },
   ],
   'lumber-tycoon-2-work-light': [
