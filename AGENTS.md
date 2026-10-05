@@ -409,7 +409,8 @@ The split is not cosmetic — it's **what survives a rebrand**. Primitives survi
 5. **Add translations:** add `settings.<feature>.*` (or `admin.<feature>.*`) keys to **both** `messages/en.json` and `messages/zh.json`
 6. **Add nav entry:** Update the nav array in the layout `src/routes/settings/route.tsx` (or `admin/route.tsx`)
 7. **Need a static page?** Add an MDX file at `src/content/pages/<slug>.{en,zh}.mdx` plus a thin route file `src/routes/(pages)/<slug>.tsx` using `staticPageRouteOptions('<slug>')` from `(pages)/-static-page.tsx`
-8. **New blog post?** Add `src/content/posts/<slug>.en.mdx` exporting `meta` ({ title, description, date, cover?, tag? }). The list, post route, sitemap and the 410 allow-list in `src/server.ts` pick it up automatically — any other `/blog/*` URL stays 410 (retired posts).
+8. **Added or edited a game topic?** (`src/config/topics-data.ts` / `topics-faq.ts`) Commit, then run `node scripts/topic-dates.mjs` (needs full history: `git fetch --unshallow`) and commit the regenerated `src/config/topics-dates.ts` — it drives each topic's sitemap `<lastmod>` and "Updated" date.
+9. **New blog post?** Add `src/content/posts/<slug>.en.mdx` exporting `meta` ({ title, description, date, cover?, tag? }). The list, post route, sitemap and the 410 allow-list in `src/server.ts` pick it up automatically — any other `/blog/*` URL stays 410 (retired posts).
 
 Or use skills: `/new-module`, `/new-page`, `/new-static-page`
 
