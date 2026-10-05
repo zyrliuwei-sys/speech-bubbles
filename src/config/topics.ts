@@ -1,4 +1,5 @@
 import { TOPIC_DATA } from './topics-data';
+import { TOPIC_UPDATED } from './topics-dates';
 import { TOPIC_FAQ } from './topics-faq';
 
 /**
@@ -52,9 +53,12 @@ export const TOPIC_GROUPS: { slug: TopicGroup; emoji: string }[] = [
   { slug: 'other', emoji: '🔎' },
 ];
 
-export const TOPICS: Topic[] = TOPIC_DATA.map((t) =>
-  TOPIC_FAQ[t.slug] ? { ...t, faq: TOPIC_FAQ[t.slug] } : t
-);
+export const TOPICS: Topic[] = TOPIC_DATA.map((t) => ({
+  ...t,
+  ...(TOPIC_FAQ[t.slug] ? { faq: TOPIC_FAQ[t.slug] } : {}),
+  // Real last-modified date (generated from git history); see topics-dates.ts.
+  updatedAt: TOPIC_UPDATED[t.slug] ?? t.updatedAt,
+}));
 
 export function getTopic(slug: string): Topic | undefined {
   return TOPICS.find((t) => t.slug === slug);
