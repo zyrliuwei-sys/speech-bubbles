@@ -314,7 +314,7 @@ const ROBLOX: Topic[] = [
   t(
     'anime-dice',
     'anime dice',
-    ['anime dice codes', 'anime dice roblox'],
+    ['anime dice codes', 'anime dice roblox', 'codes anime dice'],
     'roblox',
     'Anime Dice (Roblox)',
     'Anime Dice mixes gacha rolling with combat: roll dice to reveal anime characters, place them on your plot to earn money, and upgrade your dice for better luck.',
@@ -325,7 +325,7 @@ const ROBLOX: Topic[] = [
       ],
       [
         'Anime Dice codes',
-        'Codes give Trait Rerolls, Gems and Lucky Spins. The developer, More & More Games, posts them on its Discord server.',
+        'Codes give Trait Rerolls, Gems and Lucky Spins. Newest (checked October 5, 2026): sorry4delay — 5 Lucky Spins; UPDATE7 — 30 Trait Rolls, 20 Tickets, 30 Gems, 3 Lucky Spins; 50KCCU — 5 Lucky Spins, 30 Trait Rerolls, 30 Gems. Also active: 400KLIKES, UPDATE5, 250KLIKES, 100KLIKES, 40KCCU, 30KCCU, 20KCCU, 10KCCU, UPDATE4, UPDATE3, 5KCCU, 1KCCU, UPDATE2. The developer, More & More Games, posts new ones on its Discord server.',
       ],
     ],
     [
@@ -852,6 +852,126 @@ const ROBLOX: Topic[] = [
     ]
   ),
   t(
+    'anime-breaker-codes',
+    'anime breaker codes',
+    ['anime breaker', 'anime breaker roblox', 'anime breaker code'],
+    'roblox',
+    'Anime Breaker (Roblox)',
+    'Anime Breaker codes give free emeralds plus T2/T3 potions and juices. Anime Breaker is a Roblox battle clicker inspired by Dragon Ball Z, Naruto, Seven Deadly Sins and Solo Leveling.',
+    [
+      [
+        'Anime Breaker codes (checked October 5, 2026)',
+        'SORRYFORGRIMS — 250 emeralds + 2 of every T3 potion + 2 of every juice\n17KCCU — 250 emeralds\nTRIALMEDIUM — 200 emeralds + 2 of every T3 potion\nNEWGRIMOIRE — 200 emeralds + 2 of every T2 potion\n16KCCU — 250 emeralds + 2 of each juice\nNEWSHADOW, NEWPORTAL — 250 emeralds each\nNEWINVASION, CLASSTREE — 200 emeralds + 2 of every T2 potion\n90KFAVORITES, 10MVISITS, NEWCRAFT, NEWJEWELS, 80KFAVORITES, 7MVISITS, NEWHARBOR, 70KFAVORITES, 5MVISITS — 200 emeralds each',
+      ],
+      [
+        'How Anime Breaker plays',
+        'Click to build energy, open cards to collect companion heroes (equip up to 3), spin for races with passive buffs, and beat enemies and bosses to earn their weapons. New codes usually drop with updates and player milestones.',
+      ],
+    ],
+    [
+      'Anime Breaker on Roblox',
+      'https://www.roblox.com/games/109928390521457/Anime-Breaker',
+    ]
+  ),
+  t(
+    'anime-mysterious-codes',
+    'anime mysterious code',
+    ['anime mysterious codes', 'anime mysterious', 'anime mysterious roblox'],
+    'roblox',
+    'Anime Mysterious (Roblox)',
+    'Anime Mysterious codes give free gems, coins, traits, rerolls and mystery capsules. Anime Mysterious is a Roblox anime tower-defense game that fully launched on September 30, 2026.',
+    [
+      [
+        'Anime Mysterious codes (checked October 5, 2026)',
+        'THANKSFOR8000CCU (new), THANKSFOR7000CCU, THANKSFOR1MVITS, THANKSFOR6000CCU — free rewards\nSRYFORRESTART2 — 15 traits, 10 mystery capsules, 1,000 gems, 2,000 coins\nAbout 18 codes were active at the time; new ones arrive with player-count milestones. Codes can expire at any time.',
+      ],
+      [
+        'How to redeem Anime Mysterious codes',
+        'Join the game, walk to Naruto in the spawn area, type the code into the box and click Redeem.',
+      ],
+      [
+        'About Anime Mysterious',
+        'Summon anime units, build a team and hold off waves of enemies together on 15-player servers. Traits give units passive buffs.',
+      ],
+    ],
+    [
+      'Anime Mysterious on Roblox',
+      'https://www.roblox.com/games/117949143041402/RELEASE-Anime-Mysterious',
+    ]
+  ),
+  t(
+    'cloverfall-codes',
+    'clover fall codes',
+    [
+      'cloverfall codes',
+      'cloverfall',
+      'cloverfall roblox',
+      'clover fall roblox',
+    ],
+    'roblox',
+    'CloverFall (Roblox)',
+    'CloverFall codes give free Arcanite, Clan Rerolls and Yol. CloverFall is a Black Clover–inspired Roblox RPG by Malphite Studios — not the same game as Clover Legends or Clover Time.',
+    [
+      [
+        'CloverFall codes (checked October 5, 2026)',
+        'THANKYOUFOR20KVISITS — 1,000 Arcanite + 25 Clan Rerolls\nRELEASE — 1,000 Arcanite + 25 Clan Rerolls + 5,000 Yol\nBUGFIX2 — 1,000 Arcanite + 10 Clan Rerolls\nBUGFIX1 — 25 Clan Rerolls\nCodes are case-sensitive — copy and paste them.',
+      ],
+      [
+        'How to redeem CloverFall codes',
+        'Launch CloverFall on Roblox, open the Codes tab, paste the code into the “Enter Code…” box and press Redeem.',
+      ],
+      [
+        'About CloverFall',
+        'Start in Hage Village, beat bandits, level up and unlock abilities on the way to the Magic Knight Exam. Your Grimoire and clan rolls shape your build.',
+      ],
+    ],
+    [
+      'Find CloverFall on Roblox',
+      'https://www.roblox.com/discover/?Keyword=CloverFall',
+    ]
+  ),
+  t(
+    'clover-time-roblox',
+    'clover time roblox',
+    ['clover time', 'clover time codes', 'clover time roblox codes'],
+    'roblox',
+    'Clover Time (Roblox)',
+    'Clover Time is a Black Clover–inspired Roblox action RPG by AnimeCore Studios: roll for Grimoires, master spells, fly on a magic broom and fight bosses. It is in beta release, with codes for free spins and chests.',
+    [
+      [
+        'Clover Time codes (checked October 5, 2026)',
+        'BETARELEASE — 50 Spins + 1 Mana Crystal + 1 Big Chest\n1KLIKES — 25 Spins + 1 Mana Crystal + 1 Normal Chest\nFIRSTSHUTDOWN — 25 Spins + 5 Mana Crystals\n5KFAVS — 10 Normal Chests + 5 Medium Chests\nYou must be in the game’s Roblox group to redeem. Codes are case-sensitive.',
+      ],
+      [
+        'How Clover Time plays',
+        'Create a character and roll four separate gachas — Grimoire, race, social class and trait — then fight with M1 spell combat, craft weapons and armour, join a Magic Squad and take on bosses. You keep earning some rewards while AFK. Spins are what get you new Grimoires, so redeem the spin codes first.',
+      ],
+    ],
+    [
+      'Clover Time on Roblox',
+      'https://www.roblox.com/games/93934100402512/Clover-Time',
+    ]
+  ),
+  t(
+    'makeup-mania-roblox',
+    'makeup mania roblox',
+    ['makeup mania', 'makeup mania beta', 'make up mania roblox'],
+    'roblox',
+    'Makeup Mania! (Roblox)',
+    'Makeup Mania is a Roblox beauty and dress-up competition: design a makeup look, style your character, then walk the runway while other players vote. It is currently in beta.',
+    [
+      [
+        'How to play Makeup Mania',
+        'Join a 10-player room and get the round’s theme. You have 5 minutes to paint your look on a 2D vanity canvas — use mirroring, blending and layers — and add 3D lashes and hair. Then everyone walks the catwalk and votes for their favourite looks to earn rewards.',
+      ],
+      ['Platforms', 'Windows, Mac, iOS, Android and Meta Quest.'],
+    ],
+    [
+      'Makeup Mania! on Roblox',
+      'https://www.roblox.com/games/117935850321807/Makeup-Mania-BETA',
+    ]
+  ),
+  t(
     'fortnitemares-2026',
     'fortnitemares 2026',
     ['fortnitemares'],
@@ -1120,6 +1240,30 @@ const MINECRAFT: Topic[] = [
       },
     ]
   ),
+  t(
+    'creator-smp-4',
+    'creator smp 4',
+    ['creatorsmp 4', 'creator smp hardcore 4', 'creator smp season 4', 'csmp4'],
+    'minecraft',
+    'Minecraft (CreatorSMP Hardcore)',
+    'Creator SMP 4 (CreatorSMP Hardcore 4) is the Dutch Minecraft hardcore event: 90 creators play on one huge new world from October 4 to the finale on October 25, 2026. One death and you are out.',
+    [
+      [
+        'How to watch Creator SMP 4',
+        'There is no central stream — each player streams their own point of view, mostly on Twitch. On creatorsmp.nl you can watch up to six players’ streams and chats on one page, see who is still alive, and watch death clips.',
+      ],
+      [
+        'Who is playing',
+        '90 creators, revealed 18 per day before the start — returning names such as Jeremy Frieser, Duncan Massink, Acid, MaysieLive and Pangi, plus first-timers Jelly, Weswoes and Loony.',
+      ],
+      [
+        'What’s new this season',
+        'A brand-new, much larger world, and the mace weapon is banned.',
+      ],
+    ],
+    ['CreatorSMP Hardcore — official site', 'https://creatorsmp.nl/'],
+    [{ name: 'CreatorSMP on X', url: 'https://x.com/CreatorSMPNL' }]
+  ),
 ];
 
 const GENSHIN: Topic[] = [
@@ -1271,7 +1415,11 @@ const PC: Topic[] = [
   t(
     'transport-fever-3',
     'transport fever 3',
-    ['transport fever 3 release date'],
+    [
+      'transport fever 3 release date',
+      'transport fever 3 warehouse',
+      'transport fever 3 warehouses',
+    ],
     'pc',
     'Transport Fever 3',
     'Transport Fever 3 launched on September 29, 2026 for PC, Mac and Linux (Steam, Epic, GOG) plus PlayStation 5 and Xbox Series X|S.',
@@ -1283,6 +1431,10 @@ const PC: Topic[] = [
       [
         'What Transport Fever 3 is',
         'The third game in the transport-empire series: build rail, road, water and air networks and grow cities over more than a century.',
+      ],
+      [
+        'How to use warehouses in Transport Fever 3',
+        'Open the Construction menu and place a warehouse inside the catchment circle of a cargo station, dock or industry — Universal holds any cargo; Liquid, Bulk, Flatbed and Goods warehouses are specialised. Run lines to that station and cargo unloaded there goes into the warehouse automatically. Use them as transfer points (for example big trains bring grain to one warehouse, small trucks deliver it on); stored goods also stop the delivery-time penalty. Do not drop one in a city centre expecting towns to pull from it — cities only take cargo delivered straight to their demand zones.',
       ],
     ],
     [
@@ -1886,6 +2038,9 @@ const PC: Topic[] = [
       'deadlock best heroes',
       'deadlock hero tier list',
       'deadlock meta',
+      'deadlock characters',
+      'deadlock heroes',
+      'deadlock hero list',
     ],
     'pc',
     'Deadlock',
@@ -1898,6 +2053,10 @@ const PC: Topic[] = [
       [
         'Best Deadlock heroes to pick',
         'Victor is the strongest late-game carry if you can farm souls and survive to the late game. Seven snowballs lanes with his stun and base-shredding ultimate. Kelvin is the standout support — Arctic Beam, Frost Grenade and Ice Path change every fight, and few people pick him.',
+      ],
+      [
+        'How many characters are in Deadlock?',
+        'Around 39 playable heroes as of early October 2026, with more arriving in Valve’s “City Never Sleeps” rollout through October 20. Heroes fall into four rough roles: marksmen, assassins, brawlers and mystics.',
       ],
       [
         'Why the tier list changes',
@@ -1984,6 +2143,60 @@ const PC: Topic[] = [
         name: 'Nine Rocks Games — Way of the Hunter 2 FAQ',
         url: 'https://ninerocksgames.com/posts/way-of-the-hunter-2-faq',
       },
+    ]
+  ),
+  t(
+    'overpeak-game',
+    'overpeak game',
+    ['overpeak', 'over peak game', 'overpeak action game', 'overpeak apk'],
+    'pc',
+    'OverPeak',
+    'OverPeak is an open-world superhero action game by R-USER Games: fly over Prism City, fire thermal and freeze lasers, and tear buildings apart. It launched on Android (Google Play) in September 2026; iOS is coming.',
+    [
+      [
+        'What you do in OverPeak',
+        'You play Jason Fieldway — “Subject OP” — resurrected with superpowers after a Starbridge experiment, out to avenge the woman he lost. Fly around the city (and into space), use lasers, fire and wind attacks, and smash a fully destructible city. Saving civilians or causing chaos changes how Prism City reacts to you.',
+      ],
+      [
+        'Where to get OverPeak safely',
+        'Download it from Google Play. Skip “MOD APK” sites — modded files are a common way to get malware. It is rated Mature 17+. A PC/console version has not been dated.',
+      ],
+    ],
+    [
+      'OverPeak on Google Play',
+      'https://play.google.com/store/apps/details?id=com.rusergames.overpeak',
+    ],
+    [
+      {
+        name: 'R-USER Games — OverPeak',
+        url: 'https://www.rusergames.com/games/overpeak/',
+      },
+    ]
+  ),
+  t(
+    'signal-veil',
+    'signal veil ps5 horror game',
+    ['signal veil', 'signal veil release date', 'signal veil game'],
+    'pc',
+    'Signal Veil',
+    'Signal Veil is a newly announced third-person survival horror game with a ’90s-anime look, coming to PS5, Xbox Series X|S, Switch 2 and PC (Steam, Epic). No release date yet.',
+    [
+      [
+        'What Signal Veil is about',
+        'You play Aki Mizuno, a teenager whose mother vanished and left her a cellphone with supernatural powers. The phone buzzes, crackles and glitches near spirits and lingering memories, revealing enemies, corrupted areas and hidden clues.',
+      ],
+      [
+        'How the horror works',
+        'Spirits can only be fought once exposed — flash them with the phone or provoke them into revealing weak points. Resources (medicine, key items, mystical weapons) are scarce, and fixed camera angles recall classic Resident Evil and Silent Hill.',
+      ],
+      [
+        'Signal Veil release date',
+        'Not announced yet. Developer Serafini Productions revealed it in October 2026 for PS5, Xbox Series X|S, Switch 2 and PC.',
+      ],
+    ],
+    [
+      'Signal Veil announcement (Gematsu)',
+      'https://www.gematsu.com/2026/10/survival-horror-game-signal-veil-announced-for-ps5-xbox-series-switch-2-and-pc',
     ]
   ),
   t(

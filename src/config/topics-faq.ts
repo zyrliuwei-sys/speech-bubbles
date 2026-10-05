@@ -86,6 +86,42 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Yes. Shiny Astronaut Pikachu can appear from one-star raids and the Timed Research encounter during World Space Week (October 4–10, 2026).',
     },
   ],
+  'anime-breaker-codes': [
+    {
+      q: 'What is the newest Anime Breaker code?',
+      a: 'SORRYFORGRIMS (250 emeralds, T3 potions and juices) was the newest on October 5, 2026.',
+    },
+  ],
+  'anime-mysterious-codes': [
+    {
+      q: 'Where do you redeem codes in Anime Mysterious?',
+      a: 'Talk to Naruto in the spawn area, type the code and click Redeem.',
+    },
+  ],
+  'cloverfall-codes': [
+    {
+      q: 'Is CloverFall the same game as Clover Legends?',
+      a: 'No. CloverFall (Malphite Studios), Clover Legends and Clover Time are three different Black Clover–inspired Roblox games with separate codes.',
+    },
+  ],
+  'clover-time-roblox': [
+    {
+      q: 'Why are my Clover Time codes not working?',
+      a: 'You must join the game’s Roblox group first, and codes are case-sensitive — copy and paste them.',
+    },
+  ],
+  'creator-smp-4': [
+    {
+      q: 'When does Creator SMP 4 start and end?',
+      a: 'It runs from October 4 to the finale on October 25, 2026.',
+    },
+  ],
+  'signal-veil': [
+    {
+      q: 'When does Signal Veil come out?',
+      a: 'No release date has been announced. It is coming to PS5, Xbox Series X|S, Switch 2 and PC.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
