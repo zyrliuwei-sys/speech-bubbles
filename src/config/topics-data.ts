@@ -699,6 +699,9 @@ const ROBLOX: Topic[] = [
       'steal an egg enchanted tree',
       'steal an egg wisp quest',
       'steal an egg update 7',
+      'enchanted mutation steal an egg',
+      'steal an egg enchanted mutation',
+      'steal an egg enchanted essence',
     ],
     'roblox',
     'Steal An Egg (Roblox)',
@@ -715,6 +718,10 @@ const ROBLOX: Topic[] = [
       [
         'What the Enchanted Tree unlocks',
         'With Wisp at Stage 4, go to the Enchanted Tree behind the biome’s boss and interact with it. Inside: a free Butterfly Net, a Conversion Center, an Enchanted Mutation Shrine, and butterflies to catch — 240 Emerald, 115 Sapphire, 40 Amethyst and 1 Radiant.',
+      ],
+      [
+        'How to get the Enchanted Mutation in Steal An Egg',
+        '1. Unlock the Enchanted Tree (Wisp at Stage 4, see above).\n2. During Butterfly Bloom, use the free Butterfly Net to catch 240 Emerald, 115 Sapphire, 40 Amethyst and 1 Radiant Butterfly in the Enchanted Forest.\n3. Take them to the Enchanted Mutation Shrine inside the tree to craft Enchanted Essence.\n4. Use the Essence on an egg — it guarantees the Enchanted Mutation.',
       ],
     ],
     [
@@ -781,6 +788,68 @@ const ROBLOX: Topic[] = [
       ],
     ],
     ['Fortnite Item Shop', 'https://www.fortnite.com/item-shop']
+  ),
+  t(
+    'ride-a-pet-fuse',
+    'ride a pet fuse',
+    [
+      'ride a pet fuse machine',
+      'ride a pet fusion',
+      'ride a pet hydra',
+      'ride a pet fused pets',
+    ],
+    'roblox',
+    'Ride A Pet (Roblox)',
+    'Ride A Pet fuse: the Fuse Machine combines four Legendary-or-better pets (plus Cash) into one Fused Pet such as the Hydra, Black Panther, El Toro or Stone Golem. It unlocks after your first Rebirth.',
+    [
+      [
+        'How to unlock the Fuse Machine',
+        'Do Rebirth 1 — it costs $1M Cash and one Horse pet. The machine stands to the left of the “Ride Pet with Friends” board, next to the flying Phoenix near spawn. It is a limited-time feature, so use it while it is in the game.',
+      ],
+      [
+        'How fusing works',
+        'Put in four pets of Legendary rarity or higher and pay the Cash cost shown at the bottom of the fusion menu (it depends on the pets you use). You get one of 16 Fused Pets. Traits and mutations on the pets you put in have a chance to carry over to the result.',
+      ],
+      [
+        'Best Ride A Pet fused pets',
+        'The Hydra is the one most players chase; Black Panther, El Toro and Stone Golem are other popular results. Collect plenty of Legendary pets first — every fusion uses up four.',
+      ],
+    ],
+    [
+      'Ride A Pet on Roblox',
+      'https://www.roblox.com/games/124216119978534/Ride-A-Pet',
+    ]
+  ),
+  t(
+    'break-and-steal-an-egg-codes',
+    'code break and steal an egg',
+    [
+      'break and steal an egg codes',
+      'break and steal an egg',
+      'break and steal an egg roblox',
+      'break and steal an egg code',
+    ],
+    'roblox',
+    'Break and Steal an Egg (Roblox)',
+    'Break and Steal an Egg codes: there are none yet — the game has no codes menu as of October 2026. Break and Steal an Egg is a Roblox tycoon (a different game from Steal An Egg) where you smash eggs, steal the animals inside and escape the guards.',
+    [
+      [
+        'Are there Break and Steal an Egg codes?',
+        'No working codes exist and there is no place to enter them in the game yet. For freebies, join the developer’s Roblox group. Avoid “script” and “auto farm” downloads — they can get your account banned.',
+      ],
+      [
+        'How to play Break and Steal an Egg',
+        'Use Auto-Swing in the Chicken Zone to build up 100 Base points, then break eggs with your pickaxe, grab the animal that hatches and run it back to your base before a guard catches you. Animals in your base earn cash; spend it on speed (train on the treadmill) and better pickaxes, and fill your index with every size and rarity.',
+      ],
+      [
+        'Break and Steal an Egg vs Steal An Egg',
+        'They are separate games. Break and Steal an Egg is by ILGames x Eggs, released September 5, 2026, with 7-player servers. Looking for Steal An Egg instead? See our Steal An Egg pages.',
+      ],
+    ],
+    [
+      'Break and Steal an Egg on Roblox',
+      'https://www.roblox.com/games/114326934417838/Break-and-Steal-an-Egg',
+    ]
   ),
   t(
     'fortnitemares-2026',
@@ -1847,6 +1916,77 @@ const PC: Topic[] = [
     ]
   ),
   t(
+    'fut-champions-fc-27',
+    'fut champions fc 27',
+    [
+      'fc 27 fut champions',
+      'fc 27 champs rewards',
+      'fc 27 weekend league',
+      'fut champions rewards fc 27',
+    ],
+    'pc',
+    'EA SPORTS FC 27 Ultimate Team',
+    'FUT Champions in FC 27: the first Champions Finals ran October 2–5, 2026. You need 1,000 Champions Qualification Points (CQP) to enter, and going 15-0 pays 250,000 coins and 450 Champions Tokens.',
+    [
+      [
+        'How to qualify for FUT Champions in FC 27',
+        'Earn 1,000 CQP from Division Rivals and — new in FC 27 — Squad Battles. There is no Division 6 lock any more, so Squad Battles players can qualify for the first time.',
+      ],
+      [
+        'FC 27 FUT Champions rewards',
+        'Rewards scale with wins, from 15 Champions Tokens and no coins at 1 win (Contender V) up to 250,000 coins, 450 Champions Tokens and 1,000 CQP at 15 wins (Elite I). Spend Champions Tokens in the Token Store.',
+      ],
+      [
+        'FUT Champions schedule',
+        'Finals open on Friday at 19:00 GMT and run through the weekend. The first FC 27 Finals were October 2–5, 2026; check the game for the next weekend’s dates.',
+      ],
+    ],
+    ['EA SPORTS FC 27', 'https://www.ea.com/games/ea-sports-fc/fc-27'],
+    [
+      {
+        name: 'FC 27 FUT Champions guide (Red Bull)',
+        url: 'https://www.redbull.com/int-en/fc-27-fut-champions-guide-rewards-schedule-tips',
+      },
+    ]
+  ),
+  t(
+    'way-of-the-hunter-2',
+    'way of the hunter 2',
+    [
+      'way of the hunter 2 release date',
+      'way of the hunter 2 maps',
+      'way of the hunter 2 price',
+      'way of the hunter 2 ps5',
+    ],
+    'pc',
+    'Way of the Hunter 2',
+    'Way of the Hunter 2 is a realistic hunting sim from Nine Rocks Games and THQ Nordic. It left Early Access with its full release on September 29, 2026, on PC, PS5 and Xbox Series X|S; the Standard Edition is $39.99.',
+    [
+      [
+        'Way of the Hunter 2 maps',
+        'Three hunting regions — North American wilderness, an African hunting ground with dangerous wildlife, and a Rocky Mountain region around the Hearth & Hunt Headquarters lodge, a smaller hub you expand and fill with trophies from every region.',
+      ],
+      [
+        'What’s new',
+        'Living ecosystems with more advanced animal behaviour, and a hunting dog that finds animal signs, follows blood trails and tracks wounded game — it gets better the more you train it.',
+      ],
+      [
+        'Way of the Hunter 2 price and editions',
+        'Standard Edition $39.99 / €39.99. The Deluxe Edition adds the Season Pass: Season One brings 8 DLCs over the first year. Player reviews on Steam are mixed so far, so check recent ones before buying.',
+      ],
+    ],
+    [
+      'Way of the Hunter 2 on Steam',
+      'https://store.steampowered.com/app/2543830/Way_of_the_Hunter_2/',
+    ],
+    [
+      {
+        name: 'Nine Rocks Games — Way of the Hunter 2 FAQ',
+        url: 'https://ninerocksgames.com/posts/way-of-the-hunter-2-faq',
+      },
+    ]
+  ),
+  t(
     'fut-gg',
     'fut gg',
     ['futgg', 'fut.gg'],
@@ -2524,7 +2664,13 @@ const OTHER: Topic[] = [
   t(
     'lagos-life-game',
     'lagos life game',
-    ['lagos life', 'lagoslife', 'lagos life online', 'lagos life sims'],
+    [
+      'lagos life',
+      'lagoslife',
+      'lagos life online',
+      'lagos life sims',
+      'lagos lifestyle game',
+    ],
     'other',
     'Lagos Life',
     'Lagos Life is a free, Sims-style browser game set in Lagos, Nigeria, made by Shalom Rayhamen. Build a character, work jobs, buy property and hang out at real Lagos spots with other players. It launched in early October 2026 and passed 100,000 players within days.',
@@ -2543,6 +2689,38 @@ const OTHER: Topic[] = [
       ],
     ],
     ['Lagos Life — play in your browser', 'https://lagoslife.app/']
+  ),
+  t(
+    'world-space-week-pokemon-go',
+    'world space week pokemon go',
+    [
+      'astronaut pikachu pokemon go',
+      'pokemon go world space week 2026',
+      'shiny astronaut pikachu',
+      'world space week 2026',
+    ],
+    'other',
+    'Pokémon GO',
+    'World Space Week in Pokémon GO runs October 4–10, 2026: the new Astronaut Pikachu debuts in one-star raids and free Timed Research, and it can be Shiny.',
+    [
+      [
+        'World Space Week 2026 dates',
+        'Sunday, October 4, 12:00 a.m. to Saturday, October 10, 2026, 11:59 p.m. local time. It is a collaboration with the European Space Agency (ESA).',
+      ],
+      [
+        'How to get Astronaut Pikachu',
+        'Beat one-star raids, where Astronaut Pikachu appears (Shiny possible), or finish the free Timed Research: win 1, 2, 3, 4 and 5 raids for XP and Stardust, then claim an Astronaut Pikachu encounter plus 2,500 XP and 2,500 Stardust. Claim everything by Monday, October 12, 11:59 p.m. local time.',
+      ],
+      [
+        'Other event bonuses',
+        'Spin PokéStops for event Field Research (Stardust, XP and space-themed encounters). Catches and raid wins give extra XP and Stardust during the week.',
+      ],
+    ],
+    [
+      'Leek Duck — World Space Week 2026',
+      'https://leekduck.com/events/world-space-week-2026/',
+    ],
+    [{ name: 'Pokémon GO — official site', url: 'https://pokemongolive.com/' }]
   ),
   t(
     'xerneas-pokemon-go',
