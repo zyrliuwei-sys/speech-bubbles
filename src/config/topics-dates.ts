@@ -111,6 +111,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'texter-tycoon': '2026-09-30',
   'the-toxic-mist': '2026-09-30',
   'transport-fever-3': '2026-10-05',
+  tuffymon: '2026-10-12',
   'ultimate-car-parking-sim': '2026-09-30',
   'until-the-first-snow-falls': '2026-09-30',
   'viviennes-lifestyle-yacht-club': '2026-09-30',
