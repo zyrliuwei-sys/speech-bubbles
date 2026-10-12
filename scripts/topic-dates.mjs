@@ -64,10 +64,11 @@ latestBySlug(
     /^ {4}'([a-z0-9-]+)',$/.exec(lines[i + 1] ?? '')?.[1],
   result
 );
-// FAQ entries: `  '<slug>': [`.
+// FAQ entries: `  '<slug>': [` — or `  slug: [`, as Prettier unquotes
+// keys that are valid identifiers.
 latestBySlug(
   FAQ,
-  (lines, i) => /^ {2}'([a-z0-9-]+)': \[$/.exec(lines[i])?.[1],
+  (lines, i) => /^ {2}'?([a-z0-9-]+)'?: \[$/.exec(lines[i])?.[1],
   result
 );
 
