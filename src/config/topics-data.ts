@@ -2936,6 +2936,35 @@ const OTHER: Topic[] = [
     [{ name: 'Pokémon GO — official site', url: 'https://pokemongolive.com/' }]
   ),
   t(
+    'tuffymon',
+    'tuffymon',
+    [
+      'tuffymon game',
+      'tuffymon 110-0 challenge',
+      'tuffymon app',
+      'pokemon 110-0 challenge',
+    ],
+    'other',
+    'TuffyMon (Pokémon draft game)',
+    'TuffyMon is a free browser game at tuffymon.app built around the Pokémon “110-0 challenge”: draft six Pokémon, then try to beat every gym leader, Elite Four member and champion in the series without losing.',
+    [
+      [
+        'How the TuffyMon draft works',
+        'Each round gives you a random generation and type, and you pick one Pokémon from it. Do that six times to build your team, then start the gauntlet against every gym leader, Elite Four member and champion — the “110-0” run.',
+      ],
+      [
+        'TuffyMon game modes',
+        'Solo 110-0 run — 3 runs per day on each difficulty (9 in total), with a leaderboard for signed-in players.\nDraft battle vs CPU — snake-draft against the computer, then your six fight its six.\nTwo players on one screen — alternate picks, then battle.\nOnline head-to-head PvP — listed as coming soon / rolling out.',
+      ],
+      [
+        'TuffyMon the streamer',
+        'Looking for the person? “tuffymon” is also a Twitch and YouTube streamer who mostly plays strategy RPGs (Final Fantasy Tactics, Chrono Trigger, Langrisser). TuffyMon is a fan-made game, not an official Pokémon product.',
+      ],
+    ],
+    ['TuffyMon — play the draft', 'https://tuffymon.app/'],
+    [{ name: 'tuffymon on Twitch', url: 'https://www.twitch.tv/tuffymon' }]
+  ),
+  t(
     'xerneas-pokemon-go',
     'xerneas pokemon go',
     ['xerneas raid', 'shiny xerneas pokemon go', 'xerneas raid hour'],

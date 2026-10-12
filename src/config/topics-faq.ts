@@ -122,6 +122,12 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'No release date has been announced. It is coming to PS5, Xbox Series X|S, Switch 2 and PC.',
     },
   ],
+  tuffymon: [
+    {
+      q: 'What is the 110-0 challenge in TuffyMon?',
+      a: 'Draft six Pokémon (each pick from a random generation and type), then try to beat every gym leader, Elite Four member and champion in the series without a loss.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
