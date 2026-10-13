@@ -128,6 +128,12 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Draft six Pokémon (each pick from a random generation and type), then try to beat every gym leader, Elite Four member and champion in the series without a loss.',
     },
   ],
+  pokesurvivor: [
+    {
+      q: 'Is PokéSurvivor free?',
+      a: 'Yes. It is free in the browser with no ads or purchases. Make an account if you want your progress saved.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
