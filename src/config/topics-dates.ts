@@ -81,6 +81,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'overpeak-game': '2026-10-05',
   piecealive: '2026-09-30',
   'pokemon-center-delta-reign': '2026-10-01',
+  pokesurvivor: '2026-10-13',
   'rhinedottir-genshin': '2026-10-01',
   'ride-a-pet': '2026-10-01',
   'ride-a-pet-fuse': '2026-10-05',
