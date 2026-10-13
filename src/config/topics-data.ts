@@ -2965,6 +2965,40 @@ const OTHER: Topic[] = [
     [{ name: 'tuffymon on Twitch', url: 'https://www.twitch.tv/tuffymon' }]
   ),
   t(
+    'pokesurvivor',
+    'pokesurvivor',
+    [
+      'poke survivor',
+      'pokesurvivor game',
+      'pokemon survivor game',
+      'pokesurvivor online',
+    ],
+    'other',
+    'PokéSurvivor (Pokémon survivor-like)',
+    'PokéSurvivor is a free, fan-made Pokémon “survivor-like” you play in the browser, in the style of Vampire Survivors: pick one partner Pokémon, drop into an endless map, and survive the waves while your moves fire automatically.',
+    [
+      [
+        'How to play PokéSurvivor',
+        'Choose a partner Pokémon and start a run — you never press an attack button, you just move and dodge. Each level-up offers three cards: learn a new move, upgrade one you already have, or take a permanent boost for that partner. Keep stacking upgrades to last longer against tougher waves.',
+      ],
+      [
+        'What’s in the game',
+        'Hundreds of playable Pokémon across nine regions (the site lists 966), dozens of moves, legendary encounters and rift arenas. Online co-op lets you play with friends.',
+      ],
+      [
+        'Saving, cost and safety',
+        'Free with no ads or purchases (donations are optional). Play as a guest instantly — but guest progress is not saved; make an account to keep your save in the cloud and continue on any device. It is an unofficial fan project, not made by Nintendo, Game Freak or The Pokémon Company.',
+      ],
+    ],
+    ['PokéSurvivor — play free', 'https://pokesurvivor.com/en/'],
+    [
+      {
+        name: 'PokéSurvivor guide & FAQ',
+        url: 'https://pokesurvivor.com/en/guide/',
+      },
+    ]
+  ),
+  t(
     'xerneas-pokemon-go',
     'xerneas pokemon go',
     ['xerneas raid', 'shiny xerneas pokemon go', 'xerneas raid hour'],
