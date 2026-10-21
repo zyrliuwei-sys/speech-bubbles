@@ -1264,6 +1264,43 @@ const MINECRAFT: Topic[] = [
     ['CreatorSMP Hardcore — official site', 'https://creatorsmp.nl/'],
     [{ name: 'CreatorSMP on X', url: 'https://x.com/CreatorSMPNL' }]
   ),
+  t(
+    'minecraft-preview-26-70-21',
+    'minecraft preview 26.70.21 packed ice',
+    [
+      'minecraft preview 26.70.21',
+      'minecraft packed ice bricks',
+      'packed ice bricks minecraft',
+      'minecraft bedrock 26.70.21',
+    ],
+    'minecraft',
+    'Minecraft (Bedrock Preview)',
+    'Minecraft Preview 26.70.21 adds packed ice bricks: a full building set made from packed ice — bricks, slabs, stairs, walls and chiseled blocks. It is a test build for the fourth game drop of 2026 (the ice caves drop).',
+    [
+      [
+        'Packed ice bricks in Preview 26.70.21',
+        'Turn packed ice into packed ice bricks, then into slabs, stairs, walls and chiseled packed ice bricks. They do not melt, and a pickaxe mines them fastest. Some details (the block name, instrument sound, Creative-inventory position and waterlogging) are listed as known issues still being fixed.',
+      ],
+      [
+        'What else is in this preview',
+        'More of the ice caves drop: Ice Ball damage changes, Brittle Ice and Crevasse updates in Ice Caves, ambient sounds over frozen rivers and oceans, and several mob tweaks.',
+      ],
+      [
+        'How to try Minecraft Preview',
+        'Install Minecraft Preview (Bedrock) on Windows, Xbox or mobile and open a new test world — previews can break worlds, so do not use your main save. The full drop (Bedrock 26.70 / Java 26.4) is planned for later in 2026; no exact release date yet.',
+      ],
+    ],
+    [
+      'Minecraft Preview 26.70.21 changelog',
+      'https://www.minecraft.net/en-us/article/minecraft-preview-26-70-21',
+    ],
+    [
+      {
+        name: 'Everything to test from the upcoming drop',
+        url: 'https://www.minecraft.net/en-us/article/drop-4-2026-testing',
+      },
+    ]
+  ),
 ];
 
 const GENSHIN: Topic[] = [
@@ -2197,6 +2234,43 @@ const PC: Topic[] = [
     [
       'Signal Veil announcement (Gematsu)',
       'https://www.gematsu.com/2026/10/survival-horror-game-signal-veil-announced-for-ps5-xbox-series-switch-2-and-pc',
+    ]
+  ),
+  t(
+    'mw4-multiplayer',
+    'mw4 multiplayer',
+    [
+      'modern warfare 4 multiplayer',
+      'mw4 multiplayer release time',
+      'mw4 multiplayer maps',
+      'call of duty modern warfare 4 multiplayer',
+    ],
+    'pc',
+    'Call of Duty: Modern Warfare 4',
+    'MW4 multiplayer unlocks on October 23, 2026 at midnight local time — this year even on PC. Call of Duty: Modern Warfare 4 launches with 12 core 6v6 maps, Gunfight maps, large vehicle maps and a new mode, Kill Block.',
+    [
+      [
+        'When MW4 multiplayer starts',
+        'October 23, 2026 at midnight local time on every platform. Campaign early access for digital pre-orders began October 16, but Multiplayer and DMZ stay locked until launch day. Because it unlocks by time zone, players in New Zealand get in first.',
+      ],
+      [
+        'MW4 multiplayer maps and modes',
+        '12 core 6v6 maps, dedicated Gunfight maps and large-scale maps for vehicle and infantry combat. New mode Kill Block takes place in a live-fire training facility that reconfigures between rounds. Classic modes like Hardpoint, Search and Destroy and Domination return.',
+      ],
+      [
+        'Platforms, price and Game Pass',
+        'PS5, Xbox Series X|S, PC (Steam, Battle.net, Xbox app) and Nintendo Switch 2 — not PS4 or Xbox One. Standard Edition $69.99, Vault Edition $99.99. It is not on Game Pass at launch, and console players need an online subscription (PlayStation Plus or Game Pass Essential and up) for Multiplayer and DMZ.',
+      ],
+    ],
+    [
+      'Call of Duty: Modern Warfare 4 (official)',
+      'https://www.callofduty.com/modernwarfare4',
+    ],
+    [
+      {
+        name: 'MW4 launch details (PlayStation Blog)',
+        url: 'https://blog.playstation.com/2026/05/28/call-of-duty-modern-warfare-4-campaign-multiplayer-and-dmz-launches-october-23/',
+      },
     ]
   ),
   t(

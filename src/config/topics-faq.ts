@@ -134,6 +134,22 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Yes. It is free in the browser with no ads or purchases. Make an account if you want your progress saved.',
     },
   ],
+  'mw4-multiplayer': [
+    {
+      q: 'What time does MW4 multiplayer come out?',
+      a: 'October 23, 2026 at midnight local time on every platform, including PC.',
+    },
+    {
+      q: 'Is Modern Warfare 4 on Game Pass?',
+      a: 'Not at launch.',
+    },
+  ],
+  'minecraft-preview-26-70-21': [
+    {
+      q: 'What are packed ice bricks in Minecraft?',
+      a: 'A new building set added in Minecraft Preview 26.70.21: packed ice bricks plus slabs, stairs, walls and chiseled blocks. They do not melt.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
