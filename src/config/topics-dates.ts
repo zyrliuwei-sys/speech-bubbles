@@ -129,4 +129,5 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'xbox-fanfest-fable-demo': '2026-10-01',
   'xerneas-pokemon-go': '2026-10-01',
   'yba-codes': '2026-10-01',
+  'zzz-3-3-countdown': '2026-10-21',
 };
