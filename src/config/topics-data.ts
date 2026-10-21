@@ -2244,6 +2244,9 @@ const PC: Topic[] = [
       'mw4 multiplayer release time',
       'mw4 multiplayer maps',
       'call of duty modern warfare 4 multiplayer',
+      'dmz early access mw4',
+      'mw4 dmz early access',
+      'modern warfare 4 dmz',
     ],
     'pc',
     'Call of Duty: Modern Warfare 4',
@@ -2251,7 +2254,11 @@ const PC: Topic[] = [
     [
       [
         'When MW4 multiplayer starts',
-        'October 23, 2026 at midnight local time on every platform. Campaign early access for digital pre-orders began October 16, but Multiplayer and DMZ stay locked until launch day. Because it unlocks by time zone, players in New Zealand get in first.',
+        'October 23, 2026 at midnight local time on every platform. Campaign early access for digital pre-orders began October 16 and DMZ early access on October 20, but Multiplayer stays locked until launch day. Because it unlocks by time zone, players in New Zealand get in first.',
+      ],
+      [
+        'MW4 DMZ early access',
+        'DMZ early access opened on Tuesday, October 20, 2026 at 10:00 a.m. PT (1:00 p.m. ET / 17:00 UTC / 01:00 October 21 UTC+8) — one global start time, not a rolling regional unlock. It is included with any digital pre-order, Standard Edition too, so you do not need a pricier edition. Install the pre-launch update first. Everyone else gets DMZ at the full launch on October 23.',
       ],
       [
         'MW4 multiplayer maps and modes',
