@@ -136,6 +136,10 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
   ],
   'mw4-multiplayer': [
     {
+      q: 'When does MW4 DMZ early access start?',
+      a: 'It started on October 20, 2026 at 10:00 a.m. PT (17:00 UTC) for everyone with a digital pre-order, including the Standard Edition.',
+    },
+    {
       q: 'What time does MW4 multiplayer come out?',
       a: 'October 23, 2026 at midnight local time on every platform, including PC.',
     },
