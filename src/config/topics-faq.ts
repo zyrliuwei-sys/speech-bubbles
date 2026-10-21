@@ -150,6 +150,16 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'A new building set added in Minecraft Preview 26.70.21: packed ice bricks plus slabs, stairs, walls and chiseled blocks. They do not melt.',
     },
   ],
+  'zzz-3-3-countdown': [
+    {
+      q: 'What time does ZZZ 3.3 come out?',
+      a: 'It went live on October 21, 2026 at 11:00 a.m. UTC+8 (October 20, 11:00 p.m. ET / 8:00 p.m. PT).',
+    },
+    {
+      q: 'Who is on the ZZZ 3.3 banners?',
+      a: 'Phoenix in Phase 1 (October 21 – November 11) and Severian in Phase 2 (November 11 – December 1), with a Norma rerun.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
