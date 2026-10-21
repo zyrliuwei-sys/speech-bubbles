@@ -3073,6 +3073,41 @@ const OTHER: Topic[] = [
     ]
   ),
   t(
+    'zzz-3-3-countdown',
+    'zzz 3.3 countdown',
+    [
+      'zzz 3.3 release date',
+      'zenless zone zero 3.3',
+      'zzz 3.3 release time',
+      'zzz 3.3 banners',
+      'zenless zone zero 3.3 countdown',
+    ],
+    'other',
+    'Zenless Zone Zero',
+    'ZZZ 3.3 countdown: Zenless Zone Zero Version 3.3 “Journey to the Sky” went live on October 21, 2026 at 11:00 a.m. UTC+8, after maintenance. It adds new S-Rank Agents Phoenix and Severian and controllable combat mechs.',
+    [
+      [
+        'ZZZ 3.3 release time',
+        'October 21, 2026, 11:00 a.m. UTC+8 — the same moment as October 20, 11:00 p.m. ET / 8:00 p.m. PT and October 21, 03:00 UTC. Maintenance started a few hours earlier. The countdown is over: the update is live on PC, PS5, Xbox Series X|S, iOS and Android as a free patch.',
+      ],
+      [
+        'ZZZ 3.3 banners',
+        'Phase 1 (October 21 – November 11): Phoenix (new S-Rank), with Velina.\nPhase 2 (November 11 – December 1): Severian (new S-Rank), with a Norma rerun.',
+      ],
+      [
+        'What’s new in Version 3.3',
+        'The main story continues in Roscaelifer, you can pilot combat mechs in battle for the first time, and a Halloween event runs during the version.',
+      ],
+    ],
+    ['Zenless Zone Zero — official site', 'https://zenless.hoyoverse.com/'],
+    [
+      {
+        name: 'ZZZ 3.3 release date and banners (Game8)',
+        url: 'https://game8.co/games/Zenless-Zone-Zero/archives/622039',
+      },
+    ]
+  ),
+  t(
     'xerneas-pokemon-go',
     'xerneas pokemon go',
     ['xerneas raid', 'shiny xerneas pokemon go', 'xerneas raid hour'],
