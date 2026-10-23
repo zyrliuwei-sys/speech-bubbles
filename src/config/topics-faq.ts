@@ -174,6 +174,12 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: '$29.99 for the Standard Edition, $39.99 for the Midnight Edition.',
     },
   ],
+  'tenebris-somnia': [
+    {
+      q: 'Is Tenebris Somnia worth it?',
+      a: 'Players rate it “Very Positive” on Steam (about 92%). It suits fans of classic Silent Hill / Resident Evil-style horror who enjoy puzzles and live-action story scenes.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',

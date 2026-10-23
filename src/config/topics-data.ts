@@ -2319,6 +2319,43 @@ const PC: Topic[] = [
     ]
   ),
   t(
+    'tenebris-somnia',
+    'tenebris somnia',
+    [
+      'tenebris somnia game',
+      'tenebris somnia review',
+      'tenebris somnia release date',
+      'tenebris somnia ps5',
+    ],
+    'pc',
+    'Tenebris Somnia',
+    'Tenebris Somnia is a 2D retro survival-horror game with live-action cutscenes, made by an award-winning Argentine film crew and published by New Blood Interactive. It came out on October 16, 2026 for PC, PS5, Xbox Series X|S, Switch and Switch 2.',
+    [
+      [
+        'What Tenebris Somnia is about',
+        'You play Julia, who slips into a parallel world while visiting her ex-boyfriend. Pixel-art exploration, puzzles and monster fights in the spirit of classic Silent Hill and Resident Evil alternate with filmed live-action scenes — and those scenes hide hints you need to progress, so watch them closely.',
+      ],
+      [
+        'Tenebris Somnia price and platforms',
+        '$24.99 on PC (Steam), PS5, Xbox Series X|S, Nintendo Switch and Switch 2, with launch discounts on some stores. A 1.0.1 hotfix arrived on October 17.',
+      ],
+      [
+        'Tenebris Somnia reviews',
+        'Players like it: “Very Positive” on Steam (about 92% of 860+ reviews as of late October 2026). Only a few critic reviews are out so far.',
+      ],
+    ],
+    [
+      'Tenebris Somnia on Steam',
+      'https://store.steampowered.com/app/2121510/Tenebris_Somnia/',
+    ],
+    [
+      {
+        name: 'Tenebris Somnia on PlayStation Store',
+        url: 'https://store.playstation.com/en-us/concept/10019514/',
+      },
+    ]
+  ),
+  t(
     'fut-gg',
     'fut gg',
     ['futgg', 'fut.gg'],
