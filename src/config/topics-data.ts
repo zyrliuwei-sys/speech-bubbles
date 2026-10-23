@@ -2281,6 +2281,44 @@ const PC: Topic[] = [
     ]
   ),
   t(
+    'castlevania-belmonts-curse',
+    "belmont's curse",
+    [
+      'belmonts curse',
+      "castlevania belmont's curse",
+      'castlevania belmonts curse',
+      "belmont's curse review",
+      "belmont's curse price",
+    ],
+    'pc',
+    "Castlevania: Belmont's Curse",
+    "Belmont's Curse — Castlevania: Belmont's Curse — is Konami's new 2D Castlevania, made by Evil Empire (the Dead Cells team) with Motion Twin. It came out on October 15, 2026 for PC, PS5, Xbox Series X|S and Switch, priced $29.99.",
+    [
+      [
+        "What Belmont's Curse is about",
+        'Paris, 1499 — 23 years after Castlevania III: Dracula’s Curse. You play Rose Belmont, fighting the monsters that have overrun the city beneath Dracula’s castle. It is a non-linear Metroidvania in the Symphony of the Night tradition: explore, find upgrades and key items, and open up new areas. Made for the series’ 40th anniversary.',
+      ],
+      [
+        "Belmont's Curse price and length",
+        'Standard Edition $29.99; the Midnight Edition is $39.99. Expect roughly 10–15 hours for the main ending and about 20+ hours for 100% completion.',
+      ],
+      [
+        "Belmont's Curse reviews",
+        'Critics are positive — around the low-to-mid 80s on OpenCritic, with Metacritic scores in the high 70s to mid 80s depending on platform. Reviewers note a tough opening hour that eases off later; the soundtrack and some technical issues get criticism.',
+      ],
+    ],
+    [
+      "Castlevania: Belmont's Curse on Steam",
+      'https://store.steampowered.com/app/4231820/',
+    ],
+    [
+      {
+        name: 'PlayStation Store',
+        url: 'https://store.playstation.com/en-us/product/JP0101-PPSA35399_00-CVBCAPP000000000',
+      },
+    ]
+  ),
+  t(
     'fut-gg',
     'fut gg',
     ['futgg', 'fut.gg'],
