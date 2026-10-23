@@ -18,6 +18,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'build-an-ant-empire-codes': '2026-10-01',
   'build-and-kill-zombies': '2026-10-01',
   'burger-king-fc-27': '2026-10-01',
+  'castlevania-belmonts-curse': '2026-10-23',
   'clover-legends-codes': '2026-10-04',
   'clover-time-roblox': '2026-10-05',
   'cloverfall-codes': '2026-10-05',
