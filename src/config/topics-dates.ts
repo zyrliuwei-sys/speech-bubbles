@@ -111,6 +111,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'steal-an-egg-wisp': '2026-10-05',
   'stumble-boys-party-royale': '2026-09-30',
   'survivor-island-idle-game': '2026-10-01',
+  'tenebris-somnia': '2026-10-23',
   'terminator-robot-uprising': '2026-10-01',
   'texter-tycoon': '2026-09-30',
   'the-toxic-mist': '2026-09-30',
