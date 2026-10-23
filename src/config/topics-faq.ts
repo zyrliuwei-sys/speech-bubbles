@@ -164,6 +164,16 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: 'Phoenix in Phase 1 (October 21 – November 11) and Severian in Phase 2 (November 11 – December 1), with a Norma rerun.',
     },
   ],
+  'castlevania-belmonts-curse': [
+    {
+      q: "How long is Castlevania: Belmont's Curse?",
+      a: 'About 10–15 hours for the main ending and 20+ hours to complete everything.',
+    },
+    {
+      q: "How much is Belmont's Curse?",
+      a: '$29.99 for the Standard Edition, $39.99 for the Midnight Edition.',
+    },
+  ],
   'lumber-tycoon-2-work-light': [
     {
       q: 'How to turn on work light in Lumber Tycoon 2?',
