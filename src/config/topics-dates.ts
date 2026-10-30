@@ -44,6 +44,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'fishing-master-codes': '2026-10-03',
   'fnaf-x-fortnite': '2026-10-03',
   'fortnite-globals': '2026-10-01',
+  'fortnite-treasure-hunters-battle-pass': '2026-10-31',
   'fortnitemares-2026': '2026-10-01',
   'fut-champions-fc-27': '2026-10-05',
   'fut-gg': '2026-10-01',
