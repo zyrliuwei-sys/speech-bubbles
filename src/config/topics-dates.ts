@@ -55,6 +55,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'halo-combat-evolved-browser': '2026-10-03',
   'highway-domination-desert': '2026-09-30',
   'hroptatyr-genshin': '2026-10-01',
+  'hsr-livestream-codes': '2026-10-31',
   'illegal-soccer': '2026-10-04',
   'is-agar-io-down': '2026-10-01',
   'is-it-verity': '2026-10-01',
