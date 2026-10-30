@@ -1462,6 +1462,57 @@ const GENSHIN: Topic[] = [
 
 const PC: Topic[] = [
   t(
+    'fortnite-treasure-hunters-battle-pass',
+    'fortnite treasure hunters battle pass',
+    [
+      'fortnite treasure hunters',
+      'fortnite treasure hunters battle pass skins',
+      'fortnite one piece battle pass',
+      'treasure hunters battle pass release date',
+      'treasure hunters battle pass price',
+      'fortnite treasure hunters skins',
+    ],
+    'pc',
+    'Fortnite',
+    'The Fortnite Treasure Hunters Battle Pass arrives with the November 1, 2026 mini-season. Epic has confirmed Portgas D. Ace, Nico Robin and new anime versions of three Fortnite characters as pass rewards.',
+    [
+      [
+        'Fortnite Treasure Hunters Battle Pass release date',
+        'Treasure Hunters starts November 1, 2026. It is still upcoming as of October 31; Epic announced the season and its pass lineup on October 30.',
+      ],
+      [
+        'Treasure Hunters Battle Pass skins',
+        'The announced outfits are Portgas D. Ace, Nico Robin, and anime versions of Jonesy, Cuddle Team Leader and Charlotte. Gifting the pass also gives both players a bonus Dark Kawaii Team Leader style.',
+      ],
+      [
+        'Is Luffy in the Treasure Hunters Battle Pass?',
+        'Luffy, Nami and Usopp are Item Shop outfits arriving at season launch. Ace and Nico Robin are the One Piece characters announced for the pass.',
+      ],
+      [
+        'Treasure Hunters Battle Pass price',
+        'As of October 31, 2026, Epic’s Battle Pass page still shows the outgoing Override pass at 800 V-Bucks or through Fortnite Crew. The Treasure Hunters announcement does not list a separate price. Check the new in-game pass screen at launch for its price and purchase options.',
+      ],
+      [
+        'How Battle Pass rewards unlock',
+        'Epic’s general Battle Pass guide explains that earning XP in Fortnite unlocks access to reward pages. The Treasure Hunters announcement does not specify outfit levels or the complete reward track; check those details in-game once the pass launches.',
+      ],
+    ],
+    [
+      'Fortnite Treasure Hunters — official announcement',
+      'https://www.fortnite.com/news/fortnite-treasure-hunters-the-greatest-adventure-of-all-time',
+    ],
+    [
+      {
+        name: 'Fortnite Battle Pass — rewards and purchase options',
+        url: 'https://www.fortnite.com/battle-pass',
+      },
+      {
+        name: 'Fortnite Item Shop',
+        url: 'https://www.fortnite.com/item-shop',
+      },
+    ]
+  ),
+  t(
     'terrible-lizards',
     'terrible lizards',
     [

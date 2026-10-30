@@ -184,6 +184,20 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: '$29.99 for the Standard Edition, $39.99 for the Midnight Edition.',
     },
   ],
+  'fortnite-treasure-hunters-battle-pass': [
+    {
+      q: 'When does the Fortnite Treasure Hunters Battle Pass come out?',
+      a: 'It arrives with the Treasure Hunters mini-season on November 1, 2026.',
+    },
+    {
+      q: 'What skins are in the Fortnite Treasure Hunters Battle Pass?',
+      a: 'Epic has announced Portgas D. Ace, Nico Robin, and anime versions of Jonesy, Cuddle Team Leader and Charlotte.',
+    },
+    {
+      q: 'Is Luffy in the Fortnite Treasure Hunters Battle Pass?',
+      a: 'Epic lists Luffy in the Item Shop at season launch. Ace and Nico Robin are announced as Battle Pass rewards.',
+    },
+  ],
   'terrible-lizards': [
     {
       q: 'When did Terrible Lizards come out?',
