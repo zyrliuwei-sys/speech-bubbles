@@ -1462,6 +1462,57 @@ const GENSHIN: Topic[] = [
 
 const PC: Topic[] = [
   t(
+    'terrible-lizards',
+    'terrible lizards',
+    [
+      'terrible lizards game',
+      'terrible lizards release date',
+      'terrible lizards demo',
+      'terrible lizards steam',
+      'terrible lizards ps5',
+      'terrible lizards xbox',
+    ],
+    'pc',
+    'Terrible Lizards',
+    'Terrible Lizards is a single-player, first-person horror parkour game by WDR Studios, published by Digital Pajamas and Behaviour Interactive. It launched on October 29, 2026 for PC, PS5 and Xbox Series X|S.',
+    [
+      [
+        'What Terrible Lizards is about',
+        'It is 1992, and your car has broken down near Dalton’s Dinos, an abandoned dinosaur attraction on Route 66 in New Mexico. The staff are missing, and a voice on a telephone asks you to find a lost child. Explore the park and the areas beneath it, collecting tapes, notes and recordings to piece together what happened.',
+      ],
+      [
+        'How Terrible Lizards plays',
+        'You escape pursuing creatures by chaining runs, jumps, climbs, wall-runs, bounces and slides. There are no weapons, so use the terrain and keep your momentum to get away. The game is single-player.',
+      ],
+      [
+        'Terrible Lizards release date, platforms and price',
+        'Released October 29, 2026 on Windows PC (Steam and Epic Games Store), PlayStation 5 and Xbox Series X|S. The Steam US list price is $24.99, checked October 31, 2026; regional prices and discounts vary.',
+      ],
+      [
+        'Terrible Lizards demo',
+        'Steam offers a free demo through the “Download Terrible Lizards Demo” section on the main store page. The demo lets you try the game before buying the full version.',
+      ],
+    ],
+    [
+      'Terrible Lizards on Steam',
+      'https://store.steampowered.com/app/2920220/Terrible_Lizards/',
+    ],
+    [
+      {
+        name: 'Terrible Lizards — official publisher page',
+        url: 'https://digitalpajamas.com/terrible-lizards/',
+      },
+      {
+        name: 'Terrible Lizards on PlayStation Store',
+        url: 'https://store.playstation.com/concept/10019203/',
+      },
+      {
+        name: 'Terrible Lizards on Xbox Store',
+        url: 'https://www.xbox.com/games/store/terrible-lizards/9pkfl1xjt73s',
+      },
+    ]
+  ),
+  t(
     'gta-6-release-date',
     'rockstar games gta vi',
     ['gta 6 release date', 'grand theft auto vi'],

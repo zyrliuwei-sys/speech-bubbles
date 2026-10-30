@@ -184,6 +184,20 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: '$29.99 for the Standard Edition, $39.99 for the Midnight Edition.',
     },
   ],
+  'terrible-lizards': [
+    {
+      q: 'When did Terrible Lizards come out?',
+      a: 'Terrible Lizards launched on October 29, 2026 for PC, PlayStation 5 and Xbox Series X|S.',
+    },
+    {
+      q: 'Is Terrible Lizards free?',
+      a: 'The full game is paid: the Steam US list price is $24.99, checked October 31, 2026. A free demo is available from the main Steam store page.',
+    },
+    {
+      q: 'Is Terrible Lizards multiplayer?',
+      a: 'Terrible Lizards is a single-player horror parkour game.',
+    },
+  ],
   'tenebris-somnia': [
     {
       q: 'Is Tenebris Somnia worth it?',
