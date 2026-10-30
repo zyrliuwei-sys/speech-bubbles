@@ -184,6 +184,20 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: '$29.99 for the Standard Edition, $39.99 for the Midnight Edition.',
     },
   ],
+  'hsr-livestream-codes': [
+    {
+      q: 'What are the HSR 4.7 livestream codes?',
+      a: 'The October 30, 2026 Special Program codes are NEVERGONNAGIVE, NEVERGONNAMAKE and AHABLESSYOU, worth 300 Stellar Jade in total. Their announced deadline is October 31, 2026 at 23:59 (UTC+8).',
+    },
+    {
+      q: 'When do HSR 4.7 livestream codes expire?',
+      a: 'October 31, 2026 at 23:59 (UTC+8), or 15:59 UTC, according to HoYoverse’s official recap. This code set is expired after that deadline.',
+    },
+    {
+      q: 'Where do I redeem HSR livestream codes?',
+      a: 'Use hsr.hoyoverse.com/gift, sign in to your linked HoYoverse account, choose your server and character, and enter each code. Collect the rewards from your in-game Mail.',
+    },
+  ],
   'fortnite-treasure-hunters-battle-pass': [
     {
       q: 'When does the Fortnite Treasure Hunters Battle Pass come out?',

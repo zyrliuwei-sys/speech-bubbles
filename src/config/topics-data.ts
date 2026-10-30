@@ -1462,6 +1462,54 @@ const GENSHIN: Topic[] = [
 
 const PC: Topic[] = [
   t(
+    'hsr-livestream-codes',
+    'hsr livestream codes',
+    [
+      'honkai star rail livestream codes',
+      'star rail livestream codes',
+      'hsr 4.7 livestream codes',
+      'hsr 4.7 codes',
+      'honkai star rail 4.7 codes',
+      'hsr redeem codes',
+    ],
+    'pc',
+    'Honkai: Star Rail',
+    'HSR livestream codes are limited-time Honkai: Star Rail Special Program rewards. The Version 4.7 set announced on October 30, 2026 is NEVERGONNAGIVE, NEVERGONNAMAKE and AHABLESSYOU, worth 300 Stellar Jade in total and due to expire October 31 at 23:59 (UTC+8).',
+    [
+      [
+        'HSR 4.7 livestream codes and rewards',
+        'NEVERGONNAGIVE — 100 Stellar Jade and 50,000 Credits.\nNEVERGONNAMAKE — 100 Stellar Jade and 5 Traveler’s Guides.\nAHABLESSYOU — 100 Stellar Jade and 4 Refined Aether.\nThese are the October 30, 2026 Special Program codes, checked October 31 against HoYoverse’s official recap; the individual rewards are listed by GamesRadar.',
+      ],
+      [
+        'When do the HSR livestream codes expire?',
+        'HoYoverse’s official 4.7 recap sets the deadline at October 31, 2026, 23:59 (UTC+8), equivalent to 15:59 UTC. After that deadline, treat this set as expired and look for the next Special Program’s announcement.',
+      ],
+      [
+        'How to redeem HSR livestream codes on the web',
+        '1. Open the official Honkai: Star Rail redemption page and sign in to the HoYoverse account linked to your game character.\n2. Choose the correct server and confirm the character name.\n3. Enter one code and confirm redemption, then repeat for the others.\n4. Open your in-game Mail to collect the rewards.',
+      ],
+      [
+        'How to redeem codes in Honkai: Star Rail',
+        'Open the Phone menu, select the three dots beside your profile, choose Redemption Code and enter a code. If that option is unavailable, including on iOS, use the official web redemption page. Rewards arrive through in-game Mail.',
+      ],
+      [
+        'Why an HSR code may not work',
+        'Check the expiry time, copy the code exactly and confirm the account, server and character. HoYoverse requires a game character linked to a HoYoverse account; a code cannot be redeemed repeatedly for the same character. If a newly created character does not appear, the official page advises trying again later.',
+      ],
+    ],
+    ['Honkai: Star Rail — redeem codes', 'https://hsr.hoyoverse.com/gift'],
+    [
+      {
+        name: 'HoYoverse — Version 4.7 Special Program recap',
+        url: 'https://www.hoyolab.com/article/47252183',
+      },
+      {
+        name: 'GamesRadar — HSR 4.7 codes and rewards',
+        url: 'https://www.gamesradar.com/games/rpg/honkai-star-rail-livestream-4-7-codes/',
+      },
+    ]
+  ),
+  t(
     'fortnite-treasure-hunters-battle-pass',
     'fortnite treasure hunters battle pass',
     [

@@ -123,6 +123,7 @@ const ACRONYMS: Record<string, string> = {
   fc: 'FC',
   ea: 'EA',
   gg: 'GG',
+  hsr: 'HSR',
   wow: 'WoW',
   pdf: 'PDF',
   apk: 'APK',
