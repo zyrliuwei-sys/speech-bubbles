@@ -34,6 +34,40 @@ function t(
 
 const ROBLOX: Topic[] = [
   t(
+    'ragdoll-robot-boxing',
+    'ragdoll robot boxing',
+    [
+      'ragdoll robot boxing roblox',
+      'ragdoll robot boxing codes',
+      'ragdoll robot boxing game',
+    ],
+    'roblox',
+    'Ragdoll Robot Boxing (Roblox)',
+    'Ragdoll Robot Boxing is a physics-based Roblox fighting game by Ragdoll Physics Experiences: pick a robot, step into a ring and box real players or bots. It launched on October 20, 2026 and passed 89,000 visits in its first ten days.',
+    [
+      [
+        'How Ragdoll Robot Boxing plays',
+        'Every punch runs on real ragdoll physics, so no two fights go the same way. You can duck, weave, block and throw hooks and uppercuts, and a clean hit folds your opponent up. Dents appear exactly where a robot gets hit. Each server has 10 rings and up to 20 players, and you can fight other players or bots from Easy up to Champion.',
+      ],
+      [
+        'Ragdoll Robot Boxing robots and spins',
+        'Every robot has its own special move. You get new robots by spinning, and some of them are very rare. There are 24 badges to collect and leaderboards in the hub.',
+      ],
+      [
+        'Ragdoll Robot Boxing codes',
+        'Guide sites have started listing Ragdoll Robot Boxing codes for free gears and spins. Codes change often, so check the game’s Roblox page and community for the current ones before redeeming.',
+      ],
+      [
+        'Ragdoll Robot Boxing platforms',
+        'Free on Roblox for PC, phone and controller (October 2026).',
+      ],
+    ],
+    [
+      'Ragdoll Robot Boxing on Roblox',
+      'https://www.roblox.com/games/94491633857486/Ragdoll-Robot-Boxing',
+    ]
+  ),
+  t(
     'lumber-tycoon-2-secret-badge',
     'lumber tycoon 2 secret badge',
     [
@@ -3000,6 +3034,7 @@ const OTHER: Topic[] = [
       'krillion answers',
       'one in a krillion answers',
       'one in a krillion game',
+      'krillion unlimited',
     ],
     'other',
     'Krillion (daily trivia game)',
@@ -3015,7 +3050,11 @@ const OTHER: Topic[] = [
       ],
       [
         'How to get One in a Krillion answers',
-        'Skip your first instinct — that is what everyone else types. Go for answers you are sure are correct but that few people think of; a strange answer the game does not accept scores nothing. Krillion also has an Unlimited mode and live multiplayer rooms (up to 30 players) for practice.',
+        'Skip your first instinct — that is what everyone else types. Go for answers you are sure are correct but that few people think of; a strange answer the game does not accept scores nothing. Krillion also has live multiplayer rooms (up to 30 players) for practice.',
+      ],
+      [
+        'Krillion Unlimited',
+        'Krillion Unlimited is the endless mode: instead of waiting for tomorrow’s Daily Dive, you keep getting new prompts and can practise hunting rare answers as long as you like. Open it from the “∞ Unlimited” item in the krillion.io menu (krillion.io/unlimited/classic). Past dives are in the Archive and extra prompt sets are in Themed packs.',
       ],
       [
         'One in a Krillion — the Steam game',
@@ -3024,6 +3063,10 @@ const OTHER: Topic[] = [
     ],
     ['Krillion — play the daily dive', 'https://krillion.io/'],
     [
+      {
+        name: 'Krillion Unlimited',
+        url: 'https://krillion.io/unlimited/classic',
+      },
       {
         name: 'One in a Krillion (action game) on Steam',
         url: 'https://store.steampowered.com/app/2924160/One_in_a_Krillion/',

@@ -4,6 +4,16 @@
  * Answers must only restate facts already checked on the topic page.
  */
 export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
+  'ragdoll-robot-boxing': [
+    {
+      q: 'Is Ragdoll Robot Boxing free?',
+      a: 'Yes. Ragdoll Robot Boxing is free to play on Roblox on PC, phone and controller.',
+    },
+    {
+      q: 'How do you get new robots in Ragdoll Robot Boxing?',
+      a: 'By spinning — each robot has its own special move, and some are very rare.',
+    },
+  ],
   'lumber-tycoon-2-secret-badge': [
     {
       q: 'Can you still get the Lumber Tycoon 2 secret badge?',
@@ -392,6 +402,10 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
     {
       q: 'Where can I play Krillion?',
       a: 'Free in the browser at krillion.io. A new Daily Dive of seven prompts opens every day at midnight New York time.',
+    },
+    {
+      q: 'What is Krillion Unlimited?',
+      a: 'The endless mode of Krillion: you keep getting new prompts instead of waiting for the next Daily Dive. Open it from “∞ Unlimited” in the krillion.io menu.',
     },
   ],
   'xerneas-pokemon-go': [
