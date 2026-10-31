@@ -79,6 +79,9 @@ const PROTECTED_CONFIG_KEYS: ReadonlySet<string> = new Set([
   'db_schema',
   'db_singleton_enabled',
   'db_max_connections',
+  'd1_account_id',
+  'd1_database_id',
+  'd1_api_token',
 ]);
 
 /**

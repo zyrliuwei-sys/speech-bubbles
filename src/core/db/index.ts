@@ -25,6 +25,9 @@ export function db() {
     db_schema: envConfigs.db_schema,
     db_singleton_enabled: envConfigs.db_singleton_enabled,
     db_max_connections: envConfigs.db_max_connections,
+    d1_account_id: envConfigs.d1_account_id,
+    d1_database_id: envConfigs.d1_database_id,
+    d1_api_token: envConfigs.d1_api_token,
   });
 
   if (

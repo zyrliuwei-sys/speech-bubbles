@@ -169,7 +169,7 @@ function withSqliteCompat<T extends object>(
  */
 export function createDb(config: DbConfig): any {
   if (config.database_provider === 'd1') {
-    return withSqliteCompat(createD1Db() as any, 'd1');
+    return withSqliteCompat(createD1Db(config) as any, 'd1');
   }
 
   if (['sqlite', 'turso'].includes(config.database_provider)) {

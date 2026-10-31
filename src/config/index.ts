@@ -38,6 +38,10 @@ export const envConfigs: Record<string, string> = {
   db_schema: procEnv.DB_SCHEMA ?? 'public',
   db_singleton_enabled: procEnv.DB_SINGLETON_ENABLED ?? 'false',
   db_max_connections: procEnv.DB_MAX_CONNECTIONS ?? '1',
+  // D1 REST access for Node/Vercel. Workers use their native DB binding.
+  d1_account_id: procEnv.D1_ACCOUNT_ID ?? '',
+  d1_database_id: procEnv.D1_DATABASE_ID ?? '',
+  d1_api_token: procEnv.D1_API_TOKEN ?? '',
 
   // Auth
   auth_url: withProtocol(procEnv.AUTH_URL ?? publicEnv('VITE_APP_URL') ?? ''),
