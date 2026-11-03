@@ -34,6 +34,57 @@ function t(
 
 const ROBLOX: Topic[] = [
   t(
+    'fortnite-shop-token',
+    'fortnite shop token',
+    [
+      'fortnite item shop token',
+      'fortnite pirate shop token',
+      'pirate shop access',
+      'fortnite free item shop',
+      'fortnite shop token 2026',
+    ],
+    'roblox',
+    'Fortnite',
+    'A Fortnite shop token, also called an Item Shop token, unlocks Pirate Shop Access: 14 days of free eligible V-Bucks Item Shop offers. It is a rare chest reward in the Treasure Hunters season, with separate activations for 2026 and 2027.',
+    [
+      [
+        'What is the Fortnite Item Shop token?',
+        '“Fortnite shop token” and “Fortnite item shop token” refer to the same Pirate Shop Access reward. GamesRadar and Destructoid describe it as a rare Treasure Hunters chest prize that opens a limited-time window for claiming eligible Item Shop cosmetics without spending V-Bucks. Details were checked on November 3, 2026.',
+      ],
+      [
+        'How to get a Fortnite shop token',
+        'Play Battle Royale during Treasure Hunters and open chests. GamesRadar reports that ordinary chests can award Pirate Shop Access, so there is no guaranteed special-chest location to follow. The reward is random; neither linked guide gives a verified drop percentage. Both guides report that when one player finds it in a duo, trio or squad, the other party members receive access too.',
+      ],
+      [
+        'How long does Pirate Shop Access last?',
+        'Each activation lasts 14 days. The reward includes a 2026 token to activate by December 15, 2026, and a 2027 token that Destructoid lists as usable from January 1 through December 15, 2027. Finding a token and activating it are separate steps: read the token’s in-game screen before starting your claiming window.',
+      ],
+      [
+        'What can you claim with an Item Shop token?',
+        'GamesRadar lists V-Bucks Item Shop offers as eligible, with exclusions for gifting, pass levels and real-money bundles. You can claim only one free Sidekick that you do not already own. The token gives access to eligible shop offers during its active window; it does not promise every cosmetic ever released.',
+      ],
+      [
+        'When can you find Pirate Shop tokens?',
+        'Destructoid lists the Treasure Hunters reward window as November 1–December 5, 2026. Epic’s season announcement confirms the November 1 launch and a December 5 Chapter 7 end event. The later December 15 activation deadline is separate from the season’s chest-hunting window.',
+      ],
+    ],
+    ['Fortnite Item Shop', 'https://www.fortnite.com/item-shop'],
+    [
+      {
+        name: 'GamesRadar — Pirate Shop token, chest drops and restrictions',
+        url: 'https://www.gamesradar.com/games/fortnite/fortnite-pirate-shop-token/',
+      },
+      {
+        name: 'Destructoid — Pirate Shop access and token activation dates',
+        url: 'https://www.destructoid.com/how-to-access-the-pirate-shop-and-get-tokens-in-fortnite/',
+      },
+      {
+        name: 'Epic Games — Treasure Hunters season announcement',
+        url: 'https://www.fortnite.com/news/fortnite-treasure-hunters-the-greatest-adventure-of-all-time',
+      },
+    ]
+  ),
+  t(
     'ragdoll-robot-boxing',
     'ragdoll robot boxing',
     [
@@ -3006,6 +3057,57 @@ const INDIE: Topic[] = [
 ];
 
 const OTHER: Topic[] = [
+  t(
+    'pokemon-30th-upc',
+    'pokemon 30th upc',
+    [
+      'pokemon 30th anniversary upc',
+      'pokemon 30th celebration ultra premium collection',
+      'pokemon 30th upc release date',
+      'pokemon 30th upc day vs night',
+      'pokemon 30th upc contents',
+      'pokemon 30th upc price',
+    ],
+    'other',
+    'Pokémon TCG',
+    'Pokemon 30th UPC means the Pokémon TCG: 30th Celebration Ultra-Premium Collections. The Day box features Espeon ex and the Night box features Umbreon ex; both launch on November 6, 2026 with 30 booster packs and two promo cards each.',
+    [
+      [
+        'Pokemon 30th UPC release date',
+        'Pokémon’s official product gallery lists November 6, 2026 for both Day and Night Ultra-Premium Collections. As of the November 3 check, that release is still upcoming. The 30th Celebration expansion launched earlier, on September 16; the premium boxes have their own later release date.',
+      ],
+      [
+        'Pokemon 30th UPC Day vs Night',
+        'Day pairs an Espeon ex foil promo with a day-themed Pikachu ex; Night pairs an Umbreon ex foil promo with a night-themed Pikachu ex. Both Pikachu illustrations are by YOSHIROTTEN. The two boxes share the same pack counts and accessory quantities, with artwork matching their featured Pokémon.',
+      ],
+      [
+        'What is inside each Pokemon 30th UPC?',
+        'Each box contains two foil promo cards, 29 regular 30th Celebration booster packs and one Classic Collection booster pack. It also includes a playmat, 65 sleeves, a deck box, a metal coin, six damage-counter dice and a Pokémon TCG Live code card.',
+      ],
+      [
+        'How many packs are in the 30th UPC?',
+        'There are 30 packs per box, including the separate Classic Collection pack containing three cards. Pokémon’s product showcase distinguishes that pack from the 29 regular expansion packs; it is not 30 regular packs plus an extra Classic Collection pack.',
+      ],
+      [
+        'Where to buy and check the Pokemon 30th UPC price',
+        'The official gallery names Pokémon Center and other Pokémon TCG retailers as sales channels. It does not quote a retail price or guarantee launch-day stock. Check your regional store’s listing for the price, availability and which version you are ordering.',
+      ],
+    ],
+    [
+      'Pokémon — 30th Celebration Ultra-Premium Collections product gallery',
+      'https://www.pokemon.com/us/pokemon-tcg/product-gallery/30th-celebration-ultra-premium-collections-day-night',
+    ],
+    [
+      {
+        name: 'Pokémon — 30th Celebration product showcase',
+        url: 'https://www.pokemon.com/uk/news/pokemon-tcg-30th-celebration-product-showcase',
+      },
+      {
+        name: 'Pokémon Center — regional store and current availability',
+        url: 'https://www.pokemoncenter.com/',
+      },
+    ]
+  ),
   t(
     'is-it-verity',
     'is it verity',

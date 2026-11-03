@@ -4,6 +4,42 @@
  * Answers must only restate facts already checked on the topic page.
  */
 export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
+  'fortnite-shop-token': [
+    {
+      q: 'Are Fortnite shop tokens and Item Shop tokens the same thing?',
+      a: 'Yes. Both search terms refer to Pirate Shop Access, a rare Treasure Hunters chest reward.',
+    },
+    {
+      q: 'How do you get a Fortnite Item Shop token?',
+      a: 'Open Battle Royale chests during Treasure Hunters. The reward is random, and GamesRadar reports that ordinary chests can drop it.',
+    },
+    {
+      q: 'How long does the Fortnite shop token last?',
+      a: 'Each activation gives 14 days of access. The 2026 token must be activated by December 15, 2026; Destructoid lists the second token’s activation window as January 1–December 15, 2027.',
+    },
+    {
+      q: 'Does the Fortnite shop token make everything free?',
+      a: 'It covers eligible V-Bucks Item Shop offers. GamesRadar excludes gifting, pass levels and real-money bundles, and limits the reward to one free Sidekick you do not already own.',
+    },
+  ],
+  'pokemon-30th-upc': [
+    {
+      q: 'What does Pokemon 30th UPC stand for?',
+      a: 'UPC means Ultra-Premium Collection here. The 30th Celebration product comes in Day and Night versions.',
+    },
+    {
+      q: 'When does the Pokemon 30th UPC come out?',
+      a: 'Pokémon’s official product gallery lists November 6, 2026 for both Day and Night versions.',
+    },
+    {
+      q: 'What is the difference between the Day and Night 30th UPC?',
+      a: 'Day features Espeon ex and a day-themed Pikachu ex; Night features Umbreon ex and a night-themed Pikachu ex. Pack counts and accessory quantities match.',
+    },
+    {
+      q: 'How many packs are in the Pokemon 30th UPC?',
+      a: 'Each box has 30 packs: 29 regular 30th Celebration packs and one three-card Classic Collection pack.',
+    },
+  ],
   'ragdoll-robot-boxing': [
     {
       q: 'Is Ragdoll Robot Boxing free?',
