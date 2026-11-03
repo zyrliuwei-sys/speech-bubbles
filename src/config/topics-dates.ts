@@ -134,6 +134,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'witcher-3-remastered': '2026-10-04',
   'wolfoo-word-wonders': '2026-09-30',
   'world-space-week-pokemon-go': '2026-10-05',
+  'wow-forever': '2026-11-03',
   'xbox-fanfest-fable-demo': '2026-10-01',
   'xerneas-pokemon-go': '2026-10-01',
   'yba-codes': '2026-10-01',
