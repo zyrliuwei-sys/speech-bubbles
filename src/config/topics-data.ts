@@ -1513,6 +1513,57 @@ const GENSHIN: Topic[] = [
 
 const PC: Topic[] = [
   t(
+    'wow-forever',
+    'wow forever',
+    [
+      'world of warcraft forever',
+      'wow forever release date',
+      'wow forever launch time',
+      'wow forever classic plus',
+      'wow forever subscription',
+      'wow forever level cap',
+    ],
+    'pc',
+    'World of Warcraft: Forever',
+    'WoW Forever is Blizzard’s new permanent World of Warcraft experience, reimagining original Azeroth with a level-60 adventure alongside modern and Classic WoW. Its global launch is scheduled for November 4, 2026.',
+    [
+      [
+        'WoW Forever release date and launch time',
+        'Blizzard schedules the global launch for November 4, 2026 at 3:00 p.m. PST, or 23:00 UTC. That is November 5 at 07:00 UTC+8 (Beijing time). Launch details were checked on November 3, 2026.',
+      ],
+      [
+        'What is new in WoW Forever?',
+        'The level 1–60 journey adds more than 1,000 quests and nine five-player dungeons. New destinations include Mount Hyjal, Shen’dralas, the Riverglades and Zephras Isle, expanding the Eastern Kingdoms and Kalimdor.',
+      ],
+      [
+        'WoW Forever subscription and optional upgrades',
+        'Base access is included with an active World of Warcraft subscription or Game Time. Optional Skyborne Heroic and Epic packs and the Warcraft Forever Collection add extras. Access to the Skyborne race and its Zephras Isle starting experience is an upgrade benefit, so check the edition contents before buying.',
+      ],
+      [
+        'WoW Forever progression',
+        'The account-wide Legacy System adds horizontal progression through challenges, perks and rewards. Blizzard says its character advantages can all be unlocked on a single character; leveling alts is optional.',
+      ],
+      [
+        'When WoW Forever raids open',
+        'Blizzard schedules three level-60 raids for December 9, 2026: Barrow Deeps for 10 players, Hyjal Summit for 20 and Onyxia’s Lair for 40. Onyxia’s Lair requires the Drakefire Amulet attunement.',
+      ],
+    ],
+    [
+      'WoW Forever — official launch guide',
+      'https://news.blizzard.com/en-us/article/24315820/world-of-warcraft-forever-goes-live-globally-november-4',
+    ],
+    [
+      {
+        name: 'Blizzard — WoW Forever announcement and upgrade editions',
+        url: 'https://news.blizzard.com/en-us/article/24301145/world-of-warcraft-at-blizzcon-2026-news-round-up',
+      },
+      {
+        name: 'Blizzard — WoW Forever raid overview',
+        url: 'https://worldofwarcraft.blizzard.com/en-us/news/24303009',
+      },
+    ]
+  ),
+  t(
     'hsr-livestream-codes',
     'hsr livestream codes',
     [

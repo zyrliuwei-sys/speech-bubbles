@@ -220,6 +220,20 @@ export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
       a: '$29.99 for the Standard Edition, $39.99 for the Midnight Edition.',
     },
   ],
+  'wow-forever': [
+    {
+      q: 'When does WoW Forever come out?',
+      a: 'The global launch is scheduled for November 4, 2026 at 3:00 p.m. PST (23:00 UTC), which is November 5 at 07:00 UTC+8.',
+    },
+    {
+      q: 'Do I need to buy WoW Forever?',
+      a: 'Base access is included with your World of Warcraft subscription or Game Time. The Skyborne upgrade packs and Warcraft Forever Collection are optional purchases with additional benefits.',
+    },
+    {
+      q: 'What is the WoW Forever level cap?',
+      a: 'The launch adventure runs from level 1 to level 60. The Legacy System provides additional account-wide horizontal progression.',
+    },
+  ],
   'hsr-livestream-codes': [
     {
       q: 'What are the HSR 4.7 livestream codes?',
