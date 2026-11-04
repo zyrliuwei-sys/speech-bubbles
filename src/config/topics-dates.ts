@@ -65,6 +65,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'krabby-chase': '2026-09-30',
   'lagos-life-game': '2026-10-05',
   'legend-of-zelda-level-1': '2026-09-30',
+  loftia: '2026-11-04',
   'loot-to-forge-codes': '2026-10-01',
   'luigis-pizza-house': '2026-09-30',
   'lumber-tycoon-2-secret-badge': '2026-10-01',
