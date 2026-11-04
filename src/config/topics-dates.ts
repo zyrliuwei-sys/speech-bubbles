@@ -72,6 +72,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'lumber-tycoon-2-work-light': '2026-10-01',
   'mages-mate-chess': '2026-09-30',
   'makeup-mania-roblox': '2026-10-05',
+  meowdoku: '2026-11-04',
   'mike-tomlin-minecraft': '2026-10-01',
   'minecraft-dungeons-2-release-date': '2026-10-04',
   'minecraft-preview-26-70-21': '2026-10-21',
