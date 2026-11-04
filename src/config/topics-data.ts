@@ -1390,6 +1390,58 @@ const MINECRAFT: Topic[] = [
 
 const GENSHIN: Topic[] = [
   t(
+    'genshin-7-2-countdown',
+    'genshin 7.2 countdown',
+    [
+      '7.2 countdown',
+      'genshin impact 7.2 countdown',
+      'genshin 7.2 release time',
+      'genshin 7.2 release date',
+      'genshin 7.2 maintenance countdown',
+      'genshin 7.2 banners',
+      'hour of ruin countdown',
+    ],
+    'genshin',
+    'Genshin Impact',
+    'The Genshin 7.2 countdown has ended. Hour of Ruin launched November 4, 2026. Maintenance was expected to finish at 11:00 a.m. UTC+8 (03:00 UTC).',
+    [
+      [
+        'Genshin 7.2 countdown and release time',
+        'HoYoverse scheduled maintenance for November 4 at 06:00 UTC+8 and estimated five hours of downtime. That put the countdown target at 11:00 a.m. in Beijing and Singapore, 03:00 UTC, or 04:00 CET on November 4. In the US, the same target was November 3 at 10:00 p.m. EST and 7:00 p.m. PST. Version 7.2 is now available.',
+      ],
+      [
+        'How to update to Genshin Impact 7.2',
+        'On PC, close the game and update from the launcher. On iPhone and iPad, open the App Store. On Android, launch the game and follow the update prompt. On PlayStation, open the game’s Options menu and check for updates. On Xbox Series X|S, check the Updates list under My games & apps.',
+      ],
+      [
+        'Genshin 7.2 maintenance compensation',
+        'HoYoverse announced 300 Primogems for maintenance and another 300 for issue fixes. Both require Adventure Rank 5 by November 4 at 06:00 UTC+8. Eligible players can find the rewards in their in-game mail. Claim the maintenance reward before Version 7.2 ends and the issue-fix reward before November 7 at 06:00 UTC+8.',
+      ],
+      [
+        'Genshin 7.2 Phase 1 banners',
+        'The first Character Event Wishes feature new five-star Electro character Mitya and a rerun for five-star Hydro character Furina. Four-star Valeriy, Charlotte and Rosaria appear on both banners. HoYoverse lists November 24 at 17:59 as the end time. Check the in-game Wish screen for the timer on your server.',
+      ],
+      [
+        'What is new in Genshin Impact 7.2?',
+        'Hour of Ruin opens Novokitezhgrad and Wingspan Peak in Snezhnaya. It also continues Chapter VII of the Archon Quest with Acts V and VI. To start Act V, reach Adventure Rank 18 and finish Chapter VII Act IV.',
+      ],
+    ],
+    [
+      'Genshin Impact 7.2 official update details',
+      'https://genshin.hoyoverse.com/m/en/news/detail/167187',
+    ],
+    [
+      {
+        name: 'HoYoLAB official maintenance preview',
+        url: 'https://www.hoyolab.com/article/47283828',
+      },
+      {
+        name: 'HoYoverse Phase 1 Event Wishes notice',
+        url: 'https://genshin.hoyoverse.com/en/news/detail/167139',
+      },
+    ]
+  ),
+  t(
     'eitr-genshin',
     'eitr genshin',
     ['genshin eitr'],

@@ -4,6 +4,24 @@
  * Answers must only restate facts already checked on the topic page.
  */
 export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
+  'genshin-7-2-countdown': [
+    {
+      q: 'What time was the Genshin 7.2 countdown set for?',
+      a: 'The estimated end of maintenance was November 4, 2026 at 11:00 a.m. UTC+8 (03:00 UTC), based on the five-hour window announced by HoYoverse.',
+    },
+    {
+      q: 'Is Genshin Impact 7.2 out now?',
+      a: 'Yes. Genshin Impact Version 7.2, Hour of Ruin, launched on November 4, 2026.',
+    },
+    {
+      q: 'How many Primogems did Genshin 7.2 give for compensation?',
+      a: 'HoYoverse announced 300 Primogems for maintenance and 300 for issue fixes for players who reached Adventure Rank 5 before maintenance. The two mail rewards have different claim deadlines.',
+    },
+    {
+      q: 'Who is on the Genshin 7.2 Phase 1 banners?',
+      a: 'Mitya and Furina each headline a banner. Both banners feature Valeriy, Charlotte and Rosaria as the boosted four-star characters.',
+    },
+  ],
   meowdoku: [
     {
       q: 'What are the rules of Meowdoku?',
