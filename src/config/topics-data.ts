@@ -2786,6 +2786,64 @@ const GG =
 const ITCH = 'Free on itch.io, playable in the browser.';
 
 const INDIE: Topic[] = [
+  t(
+    'loftia',
+    'Loftia',
+    [
+      'loftia game',
+      'loftia early access',
+      'loftia release date',
+      'loftia price',
+      'loftia steam',
+      'loftia switch',
+      'loftia demo',
+      'loftia multiplayer',
+    ],
+    'indie',
+    'Loftia',
+    'Loftia is a cozy online life sim from Qloud Games. Farm, craft, decorate and explore floating islands. Early Access launched November 3, 2026 on PC and Mac.',
+    [
+      [
+        'What is Loftia?',
+        'Loftia is a solarpunk life sim set in a shared world of floating islands. Grow crops using systems such as hydroponics, salvage materials for crafting, and decorate your home. You can link your island with other players’ islands to form a neighborhood, adopt animals, or contribute to World Projects with the wider community.',
+      ],
+      [
+        'Loftia Early Access release date and price',
+        'Loftia entered Early Access on November 3, 2026 at 1 p.m. EST (18:00 UTC). Qloud Games announced a US base price of $29.99 and an introductory price of $24.89. Check your store for local pricing and the current offer. Steam lists November 17 as the end of its introductory offer. Qloud Games targets roughly a year in Early Access and has yet to set a date for version 1.0.',
+      ],
+      [
+        'Where to play Loftia',
+        'The Windows and Mac versions are available through Steam and the Epic Games Store. Qloud Games lists Steam Deck and controller support and plans to bring the game to Nintendo Switch in 2027.',
+      ],
+      [
+        'What can you do in Loftia Early Access?',
+        'The opening story runs through four chapters across Loftia City, the Hanging Gardens and Gridfall. Start in the city, visit the gardens to fish and help on community farms, or explore Gridfall for salvage and underground routes. Side quests and group Adventures give you more to do between story missions.',
+      ],
+      [
+        'Can you play Loftia solo?',
+        'Yes. You can follow the story and do most activities at your own pace. Friends can join you for group Adventures, visit your island and take part in social minigames. An internet connection is required for both solo and group play.',
+      ],
+      [
+        'Can you still play the Loftia demo?',
+        'The free Steam Next Fest demo ran from October 19 to October 26, 2026. Qloud Games said demo progress carries over to Early Access. If you reserved a character name in the demo, log in by February 3, 2027 to keep it.',
+      ],
+    ],
+    ['Loftia on Steam', 'https://store.steampowered.com/app/2320980/Loftia/'],
+    [
+      {
+        name: 'Qloud Games Early Access guide',
+        url: 'https://loftia.gg/early-access/',
+      },
+      {
+        name: 'Loftia on Epic Games Store',
+        url: 'https://store.epicgames.com/p/loftia-2b7234',
+      },
+      {
+        name: 'Qloud Games demo and launch announcements',
+        url: 'https://steamcommunity.com/app/2320980/announcements/',
+      },
+    ]
+  ),
   g(
     'the-toxic-mist',
     'The Toxic Mist',

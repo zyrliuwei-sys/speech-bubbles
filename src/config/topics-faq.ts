@@ -4,6 +4,24 @@
  * Answers must only restate facts already checked on the topic page.
  */
 export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
+  loftia: [
+    {
+      q: 'When did Loftia come out?',
+      a: 'Loftia entered Early Access on November 3, 2026 at 1 p.m. EST on Windows and Mac.',
+    },
+    {
+      q: 'Is Loftia free to play?',
+      a: 'Loftia is a paid game. The US Early Access base price is $29.99, with an introductory price of $24.89.',
+    },
+    {
+      q: 'Is Loftia on Nintendo Switch?',
+      a: 'Qloud Games plans a Nintendo Switch release in 2027. Early Access is available on Windows and Mac.',
+    },
+    {
+      q: 'Can you play Loftia offline?',
+      a: 'Loftia requires an internet connection. You can still play solo and progress through most of the game on your own.',
+    },
+  ],
   'fortnite-shop-token': [
     {
       q: 'Are Fortnite shop tokens and Item Shop tokens the same thing?',
