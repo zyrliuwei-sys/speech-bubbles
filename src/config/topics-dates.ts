@@ -51,6 +51,7 @@ export const TOPIC_UPDATED: Record<string, string> = {
   'fut-gg': '2026-10-01',
   'gacha-revenue-september-2026': '2026-10-03',
   'gears-of-war-e-day-review': '2026-10-04',
+  'genshin-7-2-countdown': '2026-11-04',
   'graveyard-keeper-2': '2026-10-01',
   'gta-6-release-date': '2026-10-01',
   'halo-combat-evolved-browser': '2026-10-03',
