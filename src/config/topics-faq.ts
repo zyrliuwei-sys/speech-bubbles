@@ -4,6 +4,24 @@
  * Answers must only restate facts already checked on the topic page.
  */
 export const TOPIC_FAQ: Record<string, { q: string; a: string }[]> = {
+  meowdoku: [
+    {
+      q: 'What are the rules of Meowdoku?',
+      a: 'Place exactly one cat in every row, every column and every colored region. Cats cannot touch along an edge or at a corner.',
+    },
+    {
+      q: 'Can you play Meowdoku online?',
+      a: 'Yes. Meowdoku.gg has a free independent browser version with a daily puzzle and unlimited boards.',
+    },
+    {
+      q: 'Is Meowdoku free to download?',
+      a: 'Yes. Oakever’s app is free to download on Google Play and the App Store, with ads and in-app purchases.',
+    },
+    {
+      q: 'Can you play Meowdoku offline?',
+      a: 'Oakever’s Google Play listing says the Android app supports offline play.',
+    },
+  ],
   loftia: [
     {
       q: 'When did Loftia come out?',

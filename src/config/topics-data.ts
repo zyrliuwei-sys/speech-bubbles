@@ -2787,6 +2787,65 @@ const ITCH = 'Free on itch.io, playable in the browser.';
 
 const INDIE: Topic[] = [
   t(
+    'meowdoku',
+    'Meowdoku',
+    [
+      'meow doku',
+      'meowdoku game',
+      'meowdoku online',
+      'meowdoku cat sudoku',
+      'meowdoku rules',
+      'meowdoku answers',
+    ],
+    'indie',
+    'Meowdoku',
+    'Meowdoku is a cat logic puzzle. Place one cat in each row, column and colored region, and leave space so cats never touch, even diagonally.',
+    [
+      [
+        'How to play Meowdoku',
+        'Put exactly one cat in each colored region, with one cat in every row and column. Two cats cannot share a side or a corner. When you place a cat, rule out the rest of its row, column and region, along with the cells that touch it diagonally.',
+      ],
+      [
+        'How to solve a Meowdoku board',
+        'Start with a region that has just one legal square. After placing its cat, mark the squares it blocks and check for the next forced move. If all the remaining candidates in one region lie in the same row, that region must use the row. You can cross out the cells in that row outside the region. The same reasoning works for columns.',
+      ],
+      [
+        'Where to download Meowdoku',
+        'Oakever Games lists Meowdoku: Brain Puzzle Games on Google Play and Meowdoku! on the App Store for iPhone and iPad. The app is free to download and the stores list ads and in-app purchases. Oakever’s Google Play listing also describes daily puzzles and offline play.',
+      ],
+      [
+        'How to play Meowdoku online',
+        'Meowdoku.gg offers a free browser puzzle with a daily board and an unlimited mode. It is an independent version you can play without installing the mobile app. For level answers, compare the layout of your board with the walkthrough before following its placements, since different versions use their own puzzles.',
+      ],
+      [
+        'Which Meowdoku app has the cat placement rules?',
+        'Look for Oakever Games if you want the puzzle with colored territories and the rule that cats cannot touch. Grove42 publishes a separate Meowdoku: Cat Sudoku app that uses different cat faces in place of numbers on classic Sudoku grids.',
+      ],
+    ],
+    [
+      'Meowdoku by Oakever Games on Google Play',
+      'https://play.google.com/store/apps/details?id=com.oakever.meowdoku',
+    ],
+    [
+      {
+        name: 'Meowdoku! by Oakever Games on the App Store',
+        url: 'https://apps.apple.com/us/app/meowdoku/id6761760135',
+      },
+      {
+        name: 'Meowdoku.gg daily puzzle and unlimited boards',
+        url: 'https://meowdoku.gg/',
+      },
+      {
+        name: 'Meowdoku level walkthroughs',
+        url: 'https://meowdoku.world/levels',
+      },
+      {
+        name: 'Grove42’s separate Meowdoku game',
+        url: 'https://grove42.com/games/meowdoku',
+      },
+    ]
+  ),
+  t(
     'loftia',
     'Loftia',
     [
